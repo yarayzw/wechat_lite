@@ -44,9 +44,9 @@
     <view class='order-info clear'>
       <text class='product-time'>收货地址：</text>
       <view class='delivery-address'>
-      <text class='delivery-name'>邹先森</text>
-      <text class='delivery-phone'>15623338989</text>
-      <text class='delivery-detail'>湖南省长沙市雨花区韶山南路铁道学院对面</text>
+        <text class='delivery-name'>邹先森</text>
+        <text class='delivery-phone'>15623338989</text>
+        <text class='delivery-detail'>湖南省长沙市雨花区韶山南路铁道学院对面</text>
       </view>
     </view>
     <view class='order-info clear'>

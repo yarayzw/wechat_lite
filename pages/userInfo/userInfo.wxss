@@ -1,0 +1,54 @@
+/* pages/userInfo/userInfo.wxss */
+Page {
+  display: flex;
+  flex-flow: column;
+  background-color: #FBFBFB;
+  color: #333;
+}
+.header-title{
+  height: 290rpx;
+}
+.header-img {
+  font-size: 100rpx;
+  color: #EFEFEF;
+  display: block;
+  margin-top: 70rpx;
+  text-align: center;
+}
+.user-phone {
+  color: #FFF;
+  margin: 0 auto;
+  font-size: 24rpx;
+  text-align: center;
+}
+.user-list {
+  margin: 0 30rpx;
+  border-bottom: 1rpx #ccc solid;
+}
+.my-order {
+  margin-top: 40rpx;
+  background: #FFF;
+  font-size: 26rpx;
+  line-height: 80rpx;
+}
+.order-icon {
+  font-size: 36rpx;
+  position: relative;
+  top: 5rpx;
+}
+.order-list {
+  display: inline-block;
+  margin-left: 30rpx;
+}
+.no-border {
+  border: none;
+}
+.user-out {
+  background: #FFF;
+  margin-top: 220rpx;
+  text-align: center;
+  color: #F65349;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+}

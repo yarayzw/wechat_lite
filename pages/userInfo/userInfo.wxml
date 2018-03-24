@@ -1,0 +1,19 @@
+<!--pages/userInfo/userInfo.wxml-->
+<view class='header-title bg-orange'>
+  <icon class='iconfont icon-xiaochengxukongjianku- header-img'></icon>
+  <view class='user-phone'>159897524152</view>
+</view>
+<view class='my-order'>
+  <view class='user-list'>
+    <icon class='iconfont icon-dingdan order-icon'></icon>
+    <text class='order-list'>我的订单</text>
+    <icon class='iconfont icon-liebiao_jiantou fr order-icon'></icon>
+  </view>
+  <view class='user-list no-border'>
+    <icon class='iconfont icon-dizhi order-icon'></icon>
+    <text class='order-list'>我的地址</text>
+    <icon class='iconfont icon-liebiao_jiantou fr order-icon'></icon>
+  </view>
+</view>
+<view class='user-out'>退出登录
+</view>
