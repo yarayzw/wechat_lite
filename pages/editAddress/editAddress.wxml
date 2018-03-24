@@ -1,0 +1,43 @@
+<!--pages/editAddress/editAddress.wxml-->
+<view class='address-header'>
+  <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <text class='address-title'>编辑地址</text>
+</view>
+<view class='address-content'>
+  <view class='address-info'>
+    <view class='address-list'>
+      <text class='address-font'>收货人:</text>
+      <input class='address-input' type='text' placeholder-style='color:#CCC' placeholder='收货人姓名' />
+    </view>
+  </view>
+  <view class='address-info'>
+    <view class='address-list'>
+      <text class='address-font'>联系电话:</text>
+      <input class='address-input' placeholder-style='color:#CCC' type='number' placeholder='收货人手机' />
+    </view>
+  </view>
+  <view class='address-info'>
+    <view class='address-list'>
+      <text class='address-font'>所在地区:</text>
+      <input class='address-input' type='text' placeholder-style='color:#CCC' placeholder='选择省市区' />
+      <icon class='iconfont icon-liebiao_jiantou jump-icon'></icon>
+    </view>
+  </view>
+  <view class='address-info'>
+    <view class='address-list'>
+      <text class='address-font'>详细地址:</text>
+      <input class='address-input' placeholder-style='color:#CCC' type='text' placeholder='详细街道地址' />
+    </view>
+  </view>
+</view>
+
+ <view class='address-make'>
+ <view class='address-info'>
+    <view class='address-list no-border'>
+      <text class='address-font'>设为默认地址</text>
+      <icon bindtap='changeDefaultAddress' wx:if="{{ default_address }}" class='iconfont icon-queren icon-make'></icon>
+      <icon bindtap='changeDefaultAddress' wx:if="{{ !default_address }}" class='iconfont icon-wuqueren icon-make'></icon>
+    </view>
+  </view>
+ </view>
+<view class='add-address bg-orange'>保存</view>

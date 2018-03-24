@@ -9,6 +9,7 @@ Page {
   height: 80rpx;
   background-color: #FFF;
   text-align: center;
+  border: 1rpx #ccc solid;
 }
 .comeback-btn {
   margin-left: 50rpx;
@@ -18,6 +19,16 @@ Page {
 .address-title {
   font-size: 34rpx;
   line-height: 80rpx;
-  margin-left: -50rpx;
+  margin-left: -100rpx;
   color: #333;
+}
+.add-address {
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #FFF;
+  font-size: 34rpx;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 750rpx;
 }
