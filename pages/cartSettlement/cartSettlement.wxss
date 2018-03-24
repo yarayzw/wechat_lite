@@ -1,0 +1,52 @@
+/* pages/cartSettlement/cartSettlement.wxss */
+Page {
+  display: flex;
+  flex-flow: column;
+  background-color: #FBFBFB;
+}
+.address-header {
+  width: 750rpx;
+  height: 80rpx;
+  background-color: #FFF;
+  text-align: center;
+  border: 1rpx #ccc solid;
+}
+.comeback-btn {
+  margin-left: 50rpx;
+  font-size: 36rpx;
+  line-height: 80rpx;
+}
+.address-title {
+  font-size: 34rpx;
+  line-height: 80rpx;
+  margin-left: -100rpx;
+  color: #333;
+}
+.my-order {
+  margin-top: 40rpx;
+  background: #FFF;
+  font-size: 26rpx;
+  line-height: 80rpx;
+}
+.order-icon {
+  font-size: 36rpx;
+  position: relative;
+  top: 5rpx;
+}
+.order-list {
+  display: inline-block;
+  margin-left: 30rpx;
+}
+.no-border {
+  border-bottom: 1rpx #ccc solid;
+}
+.user-list {
+  margin-left: 50rpx;
+}
+.icon-mar {
+  margin-right: 50rpx;
+}
+.font-mar {
+  margin-right: 65rpx;
+  margin-left: 20rpx;
+}

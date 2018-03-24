@@ -1,0 +1,24 @@
+<!--pages/cartSettlement/cartSettlement.wxml-->
+<view class='address-header'>
+  <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <text class='address-title'>购物车结算</text>
+</view>
+<view class='my-order'>
+  <view class='user-list no-border'>
+    <icon class='iconfont icon-tianjia orange order-icon'></icon>
+    <text class='order-list'>请添加收货地址</text>
+    <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
+  </view>
+  <view class='user-list'>
+    <icon class='iconfont icon-time orange order-icon'></icon>
+    <text class='order-list'>送达时间</text>
+    <text class='fr orange font-mar'>16:40送达</text>
+    <text class='fr orange'>2018/3/21</text>
+  </view>
+</view>
+<view class='my-order cart-list'>
+  <view class='user-list'>
+    <text class='order-list order-mar'>商品清单</text>
+    <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
+  </view>
+</view>
