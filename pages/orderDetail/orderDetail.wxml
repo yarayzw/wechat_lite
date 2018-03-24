@@ -1,0 +1,73 @@
+<!--pages/orderDetail/orderDetail.wxml-->
+<view class='address-header'>
+  <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <text class='address-title'>订单详情</text>
+</view>
+<view class='product-info'>
+  <view class='product-title clear'>
+    <text class='fl product-font'>商品信息</text>
+    <text class='fr product-status'>已完成</text>
+  </view>
+  <view class='product-detail'>
+    <view class='order-info clear'>
+      <text class='product-name'>农家小炒肉</text>
+      <text class='product-number'>x1</text>
+      <text class='product-price fr'>¥28</text>
+    </view>
+    <view class='order-info clear'>
+      <text class='product-name'>农家小炒肉</text>
+      <text class='product-number'>x1</text>
+      <text class='product-price fr'>¥28</text>
+    </view>
+    <view class='order-info clear'>
+      <text class='product-name'>农家小炒肉</text>
+      <text class='product-number'>x1</text>
+      <text class='product-price fr'>¥28</text>
+    </view>
+  </view>
+  <view class='count-price clear'>
+    <text class='count-money fr'>¥168.00</text>
+    <text class='count-font fr'>付款</text>
+  </view>
+</view>
+
+<view class='product-info'>
+  <view class='product-title clear'>
+    <text class='fl product-font'>配送信息</text>
+  </view>
+  <view class='product-detail no-border'>
+    <view class='order-info clear'>
+      <text class='product-time'>配送时间：</text>
+      <text class='product-year'>2018/03/22</text>
+      <text class='product-hour'>10:56</text>
+    </view>
+    <view class='order-info clear'>
+      <text class='product-time'>收货地址：</text>
+      <view class='delivery-address'>
+      <text class='delivery-name'>邹先森</text>
+      <text class='delivery-phone'>15623338989</text>
+      <text class='delivery-detail'>湖南省长沙市雨花区韶山南路铁道学院对面</text>
+      </view>
+    </view>
+    <view class='order-info clear'>
+      <text class='product-time'>配送方式：</text>
+      <text class='product-year'>快递</text>
+    </view>
+  </view>
+</view>
+<view class='product-info'>
+  <view class='product-title clear'>
+    <text class='fl product-font'>订单信息</text>
+  </view>
+  <view class='product-detail no-border'>
+    <view class='order-info clear'>
+      <text class='product-time'>下单时间：</text>
+      <text class='product-year'>2018-03-21</text>
+      <text class='product-hour'>15:41:09</text>
+    </view>
+    <view class='order-info clear'>
+      <text class='product-time'>订单编号：</text>
+      <text class='product-year'>15989656526352</text>
+    </view>
+  </view>
+</view>

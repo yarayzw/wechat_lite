@@ -22,4 +22,19 @@
 .bg-orange {
   background-color: #F99001;
 }
-
+ .clear {
+    zoom: 1;
+  }
+  .clear:after {
+    width: 0;
+    height: 0;
+    float: none;
+    clear: both;
+    content: '.';
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    background: none;
+    overflow: hidden;
+    visibility: hidden;
+  }

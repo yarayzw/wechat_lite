@@ -31,13 +31,13 @@
   </view>
 </view>
 
- <view class='address-make'>
- <view class='address-info'>
+<view class='address-make'>
+  <view class='address-info'>
     <view class='address-list no-border'>
       <text class='address-font'>设为默认地址</text>
       <icon bindtap='changeDefaultAddress' wx:if="{{ default_address }}" class='iconfont icon-queren icon-make'></icon>
       <icon bindtap='changeDefaultAddress' wx:if="{{ !default_address }}" class='iconfont icon-wuqueren icon-make'></icon>
     </view>
   </view>
- </view>
+</view>
 <view class='add-address bg-orange'>保存</view>
