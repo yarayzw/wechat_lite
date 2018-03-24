@@ -1,0 +1,38 @@
+{
+  "pages":[
+    "pages/login/login",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#393A3F",
+    "navigationBarTitleText": "网上商城",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "backgroundColor": "#F8F8F8",
+    "borderStyle": "white",
+    "selectedColor": "#FF7E00",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "./images/shangpin1.png",
+        "selectedIconPath": "./images/shangpin.png",
+        "text": "选商品"
+      },
+      {
+        "pagePath": "pages/login/login",
+        "iconPath": "./images/gouwuche1.png",
+        "selectedIconPath": "./images/gouwuche.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "iconPath": "./images/wode1.png",
+        "selectedIconPath": "./images/wode.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
