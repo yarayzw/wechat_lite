@@ -1,0 +1,51 @@
+Page {
+  display: flex;
+  flex-flow: column;
+}
+.img-logo {
+  width: 261rpx;
+  height: 261rpx;
+  margin: 97rpx auto 0 auto;
+  display: block;
+  background: #FEBB77;
+  border-radius: 50%;
+}
+.username-view {
+  margin: 75rpx 50rpx 0 50rpx;
+  color: #666;
+  height: 60rpx;
+  border-bottom: 1rpx #CCCCCC solid;
+  padding-bottom: 15rpx;
+}
+.input-username {
+  margin-left: 110rpx;
+  width: 390rpx;
+  font-size: 26rpx;
+  display: inline-block;
+  position: relative;
+  top: 13rpx;
+}
+.password-view {
+  margin: 0 50rpx;
+  padding: 15rpx 0;
+}
+.show-password {
+  font-size: 39rpx;
+  color: #CCCCCC;
+}
+.login-btn {
+  border-radius: 16rpx;
+  background: #F99001;
+  color: #FFF;
+  width: 650rpx;
+  height: 80rpx;
+  margin: 45rpx 50rpx 0 50rpx;
+  text-align: center;
+  font-size: 28rpx;
+  line-height: 80rpx;
+}
+.login-problem {
+  margin: 18rpx 50rpx;
+  font-size: 24rpx;
+  color: #666;
+}

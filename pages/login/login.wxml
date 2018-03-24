@@ -1,0 +1,19 @@
+<view>
+  <view class='img-logo'></view>
+</view>
+<view class='username-view'>
+  <text>账号</text>
+  <input class='input-username' placeholder-style='color:#CCC' placeholder='请输入手机号码或邮箱' type='text' />
+</view>
+<view wx:if="{{ !show_password }}" class='username-view password-view'>
+  <text>密码</text>
+  <input placeholder-style='color:#CCC' class='input-username' placeholder='请输入密码' type='password' bindchange="changePassword" value='{{ password_data }}' />
+  <icon bindtap="changeShowPassword" class='show-password iconfont icon-buxianshi'></icon>
+</view>
+<view wx:if="{{ show_password }}" class='username-view password-view'>
+  <text>密码</text>
+  <input placeholder-style='color:#CCC' class='input-username' placeholder='请输入密码' bindchange="changePassword"  type='text' value='{{ password_data }}'/>
+  <icon bindtap='changeHidePassword' class='show-password iconfont icon-xianshi'></icon>
+</view>
+<view class='login-btn'>登录</view>
+<view class='login-problem'>登录遇到问题？</view>

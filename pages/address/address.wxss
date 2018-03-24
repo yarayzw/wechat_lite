@@ -1,0 +1,23 @@
+/* pages/address/address.wxss */
+Page {
+  display: flex;
+  flex-flow: column;
+  background-color: #FBFBFB;
+}
+.address-header {
+  width: 750rpx;
+  height: 80rpx;
+  background-color: #FFF;
+  text-align: center;
+}
+.comeback-btn {
+  margin-left: 50rpx;
+  font-size: 36rpx;
+  line-height: 80rpx;
+}
+.address-title {
+  font-size: 34rpx;
+  line-height: 80rpx;
+  margin-left: -50rpx;
+  color: #333;
+}
