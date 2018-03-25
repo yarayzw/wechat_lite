@@ -7,12 +7,12 @@
 </view>
 <view wx:if="{{ !show_password }}" class='username-view password-view'>
   <text>密码</text>
-  <input placeholder-style='color:#CCC' class='input-username' placeholder='请输入密码' type='password' bindchange="changePassword" value='{{ password_data }}' />
+  <input placeholder-style='color:#CCC' class='input-username' placeholder='请输入密码' type='password' bindinput="changePassword" value='{{ password_data }}' />
   <icon bindtap="changeShowPassword" class='show-password iconfont icon-buxianshi'></icon>
 </view>
 <view wx:if="{{ show_password }}" class='username-view password-view'>
   <text>密码</text>
-  <input placeholder-style='color:#CCC' class='input-username' placeholder='请输入密码' bindchange="changePassword" type='text' value='{{ password_data }}' />
+  <input placeholder-style='color:#CCC' class='input-username' placeholder='请输入密码' bindinput="changePassword" type='text' value='{{ password_data }}' />
   <icon bindtap='changeHidePassword' class='show-password iconfont icon-xianshi'></icon>
 </view>
 <view class='login-btn'>登录</view>
