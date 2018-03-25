@@ -1,13 +1,12 @@
-// pages/cartSettlement/cartSettlement.js
+// pages/myOrder/myOrder.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    select_type: 'send_house',
-    select_address: true
-
+    select_tab: 'all',
+    no_order: false
   },
 
   /**
@@ -65,30 +64,20 @@ Page({
   onShareAppMessage: function () {
   
   },
-  changeSendHouse: function() {
-    this.setData({ select_type: 'send_house' })
+  changeOrderAll: function () {
+    this.setData({ select_tab: 'all' })
   },
-  changeDoorSelf: function () {
-    this.setData({ select_type: 'door_self' })
+  changeOrderAudit: function() {
+    this.setData({ select_tab: 'audit' })
   },
-  changeExpress: function () {
-    this.setData({ select_type: 'express' })
+  changeOrderHandle: function () {
+    this.setData({ select_tab: 'handle' })
   },
-  changeLogistics: function () {
-    this.setData({ select_type: 'logistics' })
+  changeOrderBreakup: function () {
+    this.setData({ select_tab: 'breakup' })
   },
-  confirmOrder: function() {
-    wx.showModal({
-      title: '',
-      content: '是否提交订单?',
-      confirmColor: '#F99001',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-  }
+  changeOrderCancel: function () {
+    this.setData({ select_tab: 'cancel' })
+  },
+  
 })

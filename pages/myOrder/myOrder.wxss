@@ -1,0 +1,91 @@
+/* pages/myOrder/myOrder.wxss */
+Page {
+  display: flex;
+  flex-flow: column;
+  background-color: #FBFBFB;
+  color: #333;
+}
+.address-header {
+  width: 750rpx;
+  height: 80rpx;
+  background-color: #FFF;
+  text-align: center;
+  border: 1rpx #ccc solid;
+}
+.comeback-btn {
+  margin-left: 50rpx;
+  font-size: 36rpx;
+  line-height: 80rpx;
+}
+.address-title {
+  font-size: 34rpx;
+  line-height: 80rpx;
+  margin-left: -100rpx;
+  color: #333;
+}
+.order-title {
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 26rpx;
+  background: #FFF;
+}
+.tilte-all {
+  line-height: 80rpx;
+  display: inline-block;
+  width: 100rpx;
+  text-align: center;
+  margin-left: 25rpx;
+  margin-right: 25rpx;
+}
+.select-tab {
+  border-bottom: 1rpx #F99001 solid;
+  color: #F99001;
+}
+.no-order {
+  margin: 0 auto;
+  display: block;
+  margin-top: 130rpx;
+  width: 606rpx;
+  height: 450rpx;
+}
+.no-font {
+  font-size: 26rpx;
+  width: 750rpx;
+  text-align: center;
+  color: #FEBF6A;
+  position: relative;
+  top: -50rpx;
+}
+.order-content {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  background: #FFF;
+  line-height: 50rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  margin-left: 45rpx;
+  margin-right: 45rpx; 
+}
+.order-year {
+  margin-left: 5rpx;
+}
+.order-hour {
+  margin-left: 30rpx;
+}
+.order-count {
+  font-size: 24rpx;
+  color: #999;
+ }
+ .order-all {
+   background: #FFF;
+ }
+ .price-order {
+   height: 90rpx;
+   line-height: 90rpx;
+   border-top: 1rpx #ccc solid;
+   margin: 0 25rpx ;
+ }
+ .price-font {
+   color: #F84F63;
+   font-size: 30rpx;
+ }

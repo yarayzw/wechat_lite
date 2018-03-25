@@ -4,7 +4,18 @@
   <text class='address-title'>购物车结算</text>
 </view>
 <view class='my-order'>
-  <view class='user-list no-border'>
+  <view class='receiver-content user-list' wx:if="{{ select_address }}">
+    <view class='receiver-person'>
+      <text class='get-person'>收货人：邹先生</text>
+      <text class='phone-person'>13254678922</text>
+    </view>
+    <view>
+    <icon class='iconfont icon-dizhi title-icon'></icon>
+    <view class='address-person'>收货地址：湖南省长沙市雨花区韶山南路铁道 学院对面</view>
+    <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
+    </view>
+  </view>
+  <view class='user-list no-border' wx:if="{{ !select_address }}">
     <icon class='iconfont icon-tianjia orange order-icon'></icon>
     <text class='order-list'>请添加收货地址</text>
     <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
@@ -21,4 +32,33 @@
     <text class='order-list order-mar'>商品清单</text>
     <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
   </view>
+</view>
+
+<view class='delivery-list'>
+  <view class='delivery-title'>
+    发货方式
+  </view>
+  <view class='delivery-thing'>
+    <text>送货上门</text>
+    <icon bindtap='changeSendHouse' class="{{ select_type == 'send_house' ? 'iconfont icon-queren fr orange select-type' : 'iconfont icon-wuqueren fr orange select-type'  }}"></icon>
+  </view>
+  <view class='delivery-thing'>
+    <text>上门自取</text>
+    <icon bindtap='changeDoorSelf' class="{{ select_type == 'door_self' ? 'iconfont icon-queren fr orange select-type' : 'iconfont icon-wuqueren fr orange select-type'  }}"></icon>
+  </view>
+  <view class='delivery-thing'>
+    <text>快递</text>
+    <icon bindtap='changeExpress' class="{{ select_type == 'express' ? 'iconfont icon-queren fr orange select-type' : 'iconfont icon-wuqueren fr orange select-type'  }}"></icon>
+  </view>
+  <view class='delivery-thing clear-bottom'>
+    <text>物流</text>
+    <icon bindtap='changeLogistics' class="{{ select_type == 'logistics' ? 'iconfont icon-queren fr orange select-type' : 'iconfont icon-wuqueren fr orange select-type'  }}"></icon>
+  </view>
+</view>
+<textarea class='other-say' placeholder-style='color:#ccc' maxlength='-1' placeholder='如有特别交代事项，请填此处说明' />
+<view class='count-price clear'>
+  <text class='number-delivery'>数量:4件</text>
+  <text class='number-font'>实付款:</text>
+  <text class='number-price'>￥168</text>
+  <text class='number-btn bg-orange fr' bindtap='confirmOrder'>提交订单</text>
 </view>

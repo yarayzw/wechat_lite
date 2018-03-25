@@ -1,0 +1,99 @@
+<!--pages/myOrder/myOrder.wxml-->
+<view class='address-header'>
+  <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <text class='address-title'>我的订单</text>
+</view>
+<view class='order-title'>
+  <text bindtap='changeOrderAll' class="{{ select_tab == 'all' ? 'tilte-all select-tab' : 'tilte-all' }}">全部</text>
+  <text bindtap='changeOrderAudit' class="{{ select_tab == 'audit' ? 'tilte-all select-tab' : 'tilte-all' }}">待审核</text>
+  <text bindtap='changeOrderHandle' class="{{ select_tab == 'handle' ? 'tilte-all select-tab' : 'tilte-all' }}">处理中</text>
+  <text bindtap='changeOrderBreakup' class="{{ select_tab == 'breakup' ? 'tilte-all select-tab' : 'tilte-all' }}">已完结</text>
+  <text bindtap='changeOrderCancel' class="{{ select_tab == 'cancel' ? 'tilte-all select-tab' : 'tilte-all' }}">已取消</text>
+</view>
+<view class='none-order' wx:if="{{ no_order }}">
+  <image class='no-order' src='../../images/wudingdan.png'></image>
+  <view class='no-font'>空空如也</view>
+</view>
+
+<view class='order-list'>
+  <view class='order-all'>
+    <view class='order-content'>
+      <view class='order-font'>
+        <text class='order-time'>下单时间</text>
+        <text class='order-year'> 2018-03-21 </text>
+        <text class='order-hour'>15:41:09</text>
+        <text class='red fr'>已取消</text>
+      </view>
+      <view class='order-font'>
+        <text class='order-time'>订单编号</text>
+        <text class='order-year'> hhhhhhhh15989656526352 </text>
+      </view>
+      <view class='order-font'>
+        <text class='order-count'>共3类商品</text>
+      </view>
+    </view>
+    <view class='price-order clear'>
+      <text class='price-font fr'>¥168.00</text>
+    </view>
+  </view>
+  <view class='order-all'>
+    <view class='order-content'>
+      <view class='order-font'>
+        <text class='order-time'>下单时间</text>
+        <text class='order-year'> 2018-03-21 </text>
+        <text class='order-hour'>15:41:09</text>
+        <text class='green fr'>待审核</text>
+      </view>
+      <view class='order-font'>
+        <text class='order-time'>订单编号</text>
+        <text class='order-year'> hhhhhhhh15989656526352 </text>
+      </view>
+      <view class='order-font'>
+        <text class='order-count'>共3类商品</text>
+      </view>
+    </view>
+    <view class='price-order clear'>
+      <text class='price-font fr'>¥168.00</text>
+    </view>
+  </view>
+  <view class='order-all'>
+    <view class='order-content'>
+      <view class='order-font'>
+        <text class='order-time'>下单时间</text>
+        <text class='order-year'> 2018-03-21 </text>
+        <text class='order-hour'>15:41:09</text>
+        <text class='yellow fr'>处理中</text>
+      </view>
+      <view class='order-font'>
+        <text class='order-time'>订单编号</text>
+        <text class='order-year'> hhhhhhhh15989656526352 </text>
+      </view>
+      <view class='order-font'>
+        <text class='order-count'>共3类商品</text>
+      </view>
+    </view>
+    <view class='price-order clear'>
+      <text class='price-font fr'>¥168.00</text>
+    </view>
+  </view>
+  <view class='order-all'>
+    <view class='order-content'>
+      <view class='order-font'>
+        <text class='order-time'>下单时间</text>
+        <text class='order-year'> 2018-03-21 </text>
+        <text class='order-hour'>15:41:09</text>
+        <text class='grey fr'>已完成</text>
+      </view>
+      <view class='order-font'>
+        <text class='order-time'>订单编号</text>
+        <text class='order-year'> hhhhhhhh15989656526352 </text>
+      </view>
+      <view class='order-font'>
+        <text class='order-count'>共3类商品</text>
+      </view>
+    </view>
+    <view class='price-order clear'>
+      <text class='price-font fr'>¥168.00</text>
+    </view>
+  </view>
+</view>

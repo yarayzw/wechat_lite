@@ -3,6 +3,7 @@ Page {
   display: flex;
   flex-flow: column;
   background-color: #FBFBFB;
+  color: #333;
 }
 .address-header {
   width: 750rpx;
@@ -49,4 +50,100 @@ Page {
 .font-mar {
   margin-right: 65rpx;
   margin-left: 20rpx;
+}
+.delivery-list {
+  background: #FFF;
+  margin-top: 20rpx;
+}
+.delivery-title, .delivery-thing {
+  margin-left: 50rpx;
+  border-bottom: 1rpx #ccc solid;
+  line-height: 80rpx;
+}
+.delivery-title {
+ font-size: 30rpx;
+}
+.delivery-thing {
+  font-size: 26rpx;
+}
+.select-type {
+  font-size: 36rpx;
+  margin-right: 50rpx;
+  line-height: 80rpx;
+}
+.clear-bottom {
+  border: none;
+}
+.other-say {
+  background: #FFF;
+  font-size: 24rpx;
+  padding: 30rpx 50rpx;
+  width: 650rpx;
+  height: 165rpx;
+  margin-top: 20rpx;
+}
+.count-price {
+  background: #FFF;
+  height: 80rpx;
+  position: fixed;
+  bottom: 0rpx;
+  width: 750rpx;
+  font-size: 26rpx;
+  line-height: 80rpx;
+  border: 1rpx #ccc solid;
+}
+.number-delivery {
+  margin-left: 50rpx;
+  color: #333;
+}
+.number-font {
+  margin-left: 160rpx;
+  font-weight: bolder;
+}
+.number-price {
+  margin-left: 20rpx;
+  color: #F65349;
+  font-size: 30rpx;
+  font-weight: bolder;
+}
+.number-btn {
+  color: #FFF;
+  font-size: 32rpx;
+  display: inline-block;
+  width: 225rpx;
+  height: 80rpx;
+  text-align: center;
+}
+.receiver-content {
+  border-bottom: 1rpx #ccc solid;
+  font-size: 26rpx;
+}
+.receiver-person {
+  height: 60rpx;
+}
+.get-person {
+  margin-left: 65rpx;
+}
+.phone-person {
+  margin-left: 115rpx;
+}
+.title-icon {
+  font-size: 40rpx;
+  color: #ccc;
+  position: relative;
+  top: -32rpx;
+}
+.address-person {
+  width: 555rpx;
+  display: inline-block;
+  line-height: 40rpx;
+  margin-left: 25rpx;
+}
+.next-page {
+  font-size: 36rpx;
+  color: #333;
+  position: relative;
+  top: -32rpx;
+  left: -5rpx;
+  display: inline-block;
 }

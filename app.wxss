@@ -38,3 +38,15 @@
     overflow: hidden;
     visibility: hidden;
   }
+  .green {
+    color: #36B462
+  }
+  .yellow {
+    color: #F99001
+  }
+  .grey {
+    color: #5C5C5C
+  }
+  .red {
+    color: #E73A3A
+  }
