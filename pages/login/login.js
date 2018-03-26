@@ -7,7 +7,8 @@ Page({
    */
   data: {
     show_password: false,
-    password_data: ''
+    password_data: '',
+    username_data:'',
   },
 
   /**
@@ -76,5 +77,20 @@ Page({
   // 对密码文本进行赋值
   changePassword: function(e) {
     this.setData({ password_data: e.detail.value })
+  },
+  changeUsername: function(e) {
+    this.setData({ username_data: e.detail.value })
+  },
+  validateLogin: function(e) {
+    wx.request({
+      url: app.globalData.host + '/ValidateLogin?username=' + this.data.username_data + '&secret=' + this.data.password_data,
+      method: 'GET',
+      success: function(res) {
+        console.log(res);
+      },
+      error: function(res) {
+        console.log(res);
+      }
+    })
   }
 })

@@ -34,7 +34,7 @@
         "text": "购物车"
       },
       {
-        "pagePath": "pages/logs/logs",
+        "pagePath": "pages/userInfo/userInfo",
         "iconPath": "./images/wode1.png",
         "selectedIconPath": "./images/wode.png",
         "text": "我的"
