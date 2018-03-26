@@ -81,9 +81,10 @@ Page({
   changeUsername: function(e) {
     this.setData({ username_data: e.detail.value })
   },
+  // 登录接口处理
   validateLogin: function(e) {
     wx.request({
-      url: app.globalData.host + '/ValidateLogin?username=' + this.data.username_data + '&secret=' + this.data.password_data,
+      url: app.globalData.host + 'ValidateLogin?username=' + this.data.username_data + '&secret=' + this.data.password_data,
       method: 'GET',
       success: function(res) {
         console.log(res);
