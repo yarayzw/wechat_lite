@@ -1,0 +1,112 @@
+<view class="top">
+  <view class='search'>
+    <icon class='icon-search iconfont search_icon'  ></icon>
+  <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="searchGo" />
+  </view>
+   <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
+        <view  bindtap="swichNav" wx:for="{{topMenu}}" wx:for-index="topId" wx:for-item="topVal" class="tab-item {{currentTab==topId?'active':''}}" data-current="{{topId}}" data-fenlei="{{topVal['chanpinfenlei']}}" data-id="{{topVal['id']}}">{{topVal['name']}}</view>
+       
+    </scroll-view>
+  
+</view>
+<view class='bottom'>
+   <view class='bottom_left fl' >
+    <view wx:for="{{leftMenu}}" wx:for-index="leftId" wx:for-item="leftVal" class="  {{currentLeft==leftId?'left_menu left_white':'left_menu'}}" data-current="{{leftId}}" data-fenlei="{{leftVal['chanpinfenlei']}}" data-id="{{leftVal['id']}}"  bindtap="menuLeft">
+      {{leftVal['name']}}
+    </view>
+  
+  </view> 
+  <view class='bottom_right fl'>
+      <picker bindchange="wareChange" class='wareList' mode="selector" value="{{wareChangeNum}}" range="{{wareList}}">
+        <view class="picker">
+        {{wareList[wareChangeNum]}}
+        </view>
+        
+      </picker>
+      <!-- <view class='img_botton'  wx:if="{{img_show}}" >无图模式</view>
+      <view class='img_botton'  wx:if="{{!img_show}}" >有图模式</view> -->
+      <!-- bindtap='img_show' -->
+      <view class='right_list' >
+      <icon class='icon-tianjia iconfont add_one'></icon>
+       <icon class='icon-jianhao iconfont delete_two'  id='del_3'></icon>
+        <view class='right_img fl' wx:if="{{img_show}}">
+        <image class='right_image' src='http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg' ></image>
+        </view>
+        <view class='right_info fl'>
+          <text class='info_title'>白辣椒炒肉</text>
+          <view class='num_div'>
+           <text class='info_num' wx:if="{{bookStock}}">账面库存: 20 </text>
+          <text class='info_num' wx:if="{{actualInventory}}">实际库存: 30</text>
+          </view>
+          <view class='cost_div'>
+          <text class='info_cost'>原价:</text>
+          <text class='price'>￥26</text>
+          <text class='info_cost'>/份</text>
+          
+          </view>
+          <view wx:if="{{memberShip}}">
+          <text class='info_cost'>会员价:</text>
+          <text class='price'>￥</text>
+          <text class='price red'>20</text>
+          <text class='price'>/份</text>
+          </view>
+        </view>
+      </view>
+      <view class='right_list clear'>
+           <icon class='icon-tianjia iconfont add_one'></icon>
+        <view class='right_img fl' wx:if="{{img_show}}">
+        <image class='right_image' src='http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg' bindtap="doubleTap" bindtouchstart="touchStart" bindtouchend="touchEnd"></image>
+        </view>
+        <view class='right_info fl'>
+          <text class='info_title' bindtap="doubleTap" bindtouchstart="touchStart" bindtouchend="touchEnd">白辣椒炒肉</text>
+          <text class='info_num'>账面库存: 20 实际库存: 30</text>
+          <view class='cost_div'>
+          <text class='info_cost'>原价:</text>
+          <text class='price'>￥26</text>
+          <text class='info_cost'>/份</text>
+     
+          </view>
+          <view>
+          <text class='info_cost'>会员价:</text>
+          <text class='price'>￥</text>
+          <text class='price red'>20</text>
+          <text class='price'>/份</text>
+          </view>
+        </view>
+      </view>
+       <view class='right_list clear'>
+       <icon class='icon-tianjia iconfont add_one' bindtap='add' id='add_3'></icon> 
+        <view class='right_img fl' wx:if="{{img_show}}">
+        <image class='right_image' src='http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg'></image>
+        </view>
+        <view class='right_info fl'>
+          <text class='info_title' bindtap="doubleTap" bindtouchstart="touchStart" bindtouchend="touchEnd">白辣椒炒肉</text>
+          <text class='info_num'>账面库存: 20 实际库存: 30</text>
+          <view class='cost_div'>
+          <text class='info_cost'>原价:</text>
+          <text class='price'>￥26</text>
+          <text class='info_cost'>/份</text>
+           
+          <icon class='icon-jianhao iconfont delete_two' style='display:none' id='del_3'></icon>
+        
+          <text class='shop_num' id='num_3' style='display:none'>1</text>
+          </view>
+          <view>
+          <text class='info_cost'>会员价:</text>
+          <text class='price'>￥</text>
+          <text class='price red'>20</text>
+          <text class='price'>/份</text>
+          </view>
+        </view>
+      </view>
+  </view>
+</view>
+
+ <view class="masking" wx:if="{{masking}}">
+    <view class="mask_div">
+    <image class='mask_img' src="http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg"></image>
+    </view>
+    <view class="mask_info">
+    <text class="mask_title">{{maskInfoTitle}}</text>
+    </view>
+  </view>
