@@ -33,8 +33,18 @@ App({
       }
     })
   },
+  showError: function(content) {
+    wx.showLoading({
+      title: content,
+      mask: true
+    });
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 1500)
+  },
   globalData: {
     userInfo: null,
     host:'http://211.149.177.232/DataCenterService.asmx/',
+    user_phone: null
   }
 })

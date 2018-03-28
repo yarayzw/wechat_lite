@@ -83,6 +83,15 @@ Page({
   },
   // 登录接口处理
   validateLogin: function(e) {
+    if (this.data.username_data == '') {
+      app.showError('请填写账号');
+      return false;
+    }
+    if (this.data.password_data == '') {
+      app.showError('请填写密码');
+      return false;
+    }
+    var that = this;
     wx.request({
       url: app.globalData.host + 'ValidateLogin',
       data: { username: this.data.username_data, secret: this.data.password_data},
@@ -90,15 +99,16 @@ Page({
       success: function(res) {
         var status = JSON.parse(res.data.d)[0].flag;
         if (status == 1) {
-
-        } else {
-          wx.showToast({
-            title: '',
+          app.globalData.user_phone = that.data.username_data;
+          wx.switchTab({
+            url: '/commodity'
           })
+        } else {
+          app.showError('账号或密码错误');
         }
       },
       error: function(res) {
-        console.log(res);
+        app.showError('系统错误');
       }
     })
   }
