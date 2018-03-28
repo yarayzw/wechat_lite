@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/login/login",
+    "pages/cart/cart",
+    "pages/commodity/commodity",
     "pages/cartSettlement/cartSettlement",
     "pages/myOrder/myOrder",
     "pages/userInfo/userInfo",
@@ -22,13 +24,13 @@
     "selectedColor": "#FF7E00",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/commodity/commodity",
         "iconPath": "./images/shangpin1.png",
         "selectedIconPath": "./images/shangpin.png",
         "text": "选商品"
       },
       {
-        "pagePath": "pages/login/login",
+        "pagePath": "pages/cart/cart",
         "iconPath": "./images/gouwuche1.png",
         "selectedIconPath": "./images/gouwuche.png",
         "text": "购物车"

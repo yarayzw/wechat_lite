@@ -101,7 +101,7 @@ Page({
         if (status == 1) {
           app.globalData.user_phone = that.data.username_data;
           wx.switchTab({
-            url: '/commodity'
+            url: '/pages/commodity/commodity'
           })
         } else {
           app.showError('账号或密码错误');
