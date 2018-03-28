@@ -23,8 +23,8 @@
   <view class='user-list'>
     <icon class='iconfont icon-time orange order-icon'></icon>
     <text class='order-list'>送达时间</text>
-    <text class='fr orange font-mar'>16:40送达</text>
-    <text class='fr orange'>2018/3/21</text>
+    <picker class='fr orange font-mar'>16:40送达</picker>
+    <picker class='fr orange'>2018/3/21</picker>
   </view>
 </view>
 <view class='my-order cart-list'>

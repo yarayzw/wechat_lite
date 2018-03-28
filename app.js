@@ -41,11 +41,23 @@ App({
       success: function (res) {
         // 获取openid
         wx.request({
-          url: that.globalData.host + '/',
+          url: that.globalData.php_host,
           method: 'POST',
-          data: { code: res.code },
+          header: {
+            'Content-type': 'application/x-www-form-urlencoded',
+          },
+          data: { 
+            code: res.code,
+            fun: 'wechatMiniGetOpenId'
+            },
           success: function (res) {
-            that.globalData.wx_code = JSON.parse(res.data.d)[0].openid
+            console.log(res);
+            console.log(res.data.status == '10000');
+            if (res.data.status == 10000) {
+              that.globalData.wx_code = res.data.openid;
+            } else {
+              that.showError('系统错误');
+            }
           },
           error: function () {
             that.showError('系统错误');
@@ -66,6 +78,7 @@ App({
   globalData: {
     userInfo: null,
     host: 'http://211.149.177.232/DataCenterService.asmx/',
+    php_host: 'http://211.149.177.232:8008/wechat.php/',
     user_phone: '13755002487',
     wx_code: ''
   }
