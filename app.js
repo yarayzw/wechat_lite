@@ -33,7 +33,28 @@ App({
       }
     })
   },
-  showError: function(content) {
+  // 获取用户的openid
+  getUserOpenId: function () {
+    var that = this;
+    // 小程序登录 withCredentials 为true
+    wx.login({
+      success: function (res) {
+        // 获取openid
+        wx.request({
+          url: that.globalData.host + '/',
+          method: 'POST',
+          data: { code: res.code },
+          success: function (res) {
+            that.globalData.wx_code = JSON.parse(res.data.d)[0].openid
+          },
+          error: function () {
+            that.showError('系统错误');
+          }
+        })
+      }
+    })
+  },
+  showError: function (content) {
     wx.showLoading({
       title: content,
       mask: true
@@ -44,7 +65,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    host:'http://211.149.177.232/DataCenterService.asmx/',
-    user_phone: null
+    host: 'http://211.149.177.232/DataCenterService.asmx/',
+    user_phone: '13755002487',
+    wx_code: ''
   }
 })

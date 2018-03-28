@@ -1,8 +1,8 @@
 {
   "pages":[
+    "pages/cartSettlement/cartSettlement",
     "pages/login/login",
     "pages/myOrder/myOrder",
-    "pages/cartSettlement/cartSettlement",
     "pages/userInfo/userInfo",
     "pages/orderDetail/orderDetail",
     "pages/editAddress/editAddress",

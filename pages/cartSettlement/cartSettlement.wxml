@@ -4,7 +4,7 @@
   <text class='address-title'>购物车结算</text>
 </view>
 <view class='my-order'>
-  <view class='receiver-content user-list' wx:if="{{ select_address }}">
+  <view class='receiver-content user-list' wx:if="{{ select_address }}" catchtap='jumpToAddress'>
     <view class='receiver-person'>
       <text class='get-person'>收货人：邹先生</text>
       <text class='phone-person'>13254678922</text>
@@ -15,7 +15,7 @@
     <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
     </view>
   </view>
-  <view class='user-list no-border' wx:if="{{ !select_address }}">
+  <view class='user-list no-border' wx:if="{{ !select_address }}" catchtap='jumpToAddress'>
     <icon class='iconfont icon-tianjia orange order-icon'></icon>
     <text class='order-list'>请添加收货地址</text>
     <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
