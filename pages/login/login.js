@@ -84,10 +84,18 @@ Page({
   // 登录接口处理
   validateLogin: function(e) {
     wx.request({
-      url: app.globalData.host + 'ValidateLogin?username=' + this.data.username_data + '&secret=' + this.data.password_data,
-      method: 'GET',
+      url: app.globalData.host + 'ValidateLogin',
+      data: { username: this.data.username_data, secret: this.data.password_data},
+      method: 'POST',
       success: function(res) {
-        console.log(res);
+        var status = JSON.parse(res.data.d)[0].flag;
+        if (status == 1) {
+
+        } else {
+          wx.showToast({
+            title: '',
+          })
+        }
       },
       error: function(res) {
         console.log(res);

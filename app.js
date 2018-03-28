@@ -35,6 +35,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    host:'http://www.dlx3008.com/',
+    host:'http://211.149.177.232/DataCenterService.asmx/',
   }
 })
