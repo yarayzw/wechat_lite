@@ -92,3 +92,13 @@ Page {
   display: block;
   line-height: 30rpx;
 }
+.cancel-order {
+  line-height: 80rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: #FFF;
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  width: 750rpx;
+}

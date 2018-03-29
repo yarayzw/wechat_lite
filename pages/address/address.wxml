@@ -3,4 +3,4 @@
   <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
   <text class='address-title'>我的地址</text>
 </view>
-<view class='add-address bg-orange'>新增收货地址</view>
+<view catchtap='jumpAddAddress' class='add-address bg-orange'>新增收货地址</view>

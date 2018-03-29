@@ -1,18 +1,19 @@
 // pages/userInfo/userInfo.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    user_name: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.setData({ user_name: app.globalData.user_phone });
   },
 
   /**
@@ -62,5 +63,24 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  // 跳转到订单页面
+  jumpOrder: function() {
+    wx.navigateTo({
+      url: '/pages/myOrder/myOrder',
+    })
+  },
+  // 跳转到订单页面
+  jumpAddress: function() {
+    wx.navigateTo({
+      url: '/pages/address/address',
+    })
+  },
+  // 退出
+  signOut: function() {
+    app.globalData.user_phone = '';
+    wx.navigateTo({
+      url: '/pages/login/login',
+    })
   }
 })

@@ -19,7 +19,7 @@
   <view class='address-info'>
     <view class='address-list'>
       <text class='address-font'>所在地区:</text>
-      <input class='address-input' type='text' placeholder-style='color:#CCC' placeholder='选择省市区' />
+      <text catchtap='selectAreaCity' class="{{ area_city == '选择所在地区' ? 'area-font c-color' : 'area-font' }}" >{{ area_city }}</text>
       <icon class='iconfont icon-liebiao_jiantou jump-icon'></icon>
     </view>
   </view>

@@ -32,6 +32,7 @@ Page({
           }, 1500);
         } else {
           var content = JSON.parse(res.data.d);
+          console.log(content);
           that.setData({ order_detail: content });
         }
       }
@@ -86,9 +87,40 @@ Page({
   onShareAppMessage: function () {
   
   },
+  // 返回上一页
   jumpBack: function() {
     wx.navigateBack({
       
     });
+  },
+  // 取消订单
+  cancelOrder: function() {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'quxiao',
+      method: 'POST',
+      data: {
+        wxweiyiid: app.globalData.wx_code,
+        tel: app.globalData.user_phone,
+        shaixuanid: that.data.order_code
+      },
+      success: function(res) {
+        if(res.data.d == 1) {
+          wx.showToast({
+            title: '取消成功',
+            mask: true
+          });
+          setTimeout(function() {
+            wx.hideToast();
+            wx.navigateBack({});
+          }, 1500);
+        } else {
+          app.showEroor('取消失败');
+        }
+      },
+       error : function() {
+         app.showEroor('取消失败');
+       }
+    })
   }
 })

@@ -1,13 +1,13 @@
 {
   "pages":[
-    "pages/myOrder/myOrder",
-    "pages/cartSettlement/cartSettlement",
     "pages/login/login",
+    "pages/myOrder/myOrder",
+    "pages/editAddress/editAddress",
+    "pages/userInfo/userInfo",
+    "pages/cartSettlement/cartSettlement",
     "pages/cart/cart",
     "pages/commodity/commodity",
-    "pages/userInfo/userInfo",
     "pages/orderDetail/orderDetail",
-    "pages/editAddress/editAddress",
     "pages/address/address",
     "pages/index/index",
     "pages/logs/logs"
