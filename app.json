@@ -1,10 +1,10 @@
 {
   "pages":[
+    "pages/myOrder/myOrder",
+    "pages/cartSettlement/cartSettlement",
     "pages/login/login",
     "pages/cart/cart",
     "pages/commodity/commodity",
-    "pages/cartSettlement/cartSettlement",
-    "pages/myOrder/myOrder",
     "pages/userInfo/userInfo",
     "pages/orderDetail/orderDetail",
     "pages/editAddress/editAddress",

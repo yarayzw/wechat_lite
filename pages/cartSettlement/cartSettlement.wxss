@@ -147,3 +147,9 @@ Page {
   left: -5rpx;
   display: inline-block;
 }
+.order-mar {
+  margin-left: 0;
+}
+.font-left {
+  margin-left: 20rpx;
+}

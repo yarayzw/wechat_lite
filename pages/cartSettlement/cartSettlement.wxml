@@ -1,21 +1,26 @@
 <!--pages/cartSettlement/cartSettlement.wxml-->
 <view class='address-header'>
-  <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <icon class='iconfont icon-fanhui comeback-btn fl' catchtap='jumpBack'></icon>
   <text class='address-title'>购物车结算</text>
 </view>
 <view class='my-order'>
-  <view class='receiver-content user-list' wx:if="{{ select_address }}" catchtap='jumpToAddress'>
+  <!-- <view class='receiver-content user-list' wx:if="{{ address != '' }}" catchtap='jumpToAddress'>
     <view class='receiver-person'>
       <text class='get-person'>收货人：邹先生</text>
       <text class='phone-person'>13254678922</text>
     </view>
     <view>
-    <icon class='iconfont icon-dizhi title-icon'></icon>
-    <view class='address-person'>收货地址：湖南省长沙市雨花区韶山南路铁道 学院对面</view>
-    <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
+      <icon class='iconfont icon-dizhi title-icon'></icon>
+      <view class='address-person'>收货地址：湖南省长沙市雨花区韶山南路铁道 学院对面</view>
+      <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
     </view>
+  </view> -->
+  <view class='user-list no-border' wx:if="{{ address != '' }}" catchtap='jumpToAddress'>
+    <icon class='iconfont icon-dizhi order-icon'></icon>
+    <text class='order-list'>{{ address }}</text>
+    <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
   </view>
-  <view class='user-list no-border' wx:if="{{ !select_address }}" catchtap='jumpToAddress'>
+  <view class='user-list no-border' wx:if="{{ address == '' }}" catchtap='jumpToAddress'>
     <icon class='iconfont icon-tianjia orange order-icon'></icon>
     <text class='order-list'>请添加收货地址</text>
     <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
@@ -23,8 +28,9 @@
   <view class='user-list'>
     <icon class='iconfont icon-time orange order-icon'></icon>
     <text class='order-list'>送达时间</text>
-    <picker class='fr orange font-mar'>16:40送达</picker>
-    <picker class='fr orange'>2018/3/21</picker>
+    <text class='fr orange font-mar'>送达</text>
+    <picker mode="time" value='{{ cart_time }}' class='fr orange font-left' bindchange="bindTimeChange">{{ cart_time }}</picker>
+    <picker mode="date" class='fr orange' value='{{ cart_date }}' bindchange="bindDateChange">{{ cart_date }}</picker>
   </view>
 </view>
 <view class='my-order cart-list'>
@@ -55,10 +61,10 @@
     <icon bindtap='changeLogistics' class="{{ select_type == 'logistics' ? 'iconfont icon-queren fr orange select-type' : 'iconfont icon-wuqueren fr orange select-type'  }}"></icon>
   </view>
 </view>
-<textarea class='other-say' placeholder-style='color:#ccc' maxlength='-1' placeholder='如有特别交代事项，请填此处说明' />
+<textarea class='other-say' placeholder-style='color:#ccc' maxlength='-1' value='{{ remarks }}' bindinput='changeRemarks' placeholder='如有特别交代事项，请填此处说明' />
 <view class='count-price clear'>
-  <text class='number-delivery'>数量:4件</text>
+  <text class='number-delivery'>数量:{{ total_num }}件</text>
   <text class='number-font'>实付款:</text>
-  <text class='number-price'>￥168</text>
+  <text class='number-price'>￥{{ total_money }}</text>
   <text class='number-btn bg-orange fr' bindtap='confirmOrder'>提交订单</text>
 </view>
