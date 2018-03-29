@@ -1,18 +1,41 @@
 // pages/orderDetail/orderDetail.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    order_code: '',
+    order_detail: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.setData({ order_code: options.code });
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'SelectDetails',
+      method: 'POST',
+      data: { orderid: that.data.order_code },
+      success: function(res) {
+        if (res.data.d == ']') {
+          wx.showLoading({
+            title: '订单信息不存在',
+            mask: true
+          });
+          setTimeout(function() {
+            wx.hideLoading();
+            wx.navigateBack({});
+          }, 1500);
+        } else {
+          var content = JSON.parse(res.data.d);
+          that.setData({ order_detail: content });
+        }
+      }
+    })
   },
 
   /**
@@ -62,5 +85,10 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  jumpBack: function() {
+    wx.navigateBack({
+      
+    });
   }
 })
