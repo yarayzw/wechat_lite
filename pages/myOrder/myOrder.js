@@ -1,4 +1,5 @@
 // pages/myOrder/myOrder.js
+var app = getApp();
 Page({
 
   /**
@@ -6,14 +7,15 @@ Page({
    */
   data: {
     select_tab: 'all',
-    no_order: false
+    no_order: false,
+    order_list: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.selectOrder('SelectAll');
   },
 
   /**
@@ -65,19 +67,43 @@ Page({
   
   },
   changeOrderAll: function () {
-    this.setData({ select_tab: 'all' })
+    this.setData({ select_tab: 'all' });
+    this.selectOrder('SelectAll');
   },
   changeOrderAudit: function() {
     this.setData({ select_tab: 'audit' })
+    this.selectOrder('Selectdaishenhe');
   },
   changeOrderHandle: function () {
     this.setData({ select_tab: 'handle' })
+    this.selectOrder('Selectdaishenhe');
   },
   changeOrderBreakup: function () {
     this.setData({ select_tab: 'breakup' })
   },
   changeOrderCancel: function () {
     this.setData({ select_tab: 'cancel' })
+  },
+  // 全部订单
+  selectOrder:function(type) {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + type,
+      data: {
+        wxweiyiid: app.globalData.wx_code
+      },
+      method: 'POST',
+      success: function(res) {
+        if(res.data.d != ']') {
+          that.setData({ 
+            order_list: JSON.parse(res.data.d),
+            no_order: true
+          });
+        } else {
+          that.setData({ no_order: true });
+        }
+      }
+    })
   },
   
 })

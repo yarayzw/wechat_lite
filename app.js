@@ -39,6 +39,11 @@ App({
     // 小程序登录 withCredentials 为true
     wx.login({
       success: function (res) {
+        wx.getUserInfo({
+          success: function(data) {
+            that.globalData.userInfo = data.userInfo;
+          }
+        });
         // 获取openid
         wx.request({
           url: that.globalData.php_host,
@@ -50,11 +55,9 @@ App({
             code: res.code,
             fun: 'wechatMiniGetOpenId'
             },
-          success: function (res) {
-            console.log(res);
-            console.log(res.data.status == '10000');
-            if (res.data.status == 10000) {
-              that.globalData.wx_code = res.data.openid;
+          success: function (r) {
+            if (r.data.status == 10000) {
+              that.globalData.wx_code = r.data.openid;
             } else {
               that.showError('系统错误');
             }
@@ -80,6 +83,6 @@ App({
     host: 'http://211.149.177.232/DataCenterService.asmx/',
     php_host: 'http://211.149.177.232:8008/wechat.php/',
     user_phone: '13755002487',
-    wx_code: ''
+    wx_code: 'admin'
   }
 })
