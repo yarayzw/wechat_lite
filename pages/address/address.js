@@ -1,18 +1,19 @@
 // pages/address/address.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    address_list: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+   console.log(options);
   },
 
   /**
@@ -26,7 +27,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'addressall',
+      method: 'POST',
+      data: {
+        wxid: app.globalData.wx_code
+      },
+      success: function (res) {
+        if (res.data.d == ']') {
+          that.setData({ address_list: null });
+        } else {
+          that.setData({ address_list: JSON.parse(res.data.d) });
+        }
+      }
+    })
   },
 
   /**
@@ -63,9 +78,16 @@ Page({
   onShareAppMessage: function () {
   
   },
+  // 跳转到添加页面
   jumpAddAddress: function() {
     wx.navigateTo({
-      url: '/pages/editAddress/editAddress',
+      url: '/pages/editAddress/editAddress?code=' + 0 + '&do_type=add',
     });
   },
+  // 跳转到更改页面
+  jumpTpEdit: function(e) {
+    wx.navigateTo({
+      url: '/pages/editAddress/editAddress?code=' + e.currentTarget.dataset.code + '&do_type=update',
+    });
+  }
 })

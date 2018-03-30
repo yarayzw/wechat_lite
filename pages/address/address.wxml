@@ -3,4 +3,18 @@
   <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
   <text class='address-title'>我的地址</text>
 </view>
+<block wx:for="{{ address_list }}">
+<view class='receiver-content user-list' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'>
+  <view class='receiver-person'>
+    <text class='get-person'>收货人：{{ item['shouhuoren'] }}</text>
+    <text class='phone-person'>{{ item['tel'] }}</text>
+  </view>
+  <view>
+    <icon class='iconfont icon-dizhi title-icon'></icon>
+    <view class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
+    <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
+  </view>
+</view>
+</block>
+
 <view catchtap='jumpAddAddress' class='add-address bg-orange'>新增收货地址</view>
