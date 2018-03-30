@@ -46,6 +46,7 @@
 }
 .bottom_left{
   width: 200rpx;
+  height: 1100rpx;
   font-size: 24rpx;
   color: #656565;
   background-color: #F7F7F7;
@@ -53,6 +54,7 @@
 
 .bottom_right{
   width: 550rpx;
+  padding-top: 50rpx;
 }
 .left_menu{
   text-align: center;
@@ -73,7 +75,7 @@
   font-size: 22rpx;
   position: relative;
   left: 405rpx;
-  top: 19rpx;
+  top: -30rpx;
 }
 .img_botton{
   width: 118rpx;
@@ -109,7 +111,6 @@
   top: -15rpx;
 }
 .cost_div{
-  
   margin-bottom: 10rpx;
   height: 25rpx;
 }
@@ -130,32 +131,45 @@
 }
 
 .right_list{
-  padding-top: 19rpx;
+  padding-top: 0rpx;
   padding-left: 20rpx;
   height: 180rpx;
   clear: both;
+  position: relative;
+  top: -50rpx;
+}
+.right_list_one{
+  position: relative;
+  top: -60rpx;
 }
 .add_one{
-  float: right;
+  
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  right: 20rpx;
-  top: 90rpx;
+  left: 460rpx;
+  top: 100rpx;
 }
 .delete_two{
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 60rpx;
-  top: 20rpx;
+  left: 335rpx;
+  top: 100rpx;
 }
 .shop_num{
   font-size: 28rpx;
   color: #333333;
-  position: relative;
-  top:14rpx;
-  left: 70rpx;
+   position: relative;
+  top:100rpx;
+   left: -67rpx;  
+  display: inline-block;
+  width: 30rpx;
+  float: right;
+  height: 50rpx;
+}
+.list_botton{
+  height: 5rpx;
 }
 
 .tab-h{
@@ -173,11 +187,56 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  text-align: center;
+  
+  padding-top: 220rpx;
 }
 .mask_img{
   width: 480rpx;
   height: 500rpx;
+  border-bottom: 1rpx solid #cccccc;
 }
+.img_div{
+  width: 480rpx;
+  height: 500rpx;
+  background-color: #FFFFFF;
+  margin: 0 auto;
+}
+.info_div{
+  width: 457rpx;
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  padding-left: 23rpx;
+}
+.mask_title{
+  font-size: 28rpx;
+  color: #333333;
+}
+.mask_add{
+  color: #F99001;
+  position: relative;
+  font-size: 50rpx;
+  left: 200rpx;
+  top: -10rpx;
+}
+.mask_num{
+  font-size: 28rpx;
+  color: #333333;
+   position: relative;
+  top: -10rpx;
+   left: -67rpx;  
+  display: inline-block;
+  width: 30rpx;
+  float: right;
+  height: 50rpx;
+}
+
+.mask_del{
+  color: #F99001;
+  position: relative;
+  font-size: 50rpx;
+  left: 76rpx;
+  top: -10rpx;
+}
+
 
 
