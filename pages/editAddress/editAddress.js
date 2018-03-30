@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    default_address: false
+    default_address: false,
+    area_city: '选择所在地区'
   },
 
   /**
@@ -67,5 +68,13 @@ Page({
     this.setData({
       default_address: !this.data.default_address
     });
+  },
+  selectAreaCity: function() {
+    var that = this;
+    wx.chooseLocation({
+      success: function(res) {
+        that.setData({ area_city: res.address });
+      },
+    })
   }
 })

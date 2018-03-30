@@ -75,14 +75,13 @@ Page {
   display: inline-block;
 }
 .product-year {
-  width: 150rpx;
   display: inline-block;
 }
 .no-border {
   border: none;
 }
 .delivery-address {
-  width: 525rpx;
+  width: 515rpx;
   float: right;
 }
 .delivery-name {
@@ -92,4 +91,14 @@ Page {
 .delivery-detail {
   display: block;
   line-height: 30rpx;
+}
+.cancel-order {
+  line-height: 80rpx;
+  font-size: 30rpx;
+  text-align: center;
+  color: #FFF;
+  position: fixed;
+  bottom: 0;
+  height: 80rpx;
+  width: 750rpx;
 }

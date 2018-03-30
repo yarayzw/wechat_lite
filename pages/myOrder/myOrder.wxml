@@ -1,6 +1,6 @@
 <!--pages/myOrder/myOrder.wxml-->
 <view class='address-header'>
-  <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <icon catchtap='jumpBack' class='iconfont icon-fanhui comeback-btn fl'></icon>
   <text class='address-title'>我的订单</text>
 </view>
 <view class='order-title'>
@@ -15,8 +15,33 @@
   <view class='no-font'>空空如也</view>
 </view>
 
-<view class='order-list'>
-  <view class='order-all'>
+<view class='order-list' wx:if="{{ !no_order }}">
+<block wx:for="{{ order_list }}">
+  <view class='order-all' catchtap='jumpSeeDetail' data-code="{{ item['订单id'] }}">
+    <view class='order-content'>
+      <view class='order-font'>
+        <text class='order-time'>下单时间</text>
+        <text class='order-year'> {{ item['下单时间'] }} </text>
+         <text class="{{ item['B'] == '已作废' ? 'red fr' : 'green fr' }}">{{ item['A'] == 2 ? '未审核' : '已审核' }} {{ item['B'] }} {{ item['C'] > 0 ? '已付款' : '未付款' }}</text> 
+      </view>
+      <view class='order-font'>
+        <text class='order-time'>订单编号</text>
+        <text class='order-year'> {{ item['订单编号'] }} </text>
+      </view>
+      <view class='order-font'>
+        <text class='order-count'>共{{ item['类别总数'] }}类商品</text>
+      </view>
+    </view>
+    <view class='price-order clear'>
+      <text class='price-font fr'>¥{{ item['金额'] }}</text>
+    </view>
+  </view>
+</block>
+
+
+
+
+   <!-- <view class='order-all'>
     <view class='order-content'>
       <view class='order-font'>
         <text class='order-time'>下单时间</text>
@@ -76,7 +101,7 @@
       <text class='price-font fr'>¥168.00</text>
     </view>
   </view>
-  <view class='order-all'>
+  <view class='order-all'> 
     <view class='order-content'>
       <view class='order-font'>
         <text class='order-time'>下单时间</text>
@@ -95,5 +120,5 @@
     <view class='price-order clear'>
       <text class='price-font fr'>¥168.00</text>
     </view>
-  </view>
+  </view> -->
 </view>

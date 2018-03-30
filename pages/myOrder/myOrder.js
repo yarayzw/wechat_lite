@@ -76,13 +76,15 @@ Page({
   },
   changeOrderHandle: function () {
     this.setData({ select_tab: 'handle' })
-    this.selectOrder('Selectdaishenhe');
+    this.selectOrder('Selectchulizhong');
   },
   changeOrderBreakup: function () {
     this.setData({ select_tab: 'breakup' })
+    this.selectOrder('Selectyiwangjie');
   },
   changeOrderCancel: function () {
     this.setData({ select_tab: 'cancel' })
+    this.selectOrder('Selectyizuofei');
   },
   // 全部订单
   selectOrder:function(type) {
@@ -97,13 +99,27 @@ Page({
         if(res.data.d != ']') {
           that.setData({ 
             order_list: JSON.parse(res.data.d),
-            no_order: true
+            no_order: false
           });
         } else {
-          that.setData({ no_order: true });
+          that.setData({ 
+            order_list: null,
+            no_order: true 
+            });
         }
       }
     })
   },
+  jumpSeeDetail: function(e) {
+    var order_code = e.currentTarget.dataset.code;
+    wx.navigateTo({
+      url: '/pages/orderDetail/orderDetail?code=' + order_code,
+    })
+  },
+  jumpBack: function() {
+    wx.navigateBack({
+      
+    });
+  }
   
 })

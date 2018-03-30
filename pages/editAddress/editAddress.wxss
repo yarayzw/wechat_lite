@@ -84,3 +84,13 @@ Page {
   position: relative;
   top: -18rpx;
 }
+.area-font {
+  width: 500rpx;
+  line-height: 80rpx;
+  display: inline-block;
+  position: relative;
+  top: -20rpx;
+}
+.c-color {
+   color: #ccc;
+}

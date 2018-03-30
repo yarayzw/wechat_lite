@@ -62,5 +62,10 @@ Page({
    */
   onShareAppMessage: function () {
   
-  }
+  },
+  jumpAddAddress: function() {
+    wx.navigateTo({
+      url: '/pages/editAddress/editAddress',
+    });
+  },
 })
