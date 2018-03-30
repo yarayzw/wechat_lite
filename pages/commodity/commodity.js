@@ -25,6 +25,8 @@ Page({
     nowWareName:'',//当前仓库名称
     wareList:{},//仓库列表
     shopList:{},//商品列表
+    shopNum:{},//商品显示数量
+    shopDetails:{},//商品详情信息
   },
   touchStartTime: 0,
   touchEndTime: 0,
@@ -78,7 +80,7 @@ Page({
       }
     });
   },
-  // 点击标题切换当前页时改变样式
+  // 左侧菜单点击
   menuLeft: function (e) {
     var cur = e.target.dataset.current;
     if (this.data.currentLeft == cur) { return false; }
@@ -87,6 +89,24 @@ Page({
         currentLeft: cur
       })
     }
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'TypeDetails',
+      data: {
+        WareHouse: that.data.nowWareName,
+        tel: app.globalData.user_phone,
+        id: e.target.dataset.id
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({
+            shopList: rs
+          });
+        }
+      }
+    })
   },
   /// 按钮触摸开始触发的事件
   touchStart: function (e) {
@@ -118,10 +138,14 @@ Page({
 
       // 如果两次点击时间在300毫秒内，则认为是双击事件
       if (currentTime - lastTapTime < 300) {
-        console.log("double tap")
+        console.log(e);
         // 成功触发双击事件时，取消单击事件的执行
         clearTimeout(that.lastTapTimeoutFunc);
-        that.setData({ masking: true });
+        
+        that.setData({ 
+          masking: true ,
+          shopDetails: e.currentTarget.dataset.info
+        });
         // wx.showModal({
         //   title: '提示',
         //   content: '双击事件被触发',
@@ -218,20 +242,7 @@ Page({
       }
     })
   },
-  //根据仓库名称获取菜单
-  wareGetLeft:function(){
-    wx.request({
-      url: app.globalData.host + 'FristLoad',
-      data: {
-        WareHouse: '',
-        tel: '',
-      },
-      method: 'POST',
-      success: function (res) {
-        console.log(res);
-      }
-    })
-  },
+  
   //左侧菜单第一次加载
   fristLeftNavigation:function(){
     var that = this;
@@ -242,13 +253,15 @@ Page({
         tel: '',
       },
       method: 'POST',
-      success: function (res) {
-        var rs = JSON.parse(res.data.d);
-        that.setData({
-          nowTLeftMenuId: rs[0].id
-        });
-        that.setData({ leftMenu: rs });
-        
+      success: function (res) { 
+        if (res.data.d!=']'){
+          var rs = JSON.parse(res.data.d);
+          that.setData({
+            nowTLeftMenuId: rs[0].id
+          });
+          that.setData({ leftMenu: rs });
+        }
+       
       }
     })
   },
@@ -314,7 +327,29 @@ Page({
   },
   //仓库选择事件
   wareChange:function(e){
-
+    var wareName = e.currentTarget.dataset.val;
+    this.setData({ nowWareName:wareName});
+    this.wareGetLeft();
+  },
+  //根据仓库名称获取商品列表
+  wareGetLeft: function () {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'FristLoad',
+      data: {
+        WareHouse: that.data.nowWareName,
+        tel: app.globalData.user_phone
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({
+            shopList: rs
+          });
+        }
+      }
+    })
   },
   //第一次加载获取商品信息
   fristLoadList:function(){
@@ -327,16 +362,18 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        var rs = JSON.parse(res.data.d);
-      
+        
+        if (res.data.d!=']'){
+          var rs = JSON.parse(res.data.d);
+          that.setData({
+            shopList: rs
+          });
+        }
+        // console.log(rs);
         // var list = new Array;
         // for (var i = 0; i < rs.length; i++) {
         //   list.push(rs[i]['NAME']);
         // }
-        that.setData({
-          shopList:rs
-        });
-        
       }
     })
   },
@@ -367,9 +404,96 @@ Page({
   searchGo:function(e){
     var that = this;
     var search = e.detail.value;
-    console.log(e);
-  },
+    
+    wx.request({
+      url: app.globalData.host + 'ProductSearch',
+      data: {
+        WareHouse: that.data.nowWareName,
+        tel: app.globalData.user_phone,
+        product: search
+      },
+      method: 'POST',
+      success: function (res) {
+        var rs = JSON.parse(res.data.d);
+        // console.log(rs);
+        // var list = new Array;
+        // for (var i = 0; i < rs.length; i++) {
+        //   list.push(rs[i]['NAME']);
+        // }
+        that.setData({
+          shopList: rs
+        });
 
+      }
+    })
+    
+  },
+  //加号
+  insertOneShop:function(e){
+    var that = this;
+    var id = e.currentTarget.dataset.shopid;
+    that.insertShop(id,1);
+  },
+  //减号
+  delOneShop: function (e) {
+    var that = this;
+    var id = e.currentTarget.dataset.shopid;
+    that.delShop(id, 1);
+  },
+  //添加商品
+  insertShop:function(shopId,num){
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'insert',
+      data: {
+        cpid:shopId,
+        shuliang:num,
+        canku: that.data.nowWareName,
+        telephone: app.globalData.user_phone,
+        wxweiyiid: app.globalData.wx_code,
+      },
+      method: 'POST',
+      success: function (res) {
+        var rs = JSON.parse(res.data.d);
+        if(rs==1){
+          var new_row = that.data.shopNum;
+          new_row[shopId] = new_row[shopId] == undefined  ? num : new_row[shopId]+num;
+          that.setData({
+            shopNum: new_row
+          });
+        }
+        // that.setData({ topMenu: rs });
+      }
+    })
+    
+  },
+  //减去商品
+  delShop: function(shopId,num){
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'delete',
+      data: {
+        cpid: shopId,
+        wxweiyiid: app.globalData.wx_code,
+      },
+      method: 'POST',
+      success: function (res) {
+        var rs = JSON.parse(res.data.d);
+        if (rs == 1) {
+          var new_row = that.data.shopNum;
+          new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
+          that.setData({
+            shopNum: new_row
+          });
+        }
+        // that.setData({ topMenu: rs });
+      }
+    })
+  },
+  //更改商品数量input
+  numGo: function(e){
+    var num = e.currentTarget.dataset.shopId;
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -437,6 +561,9 @@ Page({
   //有图模式
   img_show: function (e) {
     this.setData({ img_show: true });
-  }
+  },
+  hideMask: function() {
+    this.setData({ masking: false });
+  },
   
 })
