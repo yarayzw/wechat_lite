@@ -33,12 +33,12 @@
     <picker mode="date" class='fr orange' value='{{ cart_date }}' bindchange="bindDateChange">{{ cart_date }}</picker>
   </view>
 </view>
-<view class='my-order cart-list'>
-  <view class='user-list'>
+<!-- <view class='my-order cart-list'>
+  <view class='user-list' catchtap='jumpCart'>
     <text class='order-list order-mar'>商品清单</text>
     <icon class='iconfont icon-liebiao_jiantou icon-mar fr order-icon'></icon>
   </view>
-</view>
+</view> -->
 
 <view class='delivery-list'>
   <view class='delivery-title'>

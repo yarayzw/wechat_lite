@@ -94,3 +94,24 @@ Page {
 .c-color {
    color: #ccc;
 }
+.update-btn {
+  position: absolute;
+  bottom: 0;
+  width: 750rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.del-address {
+  display: inline-block;
+  text-align: center;
+  width: 375rpx;
+  background: #ccc;
+  color: #FFF;
+}
+.save-address {
+  display: inline-block;
+  text-align: center;
+  width: 375rpx;
+  background: #F99001;
+  color: #FFF;
+}

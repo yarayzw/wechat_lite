@@ -32,3 +32,46 @@ Page {
   bottom: 0;
   width: 750rpx;
 }
+.receiver-content {
+  margin-top: 15rpx;
+  border-bottom: 1rpx #ccc solid;
+  font-size: 26rpx;
+  background: #FFF;
+  padding: 10rpx 0 10rpx 50rpx;
+}
+.receiver-person {
+  height: 40rpx;
+  line-height: 40rpx;
+}
+.get-person {
+  margin-left: 65rpx;
+}
+.phone-person {
+  margin-left: 115rpx;
+}
+.title-icon {
+  font-size: 40rpx;
+  color: #ccc;
+  position: relative;
+  top: -32rpx;
+}
+.address-person {
+  width: 555rpx;
+  display: inline-block;
+  line-height: 40rpx;
+  margin-left: 25rpx;
+}
+.next-page {
+  font-size: 36rpx;
+  color: #333;
+  position: relative;
+  top: -32rpx;
+  left: -5rpx;
+  display: inline-block;
+}
+.order-mar {
+  margin-left: 0;
+}
+.font-left {
+  margin-left: 20rpx;
+}
