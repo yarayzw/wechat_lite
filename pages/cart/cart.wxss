@@ -61,7 +61,7 @@
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: -90rpx;
+  left: -130rpx;
   top: 90rpx;
 }
 .shop_num{
@@ -69,10 +69,11 @@
   color: #333333;
    position: relative;
   top:90rpx;
-   left: -87rpx;  
+   left: -135rpx;  
   display: inline-block;
-  width: 30rpx;
+  width: 80rpx;
   float: right;
+  text-align: center;
   height: 50rpx;
 }
 .list_botton{
