@@ -148,24 +148,25 @@
   position: relative;
   font-size: 50rpx;
   left: 460rpx;
-  top: 100rpx;
+  top: 85rpx;
 }
 .delete_two{
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 335rpx;
-  top: 100rpx;
+  left: 285rpx;
+  top: 85rpx;
 }
 .shop_num{
   font-size: 28rpx;
   color: #333333;
    position: relative;
-  top:100rpx;
-   left: -67rpx;  
+  top:85rpx;
+   left: -70rpx;  
   display: inline-block;
-  width: 30rpx;
+  width: 80rpx;
   float: right;
+  text-align: center;
   height: 50rpx;
 }
 .list_botton{
@@ -223,10 +224,11 @@
   color: #333333;
    position: relative;
   top: -10rpx;
-   left: -67rpx;  
+   left: -72rpx;  
   display: inline-block;
-  width: 30rpx;
+  width: 80rpx;
   float: right;
+  text-align: center;
   height: 50rpx;
 }
 
@@ -234,7 +236,7 @@
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 76rpx;
+  left: 26rpx;
   top: -10rpx;
 }
 

@@ -3,7 +3,7 @@
   <icon class='icon-delete iconfont top_del' bindtap='delAll'  ></icon>
 </view>
 <view class='info_list'>
-  <view class='info_left fl'>
+  <!-- <view class='info_left fl'>
     <checkbox-group bindchange="checkboxChange">
       <view class='checkbox_div' wx:for="{{catList}}">
        <label class="checkbox"  >
@@ -14,15 +14,15 @@
       
     </checkbox-group>
 
-  </view>
-  <view class='info_right fl'>
-    <view class='info_div' wx:for="{{catList}}">
+  </view> -->
+  <view class='info_right fl' wx:if="{{isGo}}">
+    <view class='info_div' wx:for="{{catList}}" wx:if="{{shopNum[item['beforeid']]>0}}">
       <view class='list_botton'>
-        <icon class='icon-tianjia iconfont add_one' data-shopId="{{shopVal['id']}}" bindtap='insertOneShop'></icon> 
-         <input  class='shop_num' wx:if="{{!shopNum[shopVal['id']] > 0}}" value="{{shopNum[shopVal['id']]}}" />
+        <icon class='icon-tianjia iconfont add_one' data-shopId="{{item['beforeid']}}" bindtap='insertOneShop'></icon> 
+         <input  class='shop_num' wx:if="{{shopNum[item['beforeid']] > 0}}" value="{{shopNum[item['beforeid']]}}" maxlength="5" type="number"/>
          <!-- {{shopNum[shopVal['id']]}}</text>  -->
           <!-- <input class='shop_num' value="1" />   -->
-           <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{shopVal['id']}}" bindtap='delOneShop' wx:if="{{!shopNum[shopVal['id']]>0}}"></icon>  
+           <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{item['beforeid']}}" bindtap='delOneShop' wx:if="{{shopNum[item['beforeid']]>0}}"></icon>  
         </view>
       <view class='fl'>
       <image class='info_img' src="{{item.url}}"></image>
@@ -45,7 +45,7 @@
 </view>
 <view class='count-price clear' wx:if="{{isGo}}">
   <text class='number-delivery'>数量:{{ total_num }}件</text>
-  <text class='number-font'>实付款:</text>
+  <text class='number-font'>合计:</text>
   <text class='number-price'>￥{{ total_money }}</text>
   <text class='number-btn bg-orange fr' bindtap='confirmOrder'>去结算</text>
 </view>
