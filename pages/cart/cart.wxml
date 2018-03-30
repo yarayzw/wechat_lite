@@ -19,7 +19,7 @@
     <view class='info_div' wx:for="{{catList}}" wx:if="{{shopNum[item['beforeid']]>0}}">
       <view class='list_botton'>
         <icon class='icon-tianjia iconfont add_one' data-shopId="{{item['beforeid']}}" bindtap='insertOneShop'></icon> 
-         <input  class='shop_num' wx:if="{{shopNum[item['beforeid']] > 0}}" value="{{shopNum[item['beforeid']]}}" maxlength="5"/>
+         <input  class='shop_num' wx:if="{{shopNum[item['beforeid']] > 0}}" value="{{shopNum[item['beforeid']]}}" maxlength="5" type="number"/>
          <!-- {{shopNum[shopVal['id']]}}</text>  -->
           <!-- <input class='shop_num' value="1" />   -->
            <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{item['beforeid']}}" bindtap='delOneShop' wx:if="{{shopNum[item['beforeid']]>0}}"></icon>  

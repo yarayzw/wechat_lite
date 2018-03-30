@@ -29,7 +29,7 @@
       <view class='right_list ' wx:for="{{shopList}}" wx:for-index="{{shopId}}" wx:for-item="shopVal">
         <view class='list_botton'>
         <icon class='icon-tianjia iconfont add_one' data-shopId="{{shopVal['id']}}" bindtap='insertOneShop'></icon> 
-         <input confirm-type="done" data-shopId="{{shopVal['id']}}" bindconfirm="numGo" class='shop_num' wx:if="{{shopNum[shopVal['id']] > 0}}"  value="{{shopNum[shopVal['id']]}}" maxlength="5" />
+         <input confirm-type="done" data-shopId="{{shopVal['id']}}" bindconfirm="numGo" class='shop_num' wx:if="{{shopNum[shopVal['id']] > 0}}"  value="{{shopNum[shopVal['id']]}}" maxlength="5" type="number" />
          <!-- {{shopNum[shopVal['id']]}}</text>  -->
           <!-- <input class='shop_num' value="1" />   -->
            <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{shopVal['id']}}" bindtap='delOneShop' wx:if="{{shopNum[shopVal['id']]>0}}"></icon>  
@@ -79,7 +79,7 @@
           <text class='price red'>{{shopDetails['会员价']}}</text>
           <text class='price'>/份</text>
            <icon class='icon-tianjia iconfont mask_add' data-shopId="{{shopDetails['id']}}" bindtap='insertOneShop'></icon> 
-         <input  class='mask_num' wx:if="{{shopNum[shopDetails['id']] > 0}}" value="{{shopNum[shopDetails['id']]}}" maxlength="5"/>
+         <input type="number"  class='mask_num' wx:if="{{shopNum[shopDetails['id']] > 0}}" value="{{shopNum[shopDetails['id']]}}" maxlength="5"/>
            <icon class='icon-jianhao iconfont mask_del'  data-shopId="{{shopDetails['id']}}" bindtap='delOneShop' wx:if="{{shopNum[shopDetails['id']]>0}}"></icon>  
         </view>
       </view>
