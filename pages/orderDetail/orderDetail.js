@@ -112,7 +112,9 @@ Page({
           });
           setTimeout(function() {
             wx.hideToast();
-            wx.navigateBack({});
+            wx.redirectTo({
+              url: '/pages/myOrder/myOrder',
+            });
           }, 1500);
         } else {
           app.showEroor('取消失败');

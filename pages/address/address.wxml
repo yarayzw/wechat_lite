@@ -1,20 +1,35 @@
 <!--pages/address/address.wxml-->
 <view class='address-header'>
-  <icon class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <icon catchtap='jumpBack' class='iconfont icon-fanhui comeback-btn fl'></icon>
   <text class='address-title'>我的地址</text>
 </view>
-<block wx:for="{{ address_list }}">
-<view class='receiver-content user-list' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'>
-  <view class='receiver-person'>
-    <text class='get-person'>收货人：{{ item['shouhuoren'] }}</text>
-    <text class='phone-person'>{{ item['tel'] }}</text>
+<block wx:for="{{ address_list }}" wx:if="{{ form == '' }}">
+  <view class='receiver-content user-list'>
+    <view class='receiver-person' data-address="{{ item['diqu'] }}{{ item['address'] }}" catchtap='selectAddress'>
+      <text class='get-person'>收货人：{{ item['shouhuoren'] }}</text>
+      <text class='phone-person'>{{ item['tel'] }}</text>
+    </view>
+    <view>
+      <icon class='iconfont icon-dizhi title-icon'></icon>
+      <view catchtap='selectAddress' data-address="{{ item['diqu'] }}{{ item['address'] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
+      <icon class='iconfont icon-liebiao_jiantou next-page' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'></icon>
+    </view>
   </view>
-  <view>
-    <icon class='iconfont icon-dizhi title-icon'></icon>
-    <view class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
-    <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
+</block>
+
+
+<block wx:for="{{ address_list }}" wx:if="{{ form == 'userInfo' }}">
+  <view class='receiver-content user-list'>
+    <view class='receiver-person' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'>
+      <text class='get-person'>收货人：{{ item['shouhuoren'] }}</text>
+      <text class='phone-person'>{{ item['tel'] }}</text>
+    </view>
+    <view>
+      <icon class='iconfont icon-dizhi title-icon'></icon>
+      <view catchtap='jumpTpEdit' data-code="{{ item['id'] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
+      <icon class='iconfont icon-liebiao_jiantou next-page' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'></icon>
+    </view>
   </view>
-</view>
 </block>
 
 <view catchtap='jumpAddAddress' class='add-address bg-orange'>新增收货地址</view>

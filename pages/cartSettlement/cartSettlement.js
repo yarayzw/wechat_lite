@@ -31,16 +31,20 @@ Page({
     var hourStr = [hour, minute].join(':');
     that.setData({cart_time: hourStr, cart_date: dateStr});
     // 获取收货人默认地址
-    wx.request({
-      url: app.globalData.host + 'songdadizhi',
-      method: 'POST',
-      data: {telephone: app.globalData.user_phone},
-      success: function(res) {
-        if (res.data.d != 0) {
-          that.setData({ address: res.data.d });
+    if(options.address != undefined) {
+      that.setData({ address: options.address });
+    } else {
+      wx.request({
+        url: app.globalData.host + 'songdadizhi',
+        method: 'POST',
+        data: { telephone: app.globalData.user_phone },
+        success: function (res) {
+          if (res.data.d != 0) {
+            that.setData({ address: res.data.d });
+          }
         }
-      }
-    }),
+      })
+    }
     // 获取数量和总金额
     wx.request({
       url: app.globalData.host + 'total',
@@ -198,6 +202,11 @@ Page({
   // 修改备注内容
   changeRemarks: function(e) {
     this.setData({ remarks: e.detail.value });
+  },
+  jumpBack:function() {
+    wx.navigateBack({
+      
+    });
   }
   
 })
