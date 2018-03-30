@@ -14,6 +14,7 @@ Page({
     total_money:0,//总价
     total_num:0,//总数量
     isGo:false,//是否显示结算
+    shopNum: {},//商品显示数量
   },
 
   /**
@@ -39,7 +40,19 @@ Page({
       success: function (res) {
         if (res.data.d != ']') {
           var rs = JSON.parse(res.data.d);
-          that.setData({ catList: rs ,isGo:true});
+          console.log(rs);
+          
+          var shopNum = that.data.shopNum;
+          for (var j = 0; j < rs.length; j++) {
+            shopNum[rs[j]['beforeid']] = parseInt(rs[j]['fuzhushuliang']);
+          }
+          that.setData({
+            shopNum: shopNum,
+            catList: rs, 
+            isGo: true
+          });
+        
+          // console.log(that.data.shopNum);
         }else{
           that.setData({ isGo: false });
         }
@@ -166,6 +179,118 @@ Page({
       url: '/pages/cartSettlement/cartSettlement',
     })
   },
+  //加号
+  insertOneShop: function (e) {
+    var that = this;
+    var id = e.currentTarget.dataset.shopid;
+    var shopNum = that.data.shopNum;
+    // console.log(e);
+    // console.log(shopNum[id]);
+    if (shopNum[id] > 0) {
+      var add = parseInt(shopNum[id]) + 1;
+      that.updateShop(id, add);
+    } else {
+      var add = 1;
+      that.insertShop(id, 1);
+    }
+  },
+  //减号
+  delOneShop: function (e) {
+    var that = this;
+    var id = e.currentTarget.dataset.shopid;
+    var shopNum = that.data.shopNum;
+    if ((shopNum[id] - 1) == 0) {
+      that.delShop(id, 1);
+      that.firstLoadShoppingCart();
+      that.priceAll();
+    } else {
+      var del = shopNum[id] - 1;
+      that.updateShop(id, del);
+    }
+
+  },
+  //修改商品数量
+  updateShop: function (id, num) {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'update',
+      data: {
+        cpid: id,
+        shuliang: num,
+        wxweiyiid: app.globalData.wx_code,
+      },
+      method: 'POST',
+      success: function (res) {
+        console.log(res);
+        var rs = JSON.parse(res.data.d);
+        if (rs == 1) {
+          var new_row = that.data.shopNum;
+          new_row[id] = num;
+          that.setData({
+            shopNum: new_row
+          });
+        }
+        // that.setData({ topMenu: rs });
+      }
+    })
+  },
+  //添加商品
+  insertShop: function (shopId, num) {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'insert',
+      data: {
+        cpid: shopId,
+        shuliang: num,
+        canku: that.data.nowWareName,
+        telephone: app.globalData.user_phone,
+        wxweiyiid: app.globalData.wx_code,
+      },
+      method: 'POST',
+      success: function (res) {
+        var rs = JSON.parse(res.data.d);
+        if (rs == 1) {
+          var new_row = that.data.shopNum;
+          new_row[shopId] = new_row[shopId] == undefined ? num : new_row[shopId] + num;
+          that.setData({
+            shopNum: new_row
+          });
+        }
+        // that.setData({ topMenu: rs });
+      }
+    })
+
+  },
+  //删除商品
+  delShop: function (shopId, num) {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'delete',
+      data: {
+        cpid: shopId,
+        wxweiyiid: app.globalData.wx_code,
+      },
+      method: 'POST',
+      success: function (res) {
+        var rs = JSON.parse(res.data.d);
+        if (rs == 1) {
+          var new_row = that.data.shopNum;
+          new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
+          that.setData({
+            shopNum: new_row
+          });
+        }
+        // that.setData({ topMenu: rs });
+      }
+    })
+  },
+  //更改商品数量input
+  numGo: function (e) {
+    var id = e.currentTarget.dataset.shopid;
+    var num = parseInt(e.detail.value);
+    // console.log(e);
+    this.updateShop(id, num);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -177,7 +302,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    // this.isImg();
+    // this.isBook();
+    // this.isActual();
+    // this.isMember();
+    this.firstLoadShoppingCart();
+    this.priceAll();
   },
 
   /**

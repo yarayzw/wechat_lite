@@ -19,8 +19,9 @@
   padding-top: 30rpx;
 }
 .info_right{
-  width: 78%;
-
+  width: 100%;
+  border-bottom: 1rpx solid #cccccc;
+  margin-bottom: 20rpx;
 }
 .info_div{
   height: 160rpx;
@@ -32,7 +33,7 @@
   height: 160rpx;
 }
 .info_left{
-  
+  border-bottom: 1rpx solid #cccccc;
   width: 20%;
 }
 .checkbox_div{
@@ -53,14 +54,14 @@
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 60rpx;
+  left: 40rpx;
   top: 90rpx;
 }
 .delete_two{
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: -70rpx;
+  left: -90rpx;
   top: 90rpx;
 }
 .shop_num{
@@ -68,7 +69,7 @@
   color: #333333;
    position: relative;
   top:90rpx;
-   left: -67rpx;  
+   left: -87rpx;  
   display: inline-block;
   width: 30rpx;
   float: right;
