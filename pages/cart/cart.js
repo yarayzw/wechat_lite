@@ -15,6 +15,7 @@ Page({
     total_num:0,//总数量
     isGo:false,//是否显示结算
     shopNum: {},//商品显示数量
+    isNumGo: true,//是否能改数量
   },
 
   /**
@@ -49,7 +50,6 @@ Page({
             catList: rs, 
             isGo: true
           });
-        
           // console.log(that.data.shopNum);
         }else{
           that.setData({ isGo: false });
@@ -182,28 +182,35 @@ Page({
     var that = this;
     var id = e.currentTarget.dataset.shopid;
     var shopNum = that.data.shopNum;
+    if(that.data.isNumGo){
+      that.setData({ isNumGo: false });
+      if (shopNum[id] > 0) {
+        var add = parseInt(shopNum[id]) + 1;
+        that.updateShop(id, add);
+      } else {
+        var add = 1;
+        that.insertShop(id, 1);
+      }
+    }
     // console.log(e);
     // console.log(shopNum[id]);
-    if (shopNum[id] > 0) {
-      var add = parseInt(shopNum[id]) + 1;
-      that.updateShop(id, add);
-    } else {
-      var add = 1;
-      that.insertShop(id, 1);
-    }
+    
   },
   //减号
   delOneShop: function (e) {
     var that = this;
-    var id = e.currentTarget.dataset.shopid;
-    var shopNum = that.data.shopNum;
-    if ((shopNum[id] - 1) == 0) {
-      that.delShop(id, 1);
-      that.firstLoadShoppingCart();
-      that.priceAll();
-    } else {
-      var del = shopNum[id] - 1;
-      that.updateShop(id, del);
+    if (that.data.isNumGo) {
+      that.setData({ isNumGo: false });
+      var id = e.currentTarget.dataset.shopid;
+      var shopNum = that.data.shopNum;
+      if ((shopNum[id] - 1) == 0) {
+        that.delShop(id, 1);
+        that.firstLoadShoppingCart();
+        that.priceAll();
+      } else {
+        var del = shopNum[id] - 1;
+        that.updateShop(id, del);
+      }
     }
 
   },
@@ -225,7 +232,8 @@ Page({
           var new_row = that.data.shopNum;
           new_row[id] = num;
           that.setData({
-            shopNum: new_row
+            shopNum: new_row,
+            isNumGo:true,
           });
         }
         // that.setData({ topMenu: rs });
@@ -251,7 +259,8 @@ Page({
           var new_row = that.data.shopNum;
           new_row[shopId] = new_row[shopId] == undefined ? num : new_row[shopId] + num;
           that.setData({
-            shopNum: new_row
+            shopNum: new_row,
+            isNumGo: true,
           });
         }
         // that.setData({ topMenu: rs });
@@ -275,6 +284,7 @@ Page({
           var new_row = that.data.shopNum;
           new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
           that.setData({
+            isNumGo: true,
             shopNum: new_row
           });
         }
@@ -284,10 +294,30 @@ Page({
   },
   //更改商品数量input
   numGo: function (e) {
-    var id = e.currentTarget.dataset.shopid;
-    var num = parseInt(e.detail.value);
-    // console.log(e);
-    this.updateShop(id, num);
+    var that = this;
+    if (this.data.isNumGo) {
+      that.setData({ isNumGo: false });
+      var id = e.currentTarget.dataset.shopid;
+      var num = parseInt(e.detail.value);
+      if (num > 0) {
+        this.updateShop(id, num);
+      } else {
+        this.delShop(id, num);
+      }
+      // console.log(e);
+    }
+  
+  },
+  //修改数量
+  inputIn: function (e) {
+
+    if (this.data.numStatus) {
+      this.setData({
+        numStatus: false
+      });
+      return '';
+    }
+    return e.detail.value;
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

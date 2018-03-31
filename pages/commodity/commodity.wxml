@@ -29,16 +29,16 @@
       <view class='right_list ' wx:for="{{shopList}}" wx:for-index="{{shopId}}" wx:for-item="shopVal">
         <view class='list_botton'>
         <icon class='icon-tianjia iconfont add_one' data-shopId="{{shopVal['id']}}" bindtap='insertOneShop'></icon> 
-         <input confirm-type="done" data-shopId="{{shopVal['id']}}"  class='shop_num' wx:if="{{shopNum[shopVal['id']] > 0}}"  value="{{shopNum[shopVal['id']]}}" maxlength="5" type="number" bindblur="numGo"/>
+         <input confirm-type="done" data-num="{{shopNum[shopVal['id']]}}" data-shopId="{{shopVal['id']}}"  class='shop_num' wx:if="{{shopNum[shopVal['id']] > 0}}"  value="{{shopNum[shopVal['id']]}}" maxlength="5"  type="number" bindblur="numGo" bindinput="inputIn" />
          <!-- {{shopNum[shopVal['id']]}}</text>  -->
           <!-- <input class='shop_num' value="1" />   -->
            <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{shopVal['id']}}" bindtap='delOneShop' wx:if="{{shopNum[shopVal['id']]>0}}"></icon>  
         </view>
         <view class='right_img fl' wx:if="{{img_show}}">
-        <image bindtap="doubleTap" bindtouchstart="touchStart" bindtouchend="touchEnd" data-info="{{shopVal}}" class='right_image' src="{{shopVal['address']}}" ></image>
+        <image bindtap="infoTap"  data-info="{{shopVal['id']}}" class='right_image' src="{{shopVal['address']}}" ></image>
         </view>
         <view class='right_info fl'>
-          <text class='info_title' bindtap="doubleTap" bindtouchstart="touchStart" data-info="{{shopVal}}" bindtouchend="touchEnd">{{shopVal['名称']}}</text>
+          <text class='info_title' bindtap="infoTap"  data-info="{{shopVal['id']}}" >{{shopVal['名称']}}</text>
           <view class='num_div'>
            <text class='info_num' wx:if="{{bookStock}}">账面库存: {{shopVal['账面库存']}} </text>
           <text class='info_num' wx:if="{{actualInventory}}">实际库存: {{shopVal['实际库存']}}</text>
@@ -46,14 +46,14 @@
           <view class='cost_div'>
           <text class='info_cost'>原价:</text>
           <text class='price'>￥{{shopVal['原价']}}</text>
-          <text class='info_cost'>/份</text>
+          <text class='info_cost'>/{{shopVal['计量单位']}}</text>
           
           </view>
           <view wx:if="{{memberShip}}">
           <text class='info_cost'>会员价:</text>
           <text class='price'>￥</text>
           <text class='price red'>{{shopVal['会员价']}}</text>
-          <text class='price'>/份</text>
+          <text class='price'>/{{shopVal['计量单位']}}</text>
           </view>
         </view>
       </view>
@@ -77,9 +77,9 @@
           <text class='info_cost'>会员价:</text>
           <text class='price'>￥</text>
           <text class='price red'>{{shopDetails['会员价']}}</text>
-          <text class='price'>/份</text>
+          <text class='price'>/{{shopDetails['计量单位']}}</text>
            <icon class='icon-tianjia iconfont mask_add' data-shopId="{{shopDetails['id']}}" bindtap='insertOneShop'></icon> 
-         <input type="number"  class='mask_num' wx:if="{{shopNum[shopDetails['id']] > 0}}" value="{{shopNum[shopDetails['id']]}}" maxlength="5" bindblur="numGo" data-shopId="{{shopDetails['id']}}"/>
+         <input type="number" bindinput="inputIn" data-num="{{shopNum[shopDetails['id']]}}"  class='mask_num' wx:if="{{shopNum[shopDetails['id']] > 0}}" value="{{shopNum[shopDetails['id']]}}" maxlength="5" bindblur="numGo" data-shopId="{{shopDetails['id']}}"/>
            <icon class='icon-jianhao iconfont mask_del'  data-shopId="{{shopDetails['id']}}" bindtap='delOneShop' wx:if="{{shopNum[shopDetails['id']]>0}}"></icon>  
         </view>
       </view>
