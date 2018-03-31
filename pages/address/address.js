@@ -97,8 +97,9 @@ Page({
     });
   },
   selectAddress: function(e){ 
+    var now_address = JSON.stringify([e.currentTarget.dataset.address]);
     wx.redirectTo({
-      url: '/pages/cartSettlement/cartSettlement?address=' + e.currentTarget.dataset.address ,
+      url: '/pages/cartSettlement/cartSettlement?address=' + now_address,
     })
   }
 })
