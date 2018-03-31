@@ -71,7 +71,7 @@
           <view class='masking_div'>
           <text class='info_cost'>原价:</text>
           <text class='price'>￥{{shopDetails['原价']}}</text>
-          <text class='info_cost'>/份</text>   
+          <text class='info_cost'>/{{shopDetails['计量单位']}}</text>   
         </view>
         <view wx:if="{{memberShip}}">
           <text class='info_cost'>会员价:</text>
