@@ -6,14 +6,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    address_list: null
+    address_list: null,
+    form: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   console.log(options);
+   this.setData({ form: options.form })
   },
 
   /**
@@ -89,5 +90,15 @@ Page({
     wx.navigateTo({
       url: '/pages/editAddress/editAddress?code=' + e.currentTarget.dataset.code + '&do_type=update',
     });
+  },
+  jumpBack: function () {
+    wx.navigateBack({
+
+    });
+  },
+  selectAddress: function(e){ 
+    wx.redirectTo({
+      url: '/pages/cartSettlement/cartSettlement?address=' + e.currentTarget.dataset.address ,
+    })
   }
 })

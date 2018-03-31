@@ -73,7 +73,7 @@ Page({
   // 跳转到订单页面
   jumpAddress: function() {
     wx.navigateTo({
-      url: '/pages/address/address',
+      url: '/pages/address/address?form=userInfo',
     })
   },
   // 退出

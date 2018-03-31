@@ -22,7 +22,7 @@
       <view class='order-font'>
         <text class='order-time'>下单时间</text>
         <text class='order-year'> {{ item['下单时间'] }} </text>
-         <text class="{{ item['B'] == '已作废' ? 'red fr' : 'green fr' }}">{{ item['A'] == 2 ? '未审核' : '已审核' }} {{ item['B'] }} {{ item['C'] > 0 ? '已付款' : '未付款' }}</text> 
+         <text class="{{ item['B'] == '已作废' ? 'red fr' : 'green fr' }}">{{ item['A'] == 2 ? '未审核' : '已审核' }} {{ item['B'] }} {{ item['C'] > 0 ? '已付款' : '未付款' }}{{ item['C'] > 0 ? item['C'] : '' }}</text> 
       </view>
       <view class='order-font'>
         <text class='order-time'>订单编号</text>

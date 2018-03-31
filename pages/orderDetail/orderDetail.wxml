@@ -6,7 +6,7 @@
 <view class='product-info'>
   <view class='product-title clear'>
     <text class='fl product-font'>商品信息</text>
-    <text class='fr product-status'>{{ order_detail[0]['A'] == 2 ? '未审核' : '已审核' }} {{ order_detail[0]['B'] }} {{ order_detail[0]['C'] > 0 ? '已付款' : '未付款' }}</text>
+    <text class='fr product-status'>{{ order_detail[0]['A'] == 2 ? '未审核' : '已审核' }} {{ order_detail[0]['B'] }} {{ order_detail[0]['C'] > 0 ? "已付款" : '未付款' }} {{ order_detail[0]['C'] > 0 ? order_detail[0]['C'] : '' }}</text>
   </view>
   <view class='product-detail'>
     <view class='order-info clear' wx:for="{{ order_detail }}">
