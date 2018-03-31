@@ -27,6 +27,8 @@ Page({
     shopList:{},//商品列表
     shopNum:{},//商品显示数量
     shopDetails:{},//商品详情信息
+    isNumGo:true,//是否能操作数量
+    numStatus:true,//数量改变是否覆盖
   },
   touchStartTime: 0,
   touchEndTime: 0,
@@ -127,6 +129,28 @@ Page({
       }
     }
   },
+  //商品详情
+  infoTap: function(e){
+    var that = this;
+    var id = e.currentTarget.dataset.info;
+    wx.request({
+      url: app.globalData.host + 'ProductDescribe',
+      data: {
+        id: id
+      },
+      method: 'POST',
+      success: function (res) {
+        var rs = JSON.parse(res.data.d);
+        that.setData({
+          masking: true,
+          shopDetails: rs
+        });
+      }
+    })
+    
+    
+  },
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -496,12 +520,15 @@ Page({
     var id = e.currentTarget.dataset.shopid;
     var shopNum = that.data.shopNum;
     // console.log(shopNum[id]);
-    if(shopNum[id]>0){
-      var add = parseInt(shopNum[id])+1;
-      that.updateShop(id, add);
-    }else{
-      var add =  1;
-      that.insertShop(id, 1);
+    if(that.data.isNumGo){
+      that.setData({isNumGo:false});
+      if (shopNum[id] > 0) {
+        var add = parseInt(shopNum[id]) + 1;
+        that.updateShop(id, add);
+      } else {
+        var add = 1;
+        that.insertShop(id, 1);
+      }
     }
   },
   //减号
@@ -509,11 +536,14 @@ Page({
     var that = this;
     var id = e.currentTarget.dataset.shopid;
     var shopNum = that.data.shopNum;
-    if((shopNum[id]-1)==0){
-      that.delShop(id, 1);
-    }else{
-      var del = shopNum[id] - 1;
-      that.updateShop(id, del);
+    if (that.data.isNumGo) {
+      that.setData({ isNumGo: false });
+      if ((shopNum[id] - 1) == 0) {
+        that.delShop(id, 1);
+      } else {
+        var del = shopNum[id] - 1;
+        that.updateShop(id, del);
+      }
     }
     
   },
@@ -535,7 +565,8 @@ Page({
           var new_row = that.data.shopNum;
           new_row[id] = num;
           that.setData({
-            shopNum: new_row
+            shopNum: new_row,
+            isNumGo:true
           });
         }
         // that.setData({ topMenu: rs });
@@ -561,7 +592,8 @@ Page({
           var new_row = that.data.shopNum;
           new_row[shopId] = new_row[shopId] == undefined  ? num : new_row[shopId]+num;
           that.setData({
-            shopNum: new_row
+            shopNum: new_row,
+            isNumGo: true
           });
         }
         // that.setData({ topMenu: rs });
@@ -585,7 +617,8 @@ Page({
           var new_row = that.data.shopNum;
           new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
           that.setData({
-            shopNum: new_row
+            shopNum: new_row,
+            isNumGo: true
           });
         }
         // that.setData({ topMenu: rs });
@@ -594,10 +627,32 @@ Page({
   },
   //更改商品数量input
   numGo: function(e){
+    var that = this;
     var id = e.currentTarget.dataset.shopid;
     var num = parseInt(e.detail.value);
+    if(num==''){
+      num = e.currentTarget.dataset.num;
+    }
 // console.log(e);
-    this.updateShop(id,num);
+    if (that.data.isNumGo) {
+      that.setData({ isNumGo: false, numStatus: true });
+      if(num>0){
+        this.updateShop(id, num);
+      }else{
+        this.delShop(id, num);
+      }
+    }
+  },
+  //修改数量
+  inputIn: function (e) {
+    
+    if(this.data.numStatus){
+      this.setData({
+        numStatus: false
+      });
+      return '';
+    }
+    return e.detail.value;
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
