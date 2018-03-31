@@ -40,8 +40,6 @@ Page({
       success: function (res) {
         if (res.data.d != ']') {
           var rs = JSON.parse(res.data.d);
-          console.log(rs);
-          
           var shopNum = that.data.shopNum;
           for (var j = 0; j < rs.length; j++) {
             shopNum[rs[j]['beforeid']] = parseInt(rs[j]['fuzhushuliang']);
@@ -221,7 +219,7 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        console.log(res);
+        
         var rs = JSON.parse(res.data.d);
         if (rs == 1) {
           var new_row = that.data.shopNum;
