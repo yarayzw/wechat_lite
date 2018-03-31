@@ -35,11 +35,11 @@ Page({
       that.setData({ address: options.address });
     } else {
       wx.request({
-        url: app.globalData.host + 'songdadizhi',
+        url: app.globalData.host + 'addressown',
         method: 'POST',
-        data: { telephone: app.globalData.user_phone },
+        data: { wxid: app.globalData.wx_code },
         success: function (res) {
-          if (res.data.d != 0) {
+          if (res.data.d != 0 && res.data.d != ']') {
             that.setData({ address: res.data.d });
           }
         }
