@@ -32,7 +32,7 @@ Page({
     that.setData({cart_time: hourStr, cart_date: dateStr});
     // 获取收货人默认地址
     if(options.address != undefined) {
-      that.setData({ address: options.address });
+      that.setData({ address: JSON.parse(options.address) });
     } else {
       wx.request({
         url: app.globalData.host + 'addressown',
@@ -40,7 +40,8 @@ Page({
         data: { wxid: app.globalData.wx_code },
         success: function (res) {
           if (res.data.d != 0 && res.data.d != ']') {
-            that.setData({ address: res.data.d });
+            console.log(JSON.parse(res.data.d));
+            that.setData({ address: JSON.parse(res.data.d) });
           }
         }
       })
@@ -150,7 +151,7 @@ Page({
               wxweiyiid: app.globalData.wx_code,
               telephone: app.globalData.user_phone,
               songdashijian: that.data.cart_date + ' ' + that.data.cart_time,
-              dizhi: that.data.address, 
+              dizhi: that.data.address[0]['diqu'] + that.data.address[0]['address'], 
               beizhu: that.data.remarks,
               fangshi: that.data.dispatching_type,
               nicheng: app.globalData.userInfo.nickName
