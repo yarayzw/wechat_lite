@@ -216,28 +216,32 @@
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 200rpx;
+  left: 0rpx;
   top: -10rpx;
+  float: right;
+  margin-right: 10rpx;
 }
 .mask_num{
   font-size: 28rpx;
   color: #333333;
    position: relative;
   top: -10rpx;
-   left: -72rpx;  
+   left: 0rpx;  
   display: inline-block;
   width: 80rpx;
   float: right;
   text-align: center;
   height: 50rpx;
+  float: right;
 }
 
 .mask_del{
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 26rpx;
+  left: 10rpx;
   top: -10rpx;
+  float: right;
 }
 
 

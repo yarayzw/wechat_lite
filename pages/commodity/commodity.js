@@ -136,14 +136,16 @@ Page({
     wx.request({
       url: app.globalData.host + 'ProductDescribe',
       data: {
-        id: id
+        id: id,
+        tel: app.globalData.user_phone
       },
       method: 'POST',
       success: function (res) {
         var rs = JSON.parse(res.data.d);
+        console.log(rs);
         that.setData({
           masking: true,
-          shopDetails: rs
+          shopDetails: rs[0]
         });
       }
     })
