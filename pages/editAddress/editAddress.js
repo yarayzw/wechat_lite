@@ -7,8 +7,7 @@ Page({
    */
   data: {
     default_address: false,
-    area_city: '选择所在地区',
-    select_address: '选择所在地区',
+    area_city: '',
     username: '',
     telphone: '',
     detail_address: '',
@@ -47,12 +46,10 @@ Page({
           return false;
         }
         var address_info = JSON.parse(res.data.d);
-        var selectAdd = address_info[0]['diqu'];
         that.setData({
           username: address_info[0]['shouhuoren'],
           telphone: address_info[0]['tel'],
-          area_city: selectAdd.length > 18 ? selectAdd.slice(0, 18) + '...' : selectAdd,
-          select_address: selectAdd,
+          area_city: address_info[0]['diqu'],
           detail_address: address_info[0]['address']
         });
       }
@@ -121,27 +118,37 @@ Page({
   onShareAppMessage: function () {
   
   },
+
+  // 更改是否是默认地址
   changeDefaultAddress: function() {
     this.setData({
       default_address: !this.data.default_address
     });
   },
-  selectAreaCity: function() {
-    var that = this;
-    wx.chooseLocation({
-      success: function(res) {
-        var selectAddress = res.address;
-        that.setData({ 
-          area_city: selectAddress.length > 18 ? selectAddress.slice(0, 18) + '...' : selectAddress,
-          select_address: selectAddress
-          });
-      },
-      fail: function(res) {
-        // app.showError('获取地区失败');
-      }
-    })
-  },
 
+  // 选择地区
+  // selectAreaCity: function() {
+  //   var that = this;
+  //   wx.chooseLocation({
+  //     success: function(res) {
+  //       var selectAddress = res.address;
+  //       that.setData({ 
+  //         area_city: res.address,
+  //         });
+  //     },
+  //     fail: function(res) {
+  //       // app.showError('获取地区失败');
+  //     }
+  //   })
+  // },
+
+  // 更改地区
+  changeAreaCity: function (e) {
+    this.setData({
+      default_address: e.detail.value
+    });
+  },
+  
   // 更改用户名
   changeUsername: function(e) {
     this.setData({ username: e.detail.value });
@@ -160,7 +167,7 @@ Page({
   // 保存信息
   saveAddress: function() {
     var that = this;
-    if (that.data.username == '' || that.data.telphone == '' || that.data.select_address == '选择所在地区' || that.data.detail_address == '') {
+    if (that.data.username == '' || that.data.telphone == '' || that.data.area_city == '选择所在地区' || that.data.detail_address == '') {
       app.showError('请填写完整信息');
       return false;
     }
@@ -177,7 +184,7 @@ Page({
     var info = {
       shouhuoren: that.data.username,
       tel: that.data.telphone,
-      diqu: that.data.select_address,
+      diqu: that.data.area_city,
       address: that.data.detail_address,
     };
     // 判断新增和更新

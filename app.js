@@ -58,6 +58,13 @@ App({
           success: function (r) {
             if (r.data.status == 10000) {
               that.globalData.wx_code = r.data.openid;
+              wx.setStorage({
+                key: 'wx_code',
+                data: that.globalData.wx_code,
+                success: function(res) {
+                  console.log(res);
+                },
+              });
             } else {
               that.showError('系统错误');
             }
