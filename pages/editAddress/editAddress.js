@@ -47,10 +47,12 @@ Page({
           return false;
         }
         var address_info = JSON.parse(res.data.d);
+        var selectAdd = address_info[0]['diqu'];
         that.setData({
           username: address_info[0]['shouhuoren'],
           telphone: address_info[0]['tel'],
-          area_city: address_info[0]['diqu'],
+          area_city: selectAdd.length > 18 ? selectAdd.slice(0, 18) + '...' : selectAdd,
+          select_address: selectAdd,
           detail_address: address_info[0]['address']
         });
       }
@@ -135,7 +137,7 @@ Page({
           });
       },
       fail: function(res) {
-        app.shoError('获取地区失败');
+        // app.showError('获取地区失败');
       }
     })
   },
