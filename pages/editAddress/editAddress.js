@@ -8,6 +8,7 @@ Page({
   data: {
     default_address: false,
     area_city: '选择所在地区',
+    select_address: '选择所在地区',
     username: '',
     telphone: '',
     detail_address: '',
@@ -67,7 +68,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success(res) {
+              console.log(res);
+            },
+            fail: function(res) {
+              app.showError('获取地理位置失败');
+            }
+          })
+        }
+      }
+    });
   },
 
   /**
@@ -113,9 +128,13 @@ Page({
     var that = this;
     wx.chooseLocation({
       success: function(res) {
-        that.setData({ area_city: res.address });
+        var selectAddress = res.address;
+        that.setData({ 
+          area_city: selectAddress.length > 18 ? selectAddress.slice(0, 18) + '...' : selectAddress,
+          select_address: selectAddress
+          });
       },
-      error: function(res) {
+      fail: function(res) {
         app.shoError('获取地区失败');
       }
     })
@@ -139,7 +158,7 @@ Page({
   // 保存信息
   saveAddress: function() {
     var that = this;
-    if (that.data.username == '' || that.data.telphone == '' || that.data.area_city == '选择所在地区' || that.data.detail_address == '') {
+    if (that.data.username == '' || that.data.telphone == '' || that.data.select_address == '选择所在地区' || that.data.detail_address == '') {
       app.showError('请填写完整信息');
       return false;
     }
@@ -156,7 +175,7 @@ Page({
     var info = {
       shouhuoren: that.data.username,
       tel: that.data.telphone,
-      diqu: that.data.area_city,
+      diqu: that.data.select_address,
       address: that.data.detail_address,
     };
     // 判断新增和更新
