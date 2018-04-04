@@ -15,7 +15,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     app.getUserOpenId();
+    // 获取缓存 若缓存存在则直接跳过登录
+    wx.getStorage({
+      key: 'wx_code',
+      success: function (res) {
+        app.globalData.wx_code = res.data;
+        wx.getStorage({
+          key: 'user_phone',
+          success: function (res) {
+            app.globalData.user_phone = res.data;
+            wx.switchTab({
+              url: '/pages/commodity/commodity'
+            })
+          },
+        })
+      },
+    })
+    
   },
 
   /**
@@ -29,7 +47,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+   
   },
 
   /**
@@ -100,6 +118,13 @@ Page({
         var status = JSON.parse(res.data.d)[0].flag;
         if (status == 1) {
           app.globalData.user_phone = that.data.username_data;
+          wx.setStorage({
+            key: 'user_phone',
+            data: app.globalData.user_phone,
+            success: function(res) {
+              console.log(res);
+            }
+          },)
           wx.switchTab({
             url: '/pages/commodity/commodity'
           })

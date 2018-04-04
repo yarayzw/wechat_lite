@@ -7,7 +7,7 @@ Page({
    */
   data: {
     default_address: false,
-    area_city: '选择所在地区',
+    area_city: '',
     username: '',
     telphone: '',
     detail_address: '',
@@ -67,7 +67,21 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    wx.getSetting({
+      success: function (res) {
+        if (res.authSetting['scope.userLocation']) {
+          wx.authorize({
+            scope: 'scope.userLocation',
+            success(res) {
+              console.log(res);
+            },
+            fail: function(res) {
+              app.showError('获取地理位置失败');
+            }
+          })
+        }
+      }
+    });
   },
 
   /**
@@ -104,23 +118,37 @@ Page({
   onShareAppMessage: function () {
   
   },
+
+  // 更改是否是默认地址
   changeDefaultAddress: function() {
     this.setData({
       default_address: !this.data.default_address
     });
   },
-  selectAreaCity: function() {
-    var that = this;
-    wx.chooseLocation({
-      success: function(res) {
-        that.setData({ area_city: res.address });
-      },
-      error: function(res) {
-        app.shoError('获取地区失败');
-      }
-    })
-  },
 
+  // 选择地区
+  // selectAreaCity: function() {
+  //   var that = this;
+  //   wx.chooseLocation({
+  //     success: function(res) {
+  //       var selectAddress = res.address;
+  //       that.setData({ 
+  //         area_city: res.address,
+  //         });
+  //     },
+  //     fail: function(res) {
+  //       // app.showError('获取地区失败');
+  //     }
+  //   })
+  // },
+
+  // 更改地区
+  changeAreaCity: function (e) {
+    this.setData({
+      default_address: e.detail.value
+    });
+  },
+  
   // 更改用户名
   changeUsername: function(e) {
     this.setData({ username: e.detail.value });

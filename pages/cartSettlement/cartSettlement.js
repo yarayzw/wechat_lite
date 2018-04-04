@@ -23,10 +23,10 @@ Page({
     var that = this;
     var now = new Date()
     var year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate(), hour = now.getHours(), minute = now.getMinutes();
-    month = month > 10 ? month : '0' + month; 
-    day = day > 10 ? day : '0' + day; 
-    hour = hour > 10 ? hour : '0' + hour; 
-    minute = minute > 10 ? minute : '0' + minute; 
+    month = month >= 10 ? month : '0' + month; 
+    day = day >= 10 ? day : '0' + day; 
+    hour = hour >= 10 ? hour : '0' + hour; 
+    minute = minute >= 10 ? minute : '0' + minute; 
     var dateStr = [year, month, day].join('-');
     var hourStr = [hour, minute].join(':');
     that.setData({cart_time: hourStr, cart_date: dateStr});
