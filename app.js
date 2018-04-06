@@ -89,7 +89,8 @@ App({
     userInfo: null,
     host: 'http://211.149.177.232/DataCenterService.asmx/',
     php_host: 'http://211.149.177.232:8008/wechat.php/',
-    user_phone: '',
-    wx_code: ''
+    user_phone: '13755002487',
+    wx_code: 'admin',
+    add_phone: '13755002487'
   }
 })
