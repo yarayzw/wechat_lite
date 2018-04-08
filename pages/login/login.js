@@ -16,7 +16,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    app.getUserOpenId();
     // 获取缓存 若缓存存在则直接跳过登录
     wx.getStorage({
       key: 'wx_code',
@@ -26,12 +25,28 @@ Page({
           key: 'user_phone',
           success: function (res) {
             app.globalData.user_phone = res.data;
-            wx.switchTab({
-              url: '/pages/commodity/commodity'
+            app.globalData.add_phone = res.data;
+            wx.getStorage({
+              key: 'is_company',
+              success: function (res) {
+                app.globalData.isCompany = res.data;
+                wx.switchTab({
+                  url: '/pages/commodity/commodity'
+                })
+              },
+              fail: function() {
+                app.getUserOpenId();                
+              }
             })
           },
+          fail: function() {
+            app.getUserOpenId();            
+          }
         })
       },
+      fail: function() {
+        app.getUserOpenId();        
+      }
     })
     
   },
@@ -118,13 +133,37 @@ Page({
         var status = JSON.parse(res.data.d)[0].flag;
         if (status == 1) {
           app.globalData.user_phone = that.data.username_data;
+          //判断是否为业务人员
+            wx.request({
+              url: app.globalData.host + 'pangduanlogintelephone',
+              data: {
+                tel: app.globalData.user_phone
+              },
+              method: 'POST',
+              success: function (r) {
+                console.log(r);
+                var rs = JSON.parse(r.data.d);
+                if (rs[0].flag == 1) {
+                  app.globalData.isCompany = false;
+                } else {
+                  app.globalData.isCompany = true;
+                }
+                wx.setStorage({
+                  key: 'is_company',
+                  data: app.globalData.isCompany,
+                  success: function (d) {
+                    console.log(d);
+                  }
+                }, )
+              }
+            }),
           wx.setStorage({
             key: 'user_phone',
             data: app.globalData.user_phone,
             success: function(res) {
               console.log(res);
             }
-          },)
+          },),
           wx.switchTab({
             url: '/pages/commodity/commodity'
           })

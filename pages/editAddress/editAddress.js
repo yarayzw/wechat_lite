@@ -12,7 +12,10 @@ Page({
     telphone: '',
     detail_address: '',
     address_id: '',
-    do_type: ''
+    do_type: '',
+    is_company: true,
+    login_tel: '',
+    login_pass: '',
   },
 
   /**
@@ -22,12 +25,12 @@ Page({
     var that = this;
     this.setData({ 
       address_id: options.code,
-      do_type: options.do_type
+      do_type: options.do_type,
+      is_company: app.globalData.isCompany
     });
     if (options.do_type == 'add') {
       return false;
     }
-    console.log(that.data.do_type);
     wx.request({
       url: app.globalData.host + 'getAddressInfo',
       method: 'POST',
@@ -145,7 +148,21 @@ Page({
   // 更改地区
   changeAreaCity: function (e) {
     this.setData({
-      default_address: e.detail.value
+      area_city: e.detail.value
+    });
+  },
+
+  // 更改登录密码
+  changeLoginPass: function (e) {
+    this.setData({
+      login_pass: e.detail.value
+    });
+  },
+
+  // 更改登录电话
+  changeLoginTel: function (e) {
+    this.setData({
+      login_tel: e.detail.value
     });
   },
   
@@ -171,22 +188,52 @@ Page({
       app.showError('请填写完整信息');
       return false;
     }
-    if(that.data.do_type == 'add') {
-      that.addInfo('insertaddress');
-    } else if(that.data.do_type == 'update') {
-      that.addInfo('updateaddress');
-    }   
+    // 判断是业务人员或者客户
+    if (that.data.is_company) {
+      if (that.data.do_type == 'add') {
+        that.addInfo('insertaddress');
+      } else if (that.data.do_type == 'update') {
+        that.addInfo('updateaddress');
+      }  
+    } else {
+    // 业务人员
+      if (that.data.login_tel == '' || that.data.login_pass == '') {
+        app.showError('请填写完整信息');
+        return false;
+      }
+      if (that.data.do_type == 'add') {
+        that.addInfo('insertcustom');
+      } else if (that.data.do_type == 'update') {
+        that.addInfo('updatecustom');
+      }  
+    }
+     
   },
   // 操作
   addInfo: function(fun) {
     var that = this;
     // 公共数据部分整合
-    var info = {
-      shouhuoren: that.data.username,
-      tel: that.data.telphone,
-      diqu: that.data.area_city,
-      address: that.data.detail_address,
-    };
+    if (that.data.is_company) {
+      var info = {
+        shouhuoren: that.data.username,
+        tel: that.data.telphone,
+        diqu: that.data.area_city,
+        address: that.data.detail_address,
+      };
+    } else {
+      var info = {
+        xiangmumingcheng: that.data.username,
+        renjitong: that.data.telphone,
+        kongyi: that.data.area_city,
+        suidao: that.data.detail_address,
+        useDept: that.data.login_tel,
+        konger: that.data.login_pass
+      };
+      if (fun == 'updatecustomer') {
+        info.kehuid = that.data.address_id;
+      }
+    }
+    
     // 判断新增和更新
     if (fun == 'insertaddress') {
       info.logintel = app.globalData.user_phone,
@@ -268,5 +315,5 @@ Page({
         app.showError('删除失败');
       }
     })
-  }
+  },
 })

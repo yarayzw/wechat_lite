@@ -2,8 +2,8 @@
   "pages":[
     "pages/login/login",
     "pages/cartSettlement/cartSettlement",
-    "pages/address/address",
     "pages/editAddress/editAddress",
+    "pages/address/address",
     "pages/myOrder/myOrder",
     "pages/userInfo/userInfo",
     "pages/cart/cart",
@@ -15,7 +15,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#393A3F",
-    "navigationBarTitleText": "乾和商慧订货配送系统",
+    "navigationBarTitleText": "乾和商惠订货配送系统",
     "navigationBarTextStyle":"white"
   },
   "tabBar": {

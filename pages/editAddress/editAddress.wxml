@@ -13,14 +13,14 @@
   <view class='address-info'>
     <view class='address-list'>
       <text class='address-font'>联系电话:</text>
-      <input class='address-input' placeholder-style='color:#CCC' value="{{ telphone }}"  type='number' maxlength='11' placeholder='收货人手机' bindinput='changeTelphone' />
+      <input class='address-input' placeholder-style='color:#CCC' value="{{ telphone }}" type='number' maxlength='11' placeholder='收货人手机' bindinput='changeTelphone' />
     </view>
   </view>
   <view class='address-info'>
     <view class='address-list'>
       <text class='address-font'>所在地区:</text>
       <!-- <text catchtap='selectAreaCity' class="{{ area_city == '选择所在地区' ? 'area-font c-color' : 'area-font' }}" >{{ area_city }}</text> -->
-      <input class='address-input' placeholder-style='color:#CCC' value="{{ area_city }}"  type='text'  placeholder='请填写所在地区' bindinput='changeAreaCity' />
+      <input class='address-input' placeholder-style='color:#CCC' value="{{ area_city }}" type='text' placeholder='请填写所在地区' bindinput='changeAreaCity' />
       <!-- <icon class='iconfont icon-liebiao_jiantou jump-icon'></icon> -->
     </view>
   </view>
@@ -28,6 +28,18 @@
     <view class='address-list'>
       <text class='address-font'>详细地址:</text>
       <input class='address-input' placeholder-style='color:#CCC' type='text' placeholder='详细街道地址' bindinput='changeDetailAddress' value="{{ detail_address }}" />
+    </view>
+  </view>
+  <view class='address-info' wx:if="{{ !is_company }}">
+    <view class='address-list'>
+      <text class='address-font'>登录密码:</text>
+      <input class='address-input' placeholder-style='color:#CCC' type='password' placeholder='请输入登录密码' bindinput='changeLoginPass' value="{{ login_pass }}" />
+    </view>
+  </view>
+  <view class='address-info' wx:if="{{ !is_company }}">
+    <view class='address-list'>
+      <text class='address-font'>登录电话:</text>
+      <input class='address-input' placeholder-style='color:#CCC' type='text' placeholder='请输入登录电话' bindinput='changeLoginTel' value="{{ login_tel }}" />
     </view>
   </view>
 </view>
@@ -43,6 +55,6 @@
 </view>
 <view wx:if="{{ do_type == 'add' }}" catchtap='saveAddress' class='add-address bg-orange'>保存</view>
 <view class='update-btn' wx:if="{{ do_type == 'update' }}">
-<text catchtap='deleteAddress'  class='del-address'>删除</text>
-<text catchtap='saveAddress'  class='save-address'>保存</text>
+  <text catchtap='deleteAddress' class='del-address'>删除</text>
+  <text catchtap='saveAddress' class='save-address'>保存</text>
 </view>

@@ -64,7 +64,7 @@
 <textarea class='other-say' placeholder-style='color:#ccc' maxlength='-1' value='{{ remarks }}' bindinput='changeRemarks' placeholder='如有特别交代事项，请填此处说明' />
 <view class='count-price clear'>
   <text class='number-delivery'>数量:{{ total_num }}件</text>
-  <text class='number-font'>实付款:</text>
-  <text class='number-price'>￥{{ total_money }}</text>
   <text class='number-btn bg-orange fr' bindtap='confirmOrder'>提交订单</text>
+  <text class='number-price'>￥{{ total_money }}</text>
+  <text class='number-font'>实付款:</text>
 </view>
