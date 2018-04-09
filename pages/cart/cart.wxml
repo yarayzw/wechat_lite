@@ -19,7 +19,7 @@
     <view class='info_div' wx:for="{{catList}}" wx:if="{{shopNum[item['beforeid']]>0}}">
       <view class='list_botton'>
         <icon class='icon-tianjia iconfont add_one' data-shopId="{{item['beforeid']}}" bindtap='insertOneShop'></icon> 
-         <input bindinput="inputIn" data-num="{{shopNum[item['beforeid']]}}"  class='shop_num' wx:if="{{shopNum[item['beforeid']] > 0}}" value="{{shopNum[item['beforeid']]}}" maxlength="5" type="number" bindblur="numGo" data-shopId="{{item['beforeid']}}"/>
+         <input bindinput="inputIn" data-num="{{shopNum[item['beforeid']]}}"  class='shop_num' wx:if="{{shopNum[item['beforeid']] > 0}}" value="{{shopNum[item['beforeid']]}}" maxlength="5" type="number" bindblur="numGo" bindinput="inputIn" data-shopId="{{item['beforeid']}}"/>
          <!-- {{shopNum[shopVal['id']]}}</text>  -->
           <!-- <input class='shop_num' value="1" />   -->
            <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{item['beforeid']}}" bindtap='delOneShop' wx:if="{{shopNum[item['beforeid']]>0}}"></icon>  
@@ -45,7 +45,7 @@
 </view>
 <view class='count-price clear' wx:if="{{isGo}}">
   <text class='number-delivery'>数量:{{ total_num }}件</text>
-  <text class='number-font'>合计:</text>
-  <text class='number-price'>￥{{ total_money }}</text>
   <text class='number-btn bg-orange fr' bindtap='confirmOrder'>去结算</text>
+  <text class='number-price'>￥{{ total_money }}</text>
+  <text class='number-font'>合计:</text>  
 </view>

@@ -16,6 +16,7 @@ Page({
     isGo:false,//是否显示结算
     shopNum: {},//商品显示数量
     isNumGo: true,//是否能改数量
+    numStatus: true,//数量改变是否覆盖
   },
 
   /**
@@ -295,6 +296,11 @@ Page({
   //更改商品数量input
   numGo: function (e) {
     var that = this;
+    var num = parseInt(e.detail.value);
+    if (num == '') {
+      num = e.currentTarget.dataset.num;
+    }
+    that.setData({ numStatus: true });
     if (this.data.isNumGo) {
       that.setData({ isNumGo: false });
       var id = e.currentTarget.dataset.shopid;
@@ -317,6 +323,9 @@ Page({
       });
       return '';
     }
+    var id = e.currentTarget.dataset.shopid;
+    var num = parseInt(e.detail.value);
+    this.updateShop(id, num);
     return e.detail.value;
   },
   /**
