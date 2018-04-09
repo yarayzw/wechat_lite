@@ -178,15 +178,14 @@ Page({
                       wx.request({
                         url: app.globalData.pay_host + 'pay_mini',
                         method: 'POST',
-                        header: {
-                          'Content-type': 'application/x-www-form-urlencoded', // 默认值
-                        },
+                        header: {'Content-type': 'application/x-www-form-urlencoded'},
                         data: {
                           'openid': app.globalData.wx_code,
                           'terminal_trace': that.data.order_id,
                           'total_fee': that.data.total_money
                         },
                         success: function (pay_res) {
+                          console.log(111);
                           if (pay_res.data.code == '10000') {
                             var pay_content = pay_res.data.content;
                             wx.requestPayment({
@@ -207,10 +206,11 @@ Page({
                           }
                         }
                       })
+                      return false;
                     }
                   }
-                })
-                return false
+                });
+                return false;
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
