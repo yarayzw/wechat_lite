@@ -138,6 +138,10 @@ Page({
   // 提交订单
   confirmOrder: function() {
     var that = this;
+    if (that.data.address == '') {
+      app.showError('请选择收货地址');
+      return false;
+    }
     wx.showModal({
       title: '',
       content: '是否提交订单?',
