@@ -23,12 +23,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.isImg();
-    this.isBook();
-    this.isActual();
-    this.isMember();
-    this.firstLoadShoppingCart();
-    this.priceAll();
+    if (app.globalData.add_phone > 0){
+      this.isImg();
+      this.isBook();
+      this.isActual();
+      this.isMember();
+      this.firstLoadShoppingCart();
+      this.priceAll();
+    }else{
+      wx.showToast({
+        title: '请新建用户',
+        icon: 'loading',
+        duration: 1000,
+        mask: true
+      })
+    }
+   
   },
   //购物车列表
   firstLoadShoppingCart: function(){
@@ -343,8 +353,16 @@ Page({
     // this.isBook();
     // this.isActual();
     // this.isMember();
-    this.firstLoadShoppingCart();
-    this.priceAll();
+    if (app.globalData.add_phone > 0){
+      this.firstLoadShoppingCart();
+      this.priceAll();
+    }else{
+      this.setData({
+        shopNum: {},
+        catList: {},
+        isGo: true
+      });
+    }
   },
 
   /**

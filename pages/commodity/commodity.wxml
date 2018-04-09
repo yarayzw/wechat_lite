@@ -1,13 +1,53 @@
-<view class="top">
+<view class=" {{isCompany==false ? 'top top_two':''}}">
+  <!-- <view class='search' wx:if="{{!isCompany}}">
+    <view class='topDiv'>
+     <picker bindchange="topChange" class='topList' mode="selector" value="{{topNum}}" range="{{topList}}" data-val="{{topList[topNum]}}">
+        <view class="picker">
+        {{topList[topNum]}}
+        </view>
+      </picker>
+    </view>
+   
+  <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="topGo" />
+  </view> -->
+  <view class='search' wx:if="{{!isCompany}}">
+     <view class='topDiv'>
+      客户名称
+    </view>
+    <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="nameBindBlur" bindfocus='nameFocus' bindblur='nameBindBlur' bindinput='nameInput' value="{{nameNow}}"/>
+  </view>
+  <view class='searchListDiv fr' wx:if="{{nameListIn}}">
+    <view class='topDivList' wx:for="{{nameList}}" data-name="{{item['xiangmumingcheng']}}" bindtap='nameDivClick'>{{item['xiangmumingcheng']}}</view>
+  </view>
+  <view class='search' wx:if="{{!isCompany}}">
+     <view class='topDiv'>
+      客户地址
+    </view>
+  <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="addressBindBlur" bindfocus='addressFocus' bindblur='addressBindBlur'  value="{{addressNow}}"/>
+  </view>
+  <view class='addressListDiv fr' wx:if="{{addressListIn}}">
+    <view class='topDivList' wx:for="{{addressList}}" bindtap='addressDivClick' data-name="{{item['suidao']}}">{{item['suidao']}}</view>
+  </view>
+  <view class='search' wx:if="{{!isCompany}}">
+     <view class='topDiv'>
+      客户电话
+    </view>
+  <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="phoneBindBlur" bindfocus='phoneFocus' bindblur='phoneBindBlur' bindinput='phoneInput' value="{{phoneNow}}"/>
+  </view>
+  <view class='phoneListDiv fr' wx:if="{{phoneListIn}}">
+    <view class='topDivList' wx:for="{{phoneList}}" bindtap='phoneDivClick' data-name="{{item['renjitong']}}">{{item['renjitong']}}</view>
+  </view>
+  <view class='search nobr'  wx:if="{{!isCompany}}">
+    <button class='addCom' bindtap='jumpAddAddress'>新建客户</button>
+    <button class='saoma' bindtap='recognizeCode'>扫码</button>
+  </view>
   <view class='search'>
     <icon class='icon-search iconfont search_icon'  ></icon>
-  <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="searchGo" />
+  <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="searchGo" value="{{sousuo}}"/>
   </view>
    <scroll-view scroll-x="true" class="tab-h" scroll-left="{{scrollLeft}}">
-        <view  bindtap="swichNav" wx:for="{{topMenu}}" wx:for-index="topId" wx:for-item="topVal" class="tab-item {{currentTab==topId?'active':''}}" data-current="{{topId}}" data-fenlei="{{topVal['chanpinfenlei']}}" data-id="{{topVal['id']}}">{{topVal['name']}}</view>
-       
+        <view  bindtap="swichNav" wx:for="{{topMenu}}" wx:for-index="topId" wx:for-item="topVal" class="tab-item {{currentTab==topId?'active':''}}" data-current="{{topId}}" data-fenlei="{{topVal['chanpinfenlei']}}" data-id="{{topVal['id']}}">{{topVal['name']}}</view>     
     </scroll-view>
-  
 </view>
 <view class='bottom'>
    <view class='bottom_left fl' >
@@ -28,8 +68,8 @@
       <!-- bindtap='img_show' -->
       <view class='right_list ' wx:for="{{shopList}}" wx:for-index="{{shopId}}" wx:for-item="shopVal">
         <view class='list_botton'>
-        <icon class='icon-tianjia iconfont add_one' data-shopId="{{shopVal['id']}}" data-cz="{{shopVal['计量单位']}}" bindtap='insertOneShop'></icon> 
-         <input confirm-type="done" data-num="{{shopNum[shopVal['id']]}}" data-shopId="{{shopVal['id']}}" data-cz="{{shopVal['计量单位']}}"  class='shop_num' wx:if="{{shopNum[shopVal['id']] > 0}}"  value="{{shopNum[shopVal['id']]}}" maxlength="5"  type="number" bindblur="numGo"  bindinput="inputIn" />
+        <icon class='icon-tianjia iconfont add_one' data-shopId="{{shopVal['id']}}" data-cz="{{shopVal['计量单位']}}"  bindtap='insertOneShop'></icon> 
+         <input confirm-type="done" data-num="{{shopNum[shopVal['id']]}}" data-shopId="{{shopVal['id']}}" data-cz="{{shopVal['计量单位']}}" class='shop_num' wx:if="{{shopNum[shopVal['id']] > 0}}"  value="{{shopNum[shopVal['id']]}}" maxlength="5"  type="number" bindblur="numGo" bindinput="inputIn"  />
          <!-- {{shopNum[shopVal['id']]}}</text>  -->
           <!-- <input class='shop_num' value="1" />   -->
            <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{shopVal['id']}}" bindtap='delOneShop' wx:if="{{shopNum[shopVal['id']]>0}}"></icon>  
@@ -69,16 +109,19 @@
       <view class='info_div'>
         <text class="mask_title">{{shopDetails['名称']}}</text>
           <view class='masking_div'>
+          <text>{{shopDetails['详细内容']}}</text>
+        </view>
+         <view class=''>
           <text class='info_cost'>原价:</text>
           <text class='price'>￥{{shopDetails['原价']}}</text>
-          <text class='info_cost'>/{{shopDetails['计量单位']}}</text>   
+          <text class='info_cost'>/{{shopDetails['计量单位']}}</text>
         </view>
         <view wx:if="{{memberShip}}">
           <text class='info_cost'>会员价:</text>
           <text class='price'>￥</text>
           <text class='price red'>{{shopDetails['会员价']}}</text>
           <text class='price'>/{{shopDetails['计量单位']}}</text>
-           <icon class='icon-tianjia iconfont mask_add' data-shopId="{{shopDetails['id']}}" data-cz="{{shopDetails['计量单位']}}" bindtap='insertOneShop'></icon> 
+           <icon class='icon-tianjia iconfont mask_add' data-shopId="{{shopDetails['id']}}" data-cz="{{shopDetails['计量单位']}}"  bindtap='insertOneShop'></icon> 
          <input type="number" bindinput="inputIn" data-num="{{shopNum[shopDetails['id']]}}" data-cz="{{shopDetails['计量单位']}}" class='mask_num' wx:if="{{shopNum[shopDetails['id']] > 0}}" value="{{shopNum[shopDetails['id']]}}" maxlength="5" bindblur="numGo" data-shopId="{{shopDetails['id']}}"/>
            <icon class='icon-jianhao iconfont mask_del'  data-shopId="{{shopDetails['id']}}" bindtap='delOneShop' wx:if="{{shopNum[shopDetails['id']]>0}}"></icon>  
         </view>

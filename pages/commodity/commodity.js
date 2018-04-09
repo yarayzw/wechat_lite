@@ -23,12 +23,22 @@ Page({
     nowTopMenuId:'',//当前顶部菜单选项
     nowLeftMenuId:'',//当前左侧菜单选项
     nowWareName:'',//当前仓库名称
+    nowTopType:0,//顶部菜单当前选择项
     wareList:{},//仓库列表
     shopList:{},//商品列表
     shopNum:{},//商品显示数量
     shopDetails:{},//商品详情信息
     isNumGo:true,//是否能操作数量
     numStatus:true,//数量改变是否覆盖
+    isCompany:true,//true是客户false是业务人员
+    topList:{},//顶部菜单下拉
+    topNum:0,//顶部注释内容
+    nameListIn:false,//客户名称是否显示
+    nameList:{},//客户名称数组
+    addressListIn:false,//客户地址是否显示
+    addressList:{},//客户地址数组
+    phoneListIn:false,//客户电话是否显示
+    phoneList:{},//客户电话数组
   },
   touchStartTime: 0,
   touchEndTime: 0,
@@ -137,7 +147,7 @@ Page({
       url: app.globalData.host + 'ProductDescribe',
       data: {
         id: id,
-        tel: app.globalData.user_phone
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -152,7 +162,12 @@ Page({
     
     
   },
-  
+  // 跳转到添加页面
+  jumpAddAddress: function () {
+    wx.navigateTo({
+      url: '/pages/editAddress/editAddress?code=' + 0 + '&do_type=add',
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -165,10 +180,231 @@ Page({
     this.fristLeftNavigation();
     this.fristTopNavigation();
     this.wareHouseLoad();
-    this.fristLoadList();
+    // this.fristLoadList();
+    this.isCompany();
+    // var topArr = new Array;
+    // topArr.push('客户名称');
+    // topArr.push('客户电话');
+    // that.setData({ topList: topArr });
     // this.getCatShopList();
   },
-
+  //判断是否为业务人员
+  isCompany: function(){
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'pangduanlogintelephone',
+      data: {
+        tel: app.globalData.user_phone
+      },
+      method: 'POST',
+      success: function (res) {
+        var rs = JSON.parse(res.data.d);
+        console.log(rs);
+        if(rs[0].flag==1){
+          that.setData({ isCompany: false });
+        }else{
+          that.setData({ isCompany: true });
+        }
+      }
+    })
+  },
+  //客户姓名聚焦事件
+  nameFocus: function(e){
+    var that = this;
+     that.setData({ nameListIn: true });
+  },
+  //客户名称失焦事件
+  nameBindBlur: function(e){
+    var that=this;   
+    that.setData({ nameListIn: false });
+    var name = e.detail.value;
+    that.nameGetAddress(name);
+  },
+  //客户名称输入事件
+  nameInput: function(e){
+    var that = this;
+    var name = e.detail.value;
+    that.nameGetAddress(name);
+    that.nameGetPhone(name);
+  },
+  //客户地址聚焦事件
+  addressFocus: function (e) {
+    var that = this;
+    that.setData({ addressListIn: true });
+  },
+  //客户地址失焦事件
+  addressBindBlur: function (e) {
+    var that = this;
+    that.setData({ addressListIn: false });
+  },
+  //客户电话聚焦事件
+  phoneFocus: function (e) {
+    var that = this;
+    that.setData({ phoneListIn: true });
+  },
+  //客户电话失焦事件
+  phoneBindBlur: function (e) {
+    var that = this;
+    that.setData({ phoneListIn: false });
+    var name = e.detail.value;
+    that.setData({ phoneNow: name });
+    that.isCompanyPhone(name);
+  },
+  //客户电话输入事件
+  phoneInput: function (e) {
+    var that = this;
+    var name = e.detail.value;
+    that.phoneGetName(name);
+    that.phoneGetAddress(name);
+  },
+  
+  //根据客户名称返回地址
+  nameGetAddress: function(name){
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'getkhaddressbyname',
+      data: {
+        custom: name,
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({ addressList: rs });
+        } else {
+          that.setData({ addressList: {} });
+        }
+        // console.log(rs);
+      }
+    })
+  },
+  //根据客户名称返回手机号
+  nameGetPhone: function (name) {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'getkhtel',
+      data: {
+        custom: name,
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({ phoneList: rs });
+        } else {
+          that.setData({ phoneList: {} });
+        }
+        console.log(rs);
+      }
+    })
+  },
+  //根据客户电话获取客户地址
+  phoneGetAddress: function (phone) {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'getkhaddress',
+      data: {
+        custom: phone,
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({ addressList: rs });
+        } else {
+          that.setData({ addressList: {} });
+        }
+        // console.log(rs);
+      }
+    })
+  },
+  //根据客户电话获取客户名称
+  phoneGetName: function (phone) {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'getkhmingc',
+      data: {
+        custom: phone,
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({ nameList: rs });
+        } else {
+          that.setData({ nameList: {} });
+        }
+      }
+    })
+  },
+  //客户电话是否存在
+  isCompanyPhone: function(phone){
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'ValidateTelephone',
+      data: {
+        Telephone: phone,
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          if(rs==1){
+            app.globalData.add_phone = phone;
+            that.fristLeftNavigation();
+            that.fristTopNavigation();
+            that.wareHouseLoad();
+          }else{
+            wx.showToast({
+              title: '请新建用户',
+              icon: 'loading',
+              duration: 1500,
+              mask: true
+            })
+            // that.fristLeftNavigation();
+            // that.fristTopNavigation();
+            // that.wareHouseLoad();
+            app.globalData.add_phone = 0;
+            that.setData({
+              shopNum: {}
+            });
+          }
+          
+        } else {
+          wx.showToast({
+            title: '加载失败',
+            icon: 'loading',
+            duration: 1500,
+            mask: true
+          })
+        }
+      }
+    })
+  },
+  //客户名称点击
+  nameDivClick: function(e){
+    var that = this;
+    var name = e.currentTarget.dataset.name;
+    that.setData({ nameNow: name });
+    that.nameGetAddress(name);
+    that.nameGetPhone(name);
+  },
+  //客户电话点击
+  phoneDivClick: function (e) {
+    var that = this;
+    var name = e.currentTarget.dataset.name;
+    that.setData({ phoneNow: name });
+    that.isCompanyPhone(name);
+    // app.globalData.add_phone = name;
+    that.phoneGetAddress(name);
+    that.phoneGetName(name);
+  },
+  //客户地址点击
+  addressDivClick: function (e) {
+    var that = this;
+    var name = e.currentTarget.dataset.name;
+    that.setData({ addressNow: name });
+  },
   //有/无图模式
   isImg:function(){
     var that = this;
@@ -307,25 +543,35 @@ Page({
   //上部菜单点击加载左侧第一个小类别
   loadLeftList: function(id){
     var that = this;
-    wx.request({
-      url: app.globalData.host + 'TypeDetails',
-      data: {
-        WareHouse: that.data.nowWareName,
-        tel: app.globalData.user_phone,
-        id: id
-      },
-      method: 'POST',
-      success: function (res) {
-        if (res.data.d != ']') {
-          var rs = JSON.parse(res.data.d);
-         
-          that.setData({
-            shopList: rs
-          });
-          that.getCatShopList();
-        }
-      }
-    })
+    if (app.globalData.add_phone>0){
+      wx.request({
+            url: app.globalData.host + 'TypeDetails',
+            data: {
+              WareHouse: that.data.nowWareName,
+              tel: app.globalData.add_phone,
+              id: id
+            },
+            method: 'POST',
+            success: function (res) {
+              if (res.data.d != ']') {
+                var rs = JSON.parse(res.data.d);
+              
+                that.setData({
+                  shopList: rs
+                });
+                that.getCatShopList();
+              }
+            }
+          })
+    }else{
+      wx.showToast({
+        title: '请新建用户',
+        icon: 'loading',
+        duration: 1000,
+        mask: true
+      })
+    }
+    
   },
   // 左侧菜单点击
   menuLeft: function (e) {
@@ -337,25 +583,34 @@ Page({
       })
     }
     var that = this;
-    wx.request({
+    if (app.globalData.add_phone>0){
+     wx.request({
       url: app.globalData.host + 'TypeDetails',
       data: {
         WareHouse: that.data.nowWareName,
-        tel: app.globalData.user_phone,
+        tel: app.globalData.add_phone,
         id: e.target.dataset.id
       },
       method: 'POST',
       success: function (res) {
         if (res.data.d != ']') {
           var rs = JSON.parse(res.data.d);
-          
+          console.log(rs);
           that.setData({
             shopList: rs
           });
           that.getCatShopList();
         }
       }
-    })
+     })
+    }else{
+      wx.showToast({
+        title: '请新建用户',
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
+    }
   },
   //仓库列表第一次加载
   wareHouseLoad: function () {
@@ -376,6 +631,8 @@ Page({
           nowWareName: rs[0].NAME,
           wareList:list,
         });
+        that.fristLoadList();
+        // console.log(that.data.nowWareName);
         // that.setData({ topMenu: rs });
       }
     })
@@ -383,56 +640,81 @@ Page({
   //仓库选择事件
   wareChange:function(e){
     var wareName = e.currentTarget.dataset.val;
-    this.setData({ nowWareName:wareName});
+    var wareNum = e.detail.value;
+    this.setData({ nowWareName: wareName, wareChangeNum:wareNum});
     this.wareGetLeft();
+  },
+  //顶部搜索选择事件
+  topChange: function(e){
+    var topName = e.detail.value;
+    this.setData({ nowTopType: topName,topNum:topName });
   },
   //根据仓库名称获取商品列表
   wareGetLeft: function () {
     var that = this;
-    wx.request({
-      url: app.globalData.host + 'FristLoad',
-      data: {
-        WareHouse: that.data.nowWareName,
-        tel: app.globalData.user_phone
-      },
-      method: 'POST',
-      success: function (res) {
-        if (res.data.d != ']') {
-          var rs = JSON.parse(res.data.d);
-          that.setData({
-            shopList: rs
-          });
-          that.getCatShopList();
+    if (app.globalData.add_phone>0){
+      wx.request({
+        url: app.globalData.host + 'FristLoad',
+        data: {
+          WareHouse: that.data.nowWareName,
+          tel: app.globalData.add_phone
+        },
+        method: 'POST',
+        success: function (res) {
+          if (res.data.d != ']') {
+            var rs = JSON.parse(res.data.d);
+            that.setData({
+              shopList: rs
+            });
+            that.getCatShopList();
+          }
         }
-      }
-    })
+      })
+    }else{
+      wx.showToast({
+        title: '请新建用户',
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
+    }
   },
   //第一次加载获取商品信息
   fristLoadList:function(){
     var that = this;
-    wx.request({
-      url: app.globalData.host + 'FristLoad',
-      data: {
-        WareHouse: that.data.nowWareName,
-        tel: app.globalData.user_phone
-      },
-      method: 'POST',
-      success: function (res) {
-        
-        if (res.data.d!=']'){
-          var rs = JSON.parse(res.data.d);
-          that.setData({
-            shopList: rs
-          });
+    if (app.globalData.add_phone>0) {
+      wx.request({
+        url: app.globalData.host + 'FristLoad',
+        data: {
+          WareHouse: that.data.nowWareName,
+          tel: app.globalData.add_phone
+        },
+        method: 'POST',
+        success: function (res) {
 
+          if (res.data.d != ']') {
+            var rs = JSON.parse(res.data.d);
+            that.setData({
+              shopList: rs
+            });
+
+          }
+          // console.log(rs);
+          // var list = new Array;
+          // for (var i = 0; i < rs.length; i++) {
+          //   list.push(rs[i]['NAME']);
+          // }
         }
-        // console.log(rs);
-        // var list = new Array;
-        // for (var i = 0; i < rs.length; i++) {
-        //   list.push(rs[i]['NAME']);
-        // }
-      }
-    })
+      })
+    } else {
+      wx.showToast({
+        title: '请新建用户',
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
+    }
+      
   },
   //获取商品信息
   getShopList:function(){
@@ -492,48 +774,67 @@ Page({
   searchGo:function(e){
     var that = this;
     var search = e.detail.value;
-    
-    wx.request({
-      url: app.globalData.host + 'ProductSearch',
-      data: {
-        WareHouse: that.data.nowWareName,
-        tel: app.globalData.user_phone,
-        product: search
-      },
-      method: 'POST',
-      success: function (res) {
-        var rs = JSON.parse(res.data.d);
-        // console.log(rs);
-        // var list = new Array;
-        // for (var i = 0; i < rs.length; i++) {
-        //   list.push(rs[i]['NAME']);
-        // }
-        that.setData({
-          shopList: rs
-        });
+    if (app.globalData.add_phone>0){
+      wx.request({
+        url: app.globalData.host + 'ProductSearch',
+        data: {
+          WareHouse: that.data.nowWareName,
+          tel: app.globalData.add_phone,
+          product: search
+        },
+        method: 'POST',
+        success: function (res) {
+          var rs = JSON.parse(res.data.d);
+          // console.log(rs);
+          // var list = new Array;
+          // for (var i = 0; i < rs.length; i++) {
+          //   list.push(rs[i]['NAME']);
+          // }
+          that.setData({
+            shopList: rs
+          });
 
-      }
-    })
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '请新建用户',
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
+    }
     
   },
   //加号
   insertOneShop:function(e){
     // console.log(1);
-    var that = this;
-    var id = e.currentTarget.dataset.shopid;
-    var shopNum = that.data.shopNum;
-    // console.log(that.data.isNumGo);
-    if(that.data.isNumGo){
-      that.setData({isNumGo:false});
-      if (shopNum[id] > 0) {
-        var add = parseInt(shopNum[id]) + 1;
-        that.updateShop(id, add);
-      } else {
-        var add = 1;
-        var shopcz = e.currentTarget.dataset.cz;
-        that.insertShop(id, 1,shopcz);
+    if (app.globalData.add_phone>0){
+      var that = this;
+      var id = e.currentTarget.dataset.shopid;
+      var shopNum = that.data.shopNum;
+      // var shopcz = e.currentTarget.dataset.cz;
+      // console.log(that.data.isNumGo);
+      if (that.data.isNumGo) {
+        that.setData({ isNumGo: false });
+        if (shopNum[id] > 0) {
+          var add = parseInt(shopNum[id]) + 1;
+          that.updateShop(id, add);
+        } else {
+          var add = 1;
+          var shopcz = e.currentTarget.dataset.cz;
+          that.insertShop(id, 1, shopcz);
+        }
       }
+    }else{
+      wx.showToast({
+        title: '请新建用户',
+        icon: 'loading',
+        duration: 1500,
+        mask: true
+      })
     }
+    
   },
   //减号
   delOneShop: function (e) {
@@ -543,8 +844,10 @@ Page({
     if (that.data.isNumGo) {
       that.setData({ isNumGo: false });
       if ((shopNum[id] - 1) == 0) {
+      
         that.delShop(id, 1);
       } else {
+        
         var del = shopNum[id] - 1;
         that.updateShop(id, del);
       }
@@ -570,7 +873,7 @@ Page({
           new_row[id] = num;
           that.setData({
             shopNum: new_row,
-            isNumGo:true
+            isNumGo: true
           });
         }
         // that.setData({ topMenu: rs });
@@ -579,24 +882,23 @@ Page({
   },
   //添加商品
   insertShop:function(shopId,num,shopcz){
-    
     var that = this;
     wx.request({
       url: app.globalData.host + 'insert',
       data: {
-        cpid:shopId,
-        shuliang:num,
+        cpid: shopId,
+        shuliang: num,
         canku: that.data.nowWareName,
-        telephone: app.globalData.user_phone,
+        telephone: app.globalData.add_phone,
         wxweiyiid: app.globalData.wx_code,
-        cznumber:shopcz
+        cznumber: shopcz
       },
       method: 'POST',
       success: function (res) {
         var rs = JSON.parse(res.data.d);
-        if(rs==1){
-          var new_row = that.data.shopNum;      
-           new_row[shopId] = new_row[shopId] ? new_row[shopId] +num : num;
+        if (rs == 1) {
+          var new_row = that.data.shopNum;
+          new_row[shopId] = new_row[shopId] ? new_row[shopId] + num : num;
           that.setData({
             shopNum: new_row,
             isNumGo: true
@@ -605,12 +907,15 @@ Page({
         // that.setData({ topMenu: rs });
       }
     })
-    
   },
   //删除商品
   delShop: function(shopId,num){
-  
     var that = this;
+    var new_row = that.data.shopNum;
+    new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
+    that.setData({
+      shopNum: new_row,
+    });
     wx.request({
       url: app.globalData.host + 'delete',
       data: {
@@ -620,11 +925,8 @@ Page({
       method: 'POST',
       success: function (res) {
         var rs = JSON.parse(res.data.d);
-        if (rs == 1) {
-          var new_row = that.data.shopNum;      
-          new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;     
-          that.setData({
-            shopNum: new_row,
+        if (rs == 1) {        
+          that.setData({         
             isNumGo: true
           });
         }
@@ -637,38 +939,35 @@ Page({
     var that = this;
     var id = e.currentTarget.dataset.shopid;
     var num = parseInt(e.detail.value);
-    if(num==''){
+    if (num == '') {
       num = e.currentTarget.dataset.num;
     }
     // console.log(that.data.isNumGo);
-    that.setData({  numStatus: true });
+    that.setData({ numStatus: true });
     if (that.data.isNumGo) {
-      that.setData({ isNumGo: false});
-      if(num>0){
+      that.setData({ isNumGo: false });
+      if (num > 0) {
         this.updateShop(id, num);
-      }else{
+      } else {
         this.delShop(id, num);
       }
     }
   },
   //修改数量
-  inputIn: function (e) {
+  inputIn: function (e) {   
     
-    // if(this.data.numStatus){
-    //   this.setData({
-    //     numStatus: false
-    //   });
-    //   return '';
-    // }
-  var id = e.currentTarget.dataset.shopid;
+    if(this.data.numStatus){
+      this.setData({
+        numStatus: false
+      });
+      return '';
+    }
+    var id = e.currentTarget.dataset.shopid;
     var num = parseInt(e.detail.value);
     this.updateShop(id, num);
-    return e.detail.value;  
+    return e.detail.value;
+    // return e.detail.value;
   },
-  // inputFocus: function(e){
-  //   console.log(2);
-  //   return '';
-  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -680,7 +979,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getCatShopList();
+    if (app.globalData.add_phone > 0) {
+      this.getCatShopList();
+    }else{
+      this.setData({
+        shopNum:{}
+      });
+    }
   },
 
   /**
@@ -739,6 +1044,94 @@ Page({
   },
   hideMask: function() {
     this.setData({ masking: false });
+  },
+  //扫码
+  recognizeCode:function(e){
+    var that = this
+    //小程序API
+    wx.scanCode({
+      //扫描条形码ISBN
+      success: function (res) {
+       wx.request({
+         url: app.globalData.host + 'pangduanloginisquanjian',
+         data: {
+          //  tiaoma: app.globalData.add_phone,
+           tel: app.globalData.add_phone
+         },
+         method: 'POST',
+         success: function (rs) {
+           var rss = JSON.parse(rs.data.d);
+          //  console.log(1);
+          //  console.log(rss[0]['flag']);
+          //  return false;
+            if(rss[0]['flag']==0){
+              that.setData({ sousuo: rss[0]['flag'] });
+            }else{
+              wx.request({
+                url: app.globalData.host + 'LJsend',
+                data: {
+                  //  tiaoma: app.globalData.add_phone,
+                  tiaoma: res.result
+                },
+                method: 'POST',
+                success: function (rsss) {
+                  var re = JSON.parse(rsss.data.d);
+                  if (re == 1) {
+                    wx.request({
+                      url: app.globalData.host + 'sendduanxin',
+                      data: {
+                        //  tiaoma: app.globalData.add_phone,
+                        tiaoma: res.result
+                      },
+                      method: 'POST',
+                      success: function (rssss) {
+                        var ree = JSON.parse(rssss.data.d);
+                        if (ree == 100) {
+                          wx.showToast({
+                            title: '核卷成功',
+                            icon: 'success',
+                            duration: 1500,
+                            mask: true
+                          })
+                        } else {
+                          wx.showToast({
+                            title: '核卷失败',
+                            icon: 'loading',
+                            duration: 1500,
+                            mask: true
+                          })
+                        }
+                        // that.setData({ topMenu: rs });
+                      }
+                    })
+                  } else {
+                    wx.showToast({
+                      title: '领劵失败',
+                      icon: 'loading',
+                      duration: 1500,
+                      mask: true
+                    })
+                  }
+                  // that.setData({ topMenu: rs });
+                }
+              })
+            }
+           // that.setData({ topMenu: rs });
+         }
+       })
+      },
+      fail: function () {
+        wx.showToast({
+          title: '无效的条形码',
+          icon: 'loading',
+          duration: 1500,
+          mask: true
+        })
+      },
+      complete: function () {
+        // complete
+      }
+    })
   },
   
 })
