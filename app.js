@@ -91,6 +91,7 @@ App({
     php_host: 'http://211.149.177.232:8008/wechat.php/',
     user_phone: '',
     wx_code: '',
-    add_phone: ''
+    add_phone: '',
+    isCompany: true // true是客户 false是业务 
   }
 })
