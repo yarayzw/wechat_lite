@@ -42,7 +42,6 @@ Page({
         data: { wxid: app.globalData.wx_code },
         success: function (res) {
           if (res.data.d != 0 && res.data.d != ']') {
-            console.log(JSON.parse(res.data.d));
             that.setData({ address: JSON.parse(res.data.d) });
           }
         }
@@ -149,7 +148,6 @@ Page({
       confirmColor: '#F99001',
       success: function (res) {
         if (res.confirm) {
-          console.log(app.globalData.userInfo);
           wx.request({
             url: app.globalData.host + 'DoAction',
             method: 'POST',
@@ -189,12 +187,30 @@ Page({
                           'total_fee': that.data.total_money
                         },
                         success: function (pay_res) {
-                          console.log(pay_res);
+                          if (pay_res.data.code == '10000') {
+                            var pay_content = pay_res.data.content;
+                            wx.requestPayment({
+                              timeStamp: pay_content.timeStamp,
+                              nonceStr: pay_content.nonceStr,
+                              package: pay_content.package_str,
+                              signType: pay_content.signType,
+                              paySign: pay_content.paySign,
+                              success: function(pay_success) {
+                                console.log(pay_success);
+                              },
+                               fail: function(pay_fail) {
+                                 console.log(pay_fail);
+                               }
+                            })
+                          } else {
+                            app.showError(pay_res.data.msg);
+                          }
                         }
                       })
                     }
                   }
                 })
+                return false
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
