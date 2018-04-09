@@ -35,7 +35,7 @@ Page({
         title: '请新建用户',
         icon: 'loading',
         duration: 1000,
-        mask: true
+        mask: false
       })
     }
    
@@ -360,7 +360,7 @@ Page({
       this.setData({
         shopNum: {},
         catList: {},
-        isGo: true
+        isGo: false
       });
     }
   },
