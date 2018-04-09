@@ -101,6 +101,7 @@ Page({
         var status = JSON.parse(res.data.d)[0].flag;
         if (status == 1) {
           app.globalData.user_phone = that.data.username_data;
+          app.globalData.add_phone = that.data.username_data;
           //判断是否为业务人员
           wx.request({
             url: app.globalData.host + 'pangduanlogintelephone',
