@@ -130,11 +130,13 @@
   color: #333;
 }
 .number-font {
-  margin-left: 160rpx;
+  float: right;
   font-weight: bolder;
 }
 .number-price {
+  float: right;
   margin-left: 20rpx;
+  margin-right: 20rpx;
   color: #F65349;
   font-size: 30rpx;
   font-weight: bolder;

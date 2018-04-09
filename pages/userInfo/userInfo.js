@@ -78,8 +78,13 @@ Page({
   },
   // 退出
   signOut: function() {
+    // 退出初始化信息 清除缓存
     app.globalData.user_phone = '';
-    wx.navigateTo({
+    app.globalData.wx_code = '';
+    app.globalData.add_phone = '';
+    app.globalData.isCompany = true;
+    wx.clearStorage();
+    wx.redirectTo({
       url: '/pages/login/login',
     })
   }

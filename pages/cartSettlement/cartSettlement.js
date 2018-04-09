@@ -13,7 +13,8 @@ Page({
     total_money: 0,
     address: '',
     remarks: '',
-    dispatching_type: '送货上门'
+    dispatching_type: '送货上门',
+    user_phone: ''
   },
 
   /**
@@ -149,7 +150,7 @@ Page({
             method: 'POST',
             data: {
               wxweiyiid: app.globalData.wx_code,
-              telephone: app.globalData.user_phone,
+              telephone: that.data.address[0]['tel'],
               songdashijian: that.data.cart_date + ' ' + that.data.cart_time,
               dizhi: that.data.address[0]['diqu'] + that.data.address[0]['address'], 
               beizhu: that.data.remarks,
