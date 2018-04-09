@@ -1,5 +1,5 @@
 <view class='top'>
-  <text class='top_title'>购物车</text>
+  <text class='top_title'>已选</text>
   <icon class='icon-delete iconfont top_del' bindtap='delAll'  ></icon>
 </view>
 <view class='info_list'>
@@ -23,7 +23,9 @@
          <!-- {{shopNum[shopVal['id']]}}</text>  -->
           <!-- <input class='shop_num' value="1" />   -->
            <icon class='icon-jianhao iconfont delete_two'  data-shopId="{{item['beforeid']}}" bindtap='delOneShop' wx:if="{{shopNum[item['beforeid']]>0}}"></icon>  
+           
         </view>
+         <icon class='icon-delete iconfont delShop' data-shopId="{{item['beforeid']}}"  bindtap='delShopTwo'  ></icon> 
       <view class='fl'>
       <image class='info_img' src="{{item.url}}"></image>
       </view>
@@ -33,8 +35,9 @@
            <text class='info_num' wx:if="{{bookStock}}">账面库存:20</text>
           <text class='info_num' wx:if="{{actualInventory}}">实际库存: 10</text>
           </view> -->
+          
           <view class='cost_div'>
-          <text class='info_cost'>原价:</text>
+          <text class='info_cost'>价格:</text>
           <text class='price'>￥</text>
           <text class='price red'>{{item.fuzhujiage}}</text>
           <text class='price'>/{{item['计量单位']}}</text>

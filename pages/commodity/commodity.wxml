@@ -1,4 +1,4 @@
-<view class=" {{isCompany==false ? 'top top_two':''}}">
+<view class=" {{isCompany==false ? 'top top_two':'top'}}">
   <!-- <view class='search' wx:if="{{!isCompany}}">
     <view class='topDiv'>
      <picker bindchange="topChange" class='topList' mode="selector" value="{{topNum}}" range="{{topList}}" data-val="{{topList[topNum]}}">

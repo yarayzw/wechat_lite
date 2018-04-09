@@ -246,6 +246,7 @@ Page({
             shopNum: new_row,
             isNumGo:true,
           });
+          that.priceAll();
         }
         // that.setData({ topMenu: rs });
       }
@@ -273,6 +274,7 @@ Page({
             shopNum: new_row,
             isNumGo: true,
           });
+          that.priceAll();
         }
         // that.setData({ topMenu: rs });
       }
@@ -292,12 +294,13 @@ Page({
       success: function (res) {
         var rs = JSON.parse(res.data.d);
         if (rs == 1) {
-          var new_row = that.data.shopNum;
-          new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
+          // var new_row = that.data.shopNum;
+          // new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
           that.setData({
-            isNumGo: true,
-            shopNum: new_row
+            isNumGo: true
           });
+          that.firstLoadShoppingCart();
+          that.priceAll();
         }
         // that.setData({ topMenu: rs });
       }
@@ -337,6 +340,14 @@ Page({
     var num = parseInt(e.detail.value);
     this.updateShop(id, num);
     return e.detail.value;
+  },
+  delShopTwo: function(e){
+    var that = this;
+    if (that.data.isNumGo) {
+      that.setData({ isNumGo: false });
+      var id = e.currentTarget.dataset.shopid;
+      that.delShop(id, 1);
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
