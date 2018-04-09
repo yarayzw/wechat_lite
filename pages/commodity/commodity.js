@@ -518,10 +518,11 @@ Page({
   },
   //加号
   insertOneShop:function(e){
+    // console.log(1);
     var that = this;
     var id = e.currentTarget.dataset.shopid;
     var shopNum = that.data.shopNum;
-    // console.log(shopNum[id]);
+    // console.log(that.data.isNumGo);
     if(that.data.isNumGo){
       that.setData({isNumGo:false});
       if (shopNum[id] > 0) {
@@ -529,7 +530,8 @@ Page({
         that.updateShop(id, add);
       } else {
         var add = 1;
-        that.insertShop(id, 1);
+        var shopcz = e.currentTarget.dataset.cz;
+        that.insertShop(id, 1,shopcz);
       }
     }
   },
@@ -576,7 +578,8 @@ Page({
     })
   },
   //添加商品
-  insertShop:function(shopId,num){
+  insertShop:function(shopId,num,shopcz){
+    
     var that = this;
     wx.request({
       url: app.globalData.host + 'insert',
@@ -586,13 +589,14 @@ Page({
         canku: that.data.nowWareName,
         telephone: app.globalData.user_phone,
         wxweiyiid: app.globalData.wx_code,
+        cznumber:shopcz
       },
       method: 'POST',
       success: function (res) {
         var rs = JSON.parse(res.data.d);
         if(rs==1){
-          var new_row = that.data.shopNum;
-          new_row[shopId] = new_row[shopId] == undefined  ? num : new_row[shopId]+num;
+          var new_row = that.data.shopNum;      
+           new_row[shopId] = new_row[shopId] ? new_row[shopId] +num : num;
           that.setData({
             shopNum: new_row,
             isNumGo: true
@@ -605,6 +609,7 @@ Page({
   },
   //删除商品
   delShop: function(shopId,num){
+  
     var that = this;
     wx.request({
       url: app.globalData.host + 'delete',
@@ -616,8 +621,8 @@ Page({
       success: function (res) {
         var rs = JSON.parse(res.data.d);
         if (rs == 1) {
-          var new_row = that.data.shopNum;
-          new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
+          var new_row = that.data.shopNum;      
+          new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;     
           that.setData({
             shopNum: new_row,
             isNumGo: true
@@ -635,9 +640,10 @@ Page({
     if(num==''){
       num = e.currentTarget.dataset.num;
     }
-// console.log(e);
+    // console.log(that.data.isNumGo);
+    that.setData({  numStatus: true });
     if (that.data.isNumGo) {
-      that.setData({ isNumGo: false, numStatus: true });
+      that.setData({ isNumGo: false});
       if(num>0){
         this.updateShop(id, num);
       }else{
@@ -648,14 +654,21 @@ Page({
   //修改数量
   inputIn: function (e) {
     
-    if(this.data.numStatus){
-      this.setData({
-        numStatus: false
-      });
-      return '';
-    }
-    return e.detail.value;
+    // if(this.data.numStatus){
+    //   this.setData({
+    //     numStatus: false
+    //   });
+    //   return '';
+    // }
+  var id = e.currentTarget.dataset.shopid;
+    var num = parseInt(e.detail.value);
+    this.updateShop(id, num);
+    return e.detail.value;  
   },
+  // inputFocus: function(e){
+  //   console.log(2);
+  //   return '';
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
