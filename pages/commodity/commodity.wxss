@@ -2,6 +2,56 @@
   height: 142rpx;
   border-bottom: 1rpx solid #cccccc;
 }
+.top_two{
+  height: 420rpx;
+}
+.topDiv{
+  background-color: #F99001;
+  width: 150rpx;
+  float: left;
+  height: 42rpx;
+  border: 1rpx solid #F99001;
+  border-bottom-left-radius: 22rpx;
+  border-top-left-radius: 22rpx;
+  line-height: 42rpx;
+  text-align: center;
+  margin-right: 10rpx;
+  font-size: 22rpx;
+  z-index: 99;
+}
+.searchListDiv{
+  position: absolute;
+  top:64rpx;
+  left: 214rpx;
+  background-color: white;
+  display: inline-block;
+  font-size: 22rpx;
+  z-index: 999;
+}
+.topDivList{
+  width: 260px;
+  background-color: white;
+  border-bottom: 1rpx solid #333333;
+  height: 35rpx;
+}
+.addressListDiv{
+  position: absolute;
+  top:128rpx;
+  left: 214rpx;
+  background-color: white;
+  display: inline-block;
+  font-size: 22rpx;
+  z-index: 999;
+}
+.phoneListDiv{
+  position: absolute;
+  top:198rpx;
+  left: 214rpx;
+  background-color: white;
+  display: inline-block;
+  font-size: 22rpx;
+  z-index: 999;
+}
 
 .search{
   margin: 19rpx 62rpx 20rpx 62rpx;
@@ -9,12 +59,13 @@
   border: 1rpx solid #cccccc;
   width: 629rpx;
   height: 45rpx;
+  z-index: 11;
 }
 
 .search_icon{
   margin-left: 33rpx;
   width: 23rpx;
-  height: 24rpx;
+  height: 22rpx;
   margin-bottom: 10rpx;
   margin-right: 8rpx;
   position: relative;
@@ -22,7 +73,7 @@
 }
 .search_input{
   width: 400rpx;
-  height: 24rpx;
+  height: 22rpx;
   display: inline-block;
   font-size: 22rpx;
   color: #cccccc;
@@ -232,7 +283,6 @@
   float: right;
   text-align: center;
   height: 50rpx;
-  float: right;
 }
 
 .mask_del{
@@ -243,6 +293,26 @@
   top: -10rpx;
   float: right;
 }
-
+.masking_div{
+  height: 40rpx;
+  font-size: 28rpx;
+}
+.addCom{
+  width: 190rpx;
+  height: 50rpx;
+  font-size: 23rpx;
+  float: left;
+  
+}
+.saoma{
+  width: 190rpx;
+  height: 50rpx;
+  font-size: 23rpx;
+  float: right;
+}
+.nobr{
+  border: none;
+  text-align: center;
+}
 
 
