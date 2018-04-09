@@ -250,6 +250,8 @@ Page({
           wx.showToast({
             title: '保存成功',
           });
+          // 添加地址后将add_phone改为当前添加的手机号
+          app.globalData.add_phone = that.data.telphone;
           that.setData({ address_id: res.data.d });
           if (that.data.default_address == true) {
             wx.request({
