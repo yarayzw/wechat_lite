@@ -20,8 +20,8 @@ Page {
 .address-title {
   font-size: 34rpx;
   line-height: 80rpx;
-  margin-left: -100rpx;
   color: #333;
+  text-align: center;
 }
 .product-info {
   background: #FFF;
@@ -48,11 +48,12 @@ Page {
 }
 .product-name {
   display: inline-block;
-  width: 450rpx;
+  width: 200rpx;
 }
 .product-number {
   display: inline-block;
-  width: 80rpx;
+  width: 150rpx;
+  text-align: center;
 }
 .count-price {
   height: 100rpx;
@@ -101,4 +102,25 @@ Page {
   bottom: 0;
   height: 80rpx;
   width: 750rpx;
+}
+.update-btn {
+  position: absolute;
+  bottom: 0;
+  width: 750rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.del-address {
+  display: inline-block;
+  text-align: center;
+  width: 375rpx;
+  background: #ccc;
+  color: #FFF;
+}
+.save-address {
+  display: inline-block;
+  text-align: center;
+  width: 375rpx;
+  background: #F99001;
+  color: #FFF;
 }

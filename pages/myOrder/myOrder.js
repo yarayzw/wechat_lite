@@ -117,9 +117,9 @@ Page({
     })
   },
   jumpBack: function() {
-    wx.navigateBack({
-      
-    });
+    wx.switchTab({
+      url: '/pages/commodity/commodity',
+    })
   }
   
 })
