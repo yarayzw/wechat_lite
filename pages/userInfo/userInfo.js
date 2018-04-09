@@ -83,7 +83,6 @@ Page({
     app.globalData.wx_code = '';
     app.globalData.add_phone = '';
     app.globalData.isCompany = true;
-    wx.clearStorage();
     wx.redirectTo({
       url: '/pages/login/login',
     })

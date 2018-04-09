@@ -33,49 +33,6 @@ App({
       }
     })
   },
-  // 获取用户的openid
-  getUserOpenId: function () {
-    var that = this;
-    // 小程序登录 withCredentials 为true
-    wx.login({
-      success: function (res) {
-        wx.getUserInfo({
-          success: function(data) {
-            that.globalData.userInfo = data.userInfo;
-          }
-        });
-        // 获取openid
-        wx.request({
-          url: that.globalData.php_host,
-          method: 'POST',
-          header: {
-            'Content-type': 'application/x-www-form-urlencoded',
-          },
-          data: { 
-            code: res.code,
-            fun: 'wechatMiniGetOpenId'
-            },
-          success: function (r) {
-            if (r.data.status == 10000) {
-              that.globalData.wx_code = r.data.openid;
-              wx.setStorage({
-                key: 'wx_code',
-                data: that.globalData.wx_code,
-                success: function(res) {
-                  console.log(res);
-                },
-              });
-            } else {
-              that.showError('系统错误');
-            }
-          },
-          error: function () {
-            that.showError('系统错误');
-          }
-        })
-      }
-    })
-  },
   showError: function (content) {
     wx.showLoading({
       title: content,
@@ -92,6 +49,7 @@ App({
     user_phone: '',
     wx_code: '',
     add_phone: '',
-    isCompany: true // true是客户 false是业务 
+    isCompany: true,  // true是客户 false是业务
+    user_pass: ''
   }
 })
