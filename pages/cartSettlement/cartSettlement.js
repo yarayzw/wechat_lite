@@ -162,7 +162,6 @@ Page({
               fangshi: that.data.dispatching_type,
               nicheng: app.globalData.userInfo.nickName
             },
-<<<<<<< HEAD
             success: function (str) {
               if (str.data.d != 0 && str.data.d != ']') {
                 that.setData({
@@ -196,10 +195,6 @@ Page({
                     }
                   }
                 })
-=======
-            success: function(str) {
-              if (str.data.d != 0 && str.data.d != ']') {
->>>>>>> 34f5b346ccf12e95a6d4fe861711815b0588a11f
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
