@@ -1,9 +1,9 @@
 .top{
-  height: 142rpx;
+  height: 150rpx;
   border-bottom: 1rpx solid #cccccc;
 }
 .top_two{
-  height: 420rpx;
+  height: 428rpx;
 }
 .topDiv{
   background-color: #F99001;
@@ -98,7 +98,7 @@
 .bottom_left{
   width: 200rpx;
   height: 1100rpx;
-  font-size: 24rpx;
+  font-size: 30rpx;
   color: #656565;
   background-color: #F7F7F7;
 }
@@ -225,7 +225,7 @@
 }
 
 .tab-h{
-    height: 80rpx;width: 100%; box-sizing: border-box;overflow: hidden;line-height: 80rpx; font-size: 25rpx; white-space: nowrap;padding-left: 30rpx;}
+    height: 80rpx;width: 100%; box-sizing: border-box;overflow: hidden;line-height: 80rpx; font-size: 30rpx; white-space: nowrap;padding-left: 30rpx;}
 .tab-item{margin:0 36rpx;display: inline-block;height: 60rpx;}
 .tab-item.active{color: #F99001;border-bottom: 1rpx solid #F99001}
 

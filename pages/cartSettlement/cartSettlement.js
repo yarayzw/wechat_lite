@@ -162,7 +162,7 @@ Page({
               nicheng: app.globalData.userInfo.nickName
             },
             success: function(str) {
-              if (str.data.d == 1) {
+              if (str.data.d != 0 && str.data.d != ']') {
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
