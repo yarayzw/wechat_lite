@@ -172,20 +172,19 @@ Page({
                   data: { telephone: that.data.address[0]['tel'] },
                   success: function (res) {
                     res.data.d = 0;
-                    // 不等于0 需要支付
+                    // 等于0 不需要支付
                     if (res.data.d != 0) {
                       // 请求调起支付
                       wx.request({
                         url: app.globalData.pay_host + 'pay_mini',
                         method: 'POST',
-                        header: {'Content-type': 'application/x-www-form-urlencoded'},
+                        header: { 'Content-type': 'application/x-www-form-urlencoded' },
                         data: {
                           'openid': app.globalData.wx_code,
                           'terminal_trace': that.data.order_id,
                           'total_fee': that.data.total_money
                         },
                         success: function (pay_res) {
-                          console.log(111);
                           if (pay_res.data.code == '10000') {
                             var pay_content = pay_res.data.content;
                             wx.requestPayment({
@@ -194,23 +193,23 @@ Page({
                               package: pay_content.package_str,
                               signType: pay_content.signType,
                               paySign: pay_content.paySign,
-                              success: function(pay_success) {
+                              success: function (pay_success) {
                                 console.log(pay_success);
                               },
-                               fail: function(pay_fail) {
-                                 console.log(pay_fail);
-                               }
+                              fail: function (pay_fail) {
+                                console.log(pay_fail);
+                                return false;
+                              }
                             })
                           } else {
                             app.showError(pay_res.data.msg);
+                            return false;
                           }
                         }
                       })
-                      return false;
                     }
                   }
                 });
-                return false;
                 wx.showToast({
                   title: '提交成功',
                   icon: 'success',
