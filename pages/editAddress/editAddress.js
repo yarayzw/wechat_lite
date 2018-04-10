@@ -252,13 +252,15 @@ Page({
           });
           // 添加地址后将add_phone改为当前添加的手机号
           app.globalData.add_phone = that.data.telphone;
-          that.setData({ address_id: res.data.d });
+          if (fun == 'insertaddress' || fun == 'insertcustom') {
+            that.setData({ address_id: res.data.d });
+          }
           if (that.data.default_address == true) {
             wx.request({
               url: app.globalData.host + 'setaddress',
               method: 'POST',
               data: {
-                id: res.data.d,
+                id: that.data.address_id,
                 wxweiyiid: app.globalData.wx_code
               },
               success: function (e) {

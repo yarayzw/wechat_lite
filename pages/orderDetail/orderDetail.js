@@ -21,6 +21,7 @@ Page({
       method: 'POST',
       data: { orderid: that.data.order_code },
       success: function(res) {
+        console.log(res);
         if (res.data.d == ']') {
           wx.showLoading({
             title: '订单信息不存在',
@@ -124,5 +125,10 @@ Page({
          app.showEroor('取消失败');
        }
     })
+  },
+  backOrder: function() {
+    wx.navigateBack({
+      
+    });
   }
 })

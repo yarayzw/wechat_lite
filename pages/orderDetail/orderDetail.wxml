@@ -1,6 +1,6 @@
 <!--pages/orderDetail/orderDetail.wxml-->
 <view class='address-header'>
-  <icon catchtap='jumpBack' class='iconfont icon-fanhui comeback-btn fl'></icon>
+  <!-- <icon catchtap='jumpBack' class='iconfont icon-fanhui comeback-btn fl'></icon> -->
   <text class='address-title'>订单详情</text>
 </view>
 <view class='product-info'>
@@ -11,6 +11,7 @@
   <view class='product-detail'>
     <view class='order-info clear' wx:for="{{ order_detail }}">
       <text class='product-name'>{{ item['商品名称'] }}</text>
+      <text class='product-number'>单价：¥{{ item['商品价格'] }}</text>
       <text class='product-number'>x{{ item['商品数量'] }}</text>
       <text class='product-price fr'>¥{{ item['商品金额'] }}</text>
     </view>
@@ -69,4 +70,8 @@
     </view>
   </view>
 </view>
-<view catchtap='cancelOrder' class="cancel-order bg-orange">取消</view>
+<!-- <view catchtap='cancelOrder' class="cancel-order bg-orange">取消</view> -->
+<view class='update-btn'>
+  <text catchtap='backOrder' class='save-address'>返回</text>
+  <text catchtap='cancelOrder' class='del-address'>作废</text>
+</view>
