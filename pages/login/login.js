@@ -161,18 +161,17 @@ Page({
         });
         // 获取openid
         wx.request({
-          url: app.globalData.php_host,
+          url: app.globalData.pay_host + 'get_openid',
           method: 'POST',
           header: {
             'Content-type': 'application/x-www-form-urlencoded',
           },
           data: {
-            code: res.code,
-            fun: 'wechatMiniGetOpenId'
+            code: res.code
           },
           success: function (r) {
-            if (r.data.status == 10000) {
-              app.globalData.wx_code = r.data.openid;
+            if (r.data.code == 10000) {
+              app.globalData.wx_code = r.data.content.openid;
               wx.request({
                 url: app.globalData.host + 'getinfobyopenid',
                 data: { openid: app.globalData.wx_code },

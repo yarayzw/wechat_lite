@@ -44,9 +44,9 @@ App({
   },
   globalData: {
     userInfo: null,
-    host: 'http://211.149.177.232/DataCenterService.asmx/',
-    php_host: 'http://211.149.177.232:8008/wechat.php/',
+    host: 'https://tuoke.3d89178.com.cn/webservice/DataCenterService.asmx/',
     pay_host: 'https://tuoke.3d89178.com.cn/zf/wwwroot/index.php/home/payWechat/',
+    // pay_host: 'http://shawn.wechat/index.php/home/payWechat/',
     user_phone: '',
     wx_code: '',
     add_phone: '',

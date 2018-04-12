@@ -194,7 +194,18 @@ Page({
                               signType: pay_content.signType,
                               paySign: pay_content.paySign,
                               success: function (pay_success) {
-                                console.log(pay_success);
+                                wx.request({
+                                  url: app.globalData.pay_host + 'send_template',
+                                  header: { 'Content-type': 'application/x-www-form-urlencoded' },
+                                  method: 'POST',
+                                  data: {
+                                    'openid': app.globalData.wx_code,
+                                    'form_id': pay_content.package_str
+                                  },
+                                  success: function(res) {
+                                    console.log(res);
+                                  }
+                                })
                               },
                               fail: function (pay_fail) {
                                 console.log(pay_fail);
