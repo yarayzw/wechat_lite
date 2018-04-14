@@ -16,6 +16,7 @@ Page({
     is_company: true,
     login_tel: '',
     login_pass: '',
+    start_sub: false
   },
 
   /**
@@ -129,22 +130,6 @@ Page({
     });
   },
 
-  // 选择地区
-  // selectAreaCity: function() {
-  //   var that = this;
-  //   wx.chooseLocation({
-  //     success: function(res) {
-  //       var selectAddress = res.address;
-  //       that.setData({ 
-  //         area_city: res.address,
-  //         });
-  //     },
-  //     fail: function(res) {
-  //       // app.showError('获取地区失败');
-  //     }
-  //   })
-  // },
-
   // 更改地区
   changeAreaCity: function (e) {
     this.setData({
@@ -184,8 +169,18 @@ Page({
   // 保存信息
   saveAddress: function() {
     var that = this;
+    if (that.data.start_sub) {
+      app.showError('请勿重复点击');
+      return false;
+    }
+    that.setData({
+      start_sub: true
+    });
     if (that.data.username == '' || that.data.telphone == '' || that.data.area_city == '选择所在地区' || that.data.detail_address == '') {
       app.showError('请填写完整信息');
+      that.setData({
+        start_sub: false
+      });
       return false;
     }
     // 判断是业务人员或者客户
@@ -199,6 +194,9 @@ Page({
     // 业务人员
       if (that.data.login_tel == '' || that.data.login_pass == '') {
         app.showError('请填写完整信息');
+        that.setData({
+          start_sub: false
+        });
         return false;
       }
       if (that.data.do_type == 'add') {
@@ -251,7 +249,9 @@ Page({
             title: '保存成功',
           });
           // 添加地址后将add_phone改为当前添加的手机号
-          app.globalData.add_phone = that.data.telphone;
+          if (fun == 'insertcustom') {
+            app.globalData.add_phone = that.data.telphone;
+          }
           if (fun == 'insertaddress' || fun == 'insertcustom') {
             that.setData({ address_id: res.data.d });
           }
@@ -266,10 +266,16 @@ Page({
               success: function (e) {
                 if (e.data.d != 1) {
                   app.showError('保存为默认地址失败');
+                  that.setData({
+                    start_sub: false
+                  });
                 }
               },
               error: function () {
                 app.showError('保存为默认地址失败');
+                that.setData({
+                  start_sub: false
+                });
               }
             })
           }
@@ -279,10 +285,16 @@ Page({
           }, 1500);
         } else {
           app.showError('保存失败');
+          that.setData({
+            start_sub: false
+          });
         }
       },
       error: function () {
         app.showError('保存失败');
+        that.setData({
+          start_sub: false
+        });
       }
     })
   },
