@@ -903,6 +903,10 @@ Page({
             shopNum: new_row,
             isNumGo: true
           });
+        }else{
+          that.setData({
+            isNumGo: true
+          });
         }
         // that.setData({ topMenu: rs });
       }
@@ -912,7 +916,8 @@ Page({
   delShop: function(shopId,num){
     var that = this;
     var new_row = that.data.shopNum;
-    new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
+    // new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
+    new_row[shopId] = 0;
     that.setData({
       shopNum: new_row,
     });
@@ -929,6 +934,10 @@ Page({
           that.setData({         
             isNumGo: true
           });
+        }else{
+          that.setData({
+            isNumGo: true
+          });
         }
         // that.setData({ topMenu: rs });
       }
@@ -939,32 +948,38 @@ Page({
     var that = this;
     var id = e.currentTarget.dataset.shopid;
     var num = parseInt(e.detail.value);
-    if (num == '') {
-      num = e.currentTarget.dataset.num;
-    }
+    // if (num == '') {
+    //   num = e.currentTarget.dataset.num;
+    // }
     // console.log(that.data.isNumGo);
     that.setData({ numStatus: true });
     if (that.data.isNumGo) {
       that.setData({ isNumGo: false });
+      console.log(num);
       if (num > 0) {
+        
         this.updateShop(id, num);
       } else {
+      
         this.delShop(id, num);
       }
     }
   },
   //修改数量
   inputIn: function (e) {   
-    
+    var num = parseInt(e.detail.value);
+    var id = e.currentTarget.dataset.shopid;
+    if (num > 0) {
     if(this.data.numStatus){
       this.setData({
         numStatus: false
       });
       return '';
     }
-    var id = e.currentTarget.dataset.shopid;
-    var num = parseInt(e.detail.value);
+    
     this.updateShop(id, num);
+    }
+    
     return e.detail.value;
     // return e.detail.value;
   },
