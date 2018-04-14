@@ -301,6 +301,10 @@ Page({
           });
           that.firstLoadShoppingCart();
           that.priceAll();
+        }else{
+          that.setData({
+            isNumGo: true
+          });
         }
         // that.setData({ topMenu: rs });
       }
@@ -329,16 +333,19 @@ Page({
   },
   //修改数量
   inputIn: function (e) {
-
-    if (this.data.numStatus) {
-      this.setData({
-        numStatus: false
-      });
-      return '';
-    }
     var id = e.currentTarget.dataset.shopid;
     var num = parseInt(e.detail.value);
-    this.updateShop(id, num);
+    if(num>0){
+      if (this.data.numStatus) {
+        this.setData({
+          numStatus: false
+        });
+        return '';
+      }
+
+      this.updateShop(id, num);
+    }
+ 
     return e.detail.value;
   },
   delShopTwo: function(e){
