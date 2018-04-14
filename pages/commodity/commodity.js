@@ -964,7 +964,10 @@ Page({
     }
     var id = e.currentTarget.dataset.shopid;
     var num = parseInt(e.detail.value);
-    this.updateShop(id, num);
+    if(num>0){
+      this.updateShop(id, num);
+    }
+    
     return e.detail.value;
     // return e.detail.value;
   },
