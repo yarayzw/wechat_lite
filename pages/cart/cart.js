@@ -336,12 +336,12 @@ Page({
     var id = e.currentTarget.dataset.shopid;
     var num = parseInt(e.detail.value);
     if(num>0){
-      if (this.data.numStatus) {
-        this.setData({
-          numStatus: false
-        });
-        return '';
-      }
+      // if (this.data.numStatus) {
+      //   this.setData({
+      //     numStatus: false
+      //   });
+      //   return '';
+      // }
 
       this.updateShop(id, num);
     }
