@@ -21,7 +21,7 @@
 }
 .searchListDiv{
   position: absolute;
-  top:64rpx;
+  top:66rpx;
   left: 214rpx;
   background-color: white;
   display: inline-block;
@@ -29,15 +29,19 @@
   z-index: 999;
 }
 .topDivList{
-  width: 260px;
+  width: 200px;
   background-color: white;
-  border-bottom: 1rpx solid #333333;
-  height: 35rpx;
+  border-bottom: 1rpx solid #F7F7F7;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
 }
 .addressListDiv{
   position: absolute;
   top:128rpx;
-  left: 214rpx;
+  left: 216rpx;
   background-color: white;
   display: inline-block;
   font-size: 22rpx;
@@ -46,7 +50,7 @@
 .phoneListDiv{
   position: absolute;
   top:198rpx;
-  left: 214rpx;
+  left: 216rpx;
   background-color: white;
   display: inline-block;
   font-size: 22rpx;
