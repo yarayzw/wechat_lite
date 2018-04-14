@@ -99,12 +99,16 @@
 .top_active{
   color: #808080;
 }
+.bottom{
+  background-color: #F7F7F7;
+}
 .bottom_left{
   width: 200rpx;
-  height: 1100rpx;
+  
   font-size: 30rpx;
   color: #656565;
   background-color: #F7F7F7;
+ 
 }
 
 .bottom_right{
@@ -115,6 +119,7 @@
   text-align: center;
   line-height: 100rpx;
   clear: both;
+  border-bottom: 1rpx solid #cccccc;
 }
 .left_white{
   background-color: white;
@@ -192,6 +197,7 @@
   clear: both;
   position: relative;
   top: -50rpx;
+   border-bottom: 1rpx solid #cccccc;
 }
 .right_list_one{
   position: relative;
