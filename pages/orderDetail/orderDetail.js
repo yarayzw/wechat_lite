@@ -7,7 +7,8 @@ Page({
    */
   data: {
     order_code: '',
-    order_detail: null
+    order_detail: null,
+    start_sub: false
   },
 
   /**
@@ -97,15 +98,25 @@ Page({
   // 取消订单
   cancelOrder: function() {
     var that = this;
+    if (that.data.start_sub) {
+      app.showError('请勿重复点击');
+      return false;
+    }
+    that.setData({
+      start_sub: true
+    });
     wx.request({
       url: app.globalData.host + 'quxiao',
       method: 'POST',
       data: {
         wxweiyiid: app.globalData.wx_code,
-        tel: app.globalData.user_phone,
+        tel: app.globalData.add_phone,
         shaixuanid: that.data.order_code
       },
       success: function(res) {
+        that.setData({
+          start_sub: false
+        });
         if(res.data.d == 1) {
           wx.showToast({
             title: '取消成功',
@@ -123,6 +134,9 @@ Page({
       },
        error : function() {
          app.showEroor('取消失败');
+         that.setData({
+           start_sub: false
+         });
        }
     })
   },

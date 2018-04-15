@@ -189,11 +189,11 @@ Page({
                 }
               })
             } else {
-              that.showError('系统错误');
+                app.showError('系统错误');
             }
           },
           error: function () {
-            that.showError('系统错误');
+              app.showError('系统错误');
           }
         })
       }

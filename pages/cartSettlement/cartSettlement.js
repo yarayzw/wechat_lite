@@ -153,7 +153,7 @@ Page({
             method: 'POST',
             data: {
               wxweiyiid: app.globalData.wx_code,
-              telephone: that.data.address[0]['tel'],
+              telephone: app.globalData.add_phone,
               songdashijian: that.data.cart_date + ' ' + that.data.cart_time,
               dizhi: that.data.address[0]['diqu'] + that.data.address[0]['address'],
               beizhu: that.data.remarks,
@@ -169,7 +169,7 @@ Page({
                 wx.request({
                   url: app.globalData.host + 'pangduanzhifu',
                   method: 'POST',
-                  data: { telephone: that.data.address[0]['tel'] },
+                  data: { telephone: app.globalData.add_phone },
                   success: function (res) {
                     res.data.d = 0;
                     // 等于0 不需要支付
