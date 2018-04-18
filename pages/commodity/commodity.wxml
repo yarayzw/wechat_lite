@@ -85,7 +85,8 @@
           </view>
           <view class='cost_div'>
           <text class='info_cost'>单价:</text>
-          <text class='price'>￥{{shopVal['原价']}}</text>
+          <text class='price'>￥</text>
+          <text class='price red'>{{shopVal['原价']}}</text>
           <text class='info_cost'>/{{shopVal['计量单位']}}</text>
           
           </view>
@@ -113,7 +114,8 @@
         </view>
          <view class=''>
           <text class='info_cost'>单价:</text>
-          <text class='price'>￥{{shopDetails['原价']}}</text>
+          <text class='price'>￥</text>
+          <text class='price red'>{{shopDetails['原价']}}</text>
           <text class='info_cost'>/{{shopDetails['计量单位']}}</text>
         </view>
         <view wx:if="{{memberShip}}">
