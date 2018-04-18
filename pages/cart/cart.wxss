@@ -106,6 +106,7 @@
 }
 .price{
   font-size: 34rpx;
+  font-weight: 3rpx;
   color: #333333;
 }
 .red{
