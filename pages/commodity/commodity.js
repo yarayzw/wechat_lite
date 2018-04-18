@@ -844,7 +844,6 @@ Page({
     if (that.data.isNumGo) {
       that.setData({ isNumGo: false });
       if ((shopNum[id] - 1) == 0) {
-      
         that.delShop(id, 1);
       } else {
         
@@ -857,6 +856,11 @@ Page({
   //修改商品数量
   updateShop: function(id,num){
     var that = this;
+    var new_row = that.data.shopNum;
+    new_row[id] = num;
+    that.setData({
+      shopNum: new_row
+    });
     wx.request({
       url: app.globalData.host + 'update',
       data: {
@@ -869,10 +873,14 @@ Page({
         // console.log(res);
         var rs = JSON.parse(res.data.d);
         if (rs == 1) {
-          var new_row = that.data.shopNum;
-          new_row[id] = num;
+          // var new_row = that.data.shopNum;
+          // new_row[id] = num;
           that.setData({
-            shopNum: new_row,
+            // shopNum: new_row,
+            isNumGo: true
+          });
+        }else{
+          that.setData({
             isNumGo: true
           });
         }
@@ -883,6 +891,12 @@ Page({
   //添加商品
   insertShop:function(shopId,num,shopcz){
     var that = this;
+    var new_row = that.data.shopNum;
+    new_row[shopId] = new_row[shopId] ? new_row[shopId] + num : num;
+    that.setData({
+      shopNum: new_row,
+      // isNumGo: true
+    });
     wx.request({
       url: app.globalData.host + 'insert',
       data: {
@@ -897,13 +911,14 @@ Page({
       success: function (res) {
         var rs = JSON.parse(res.data.d);
         if (rs == 1) {
-          var new_row = that.data.shopNum;
-          new_row[shopId] = new_row[shopId] ? new_row[shopId] + num : num;
+          
           that.setData({
-            shopNum: new_row,
+            // shopNum: new_row,
             isNumGo: true
           });
         }else{
+          var new_row = that.data.shopNum;
+          new_row[shopId] = 0;
           that.setData({
             isNumGo: true
           });
@@ -916,11 +931,10 @@ Page({
   delShop: function(shopId,num){
     var that = this;
     var new_row = that.data.shopNum;
-    // new_row[shopId] = new_row[shopId] == undefined ? 0 : new_row[shopId] - num;
     new_row[shopId] = 0;
     that.setData({
-      shopNum: new_row,
-    });
+      shopNum: new_row
+    }); 
     wx.request({
       url: app.globalData.host + 'delete',
       data: {
@@ -930,12 +944,15 @@ Page({
       method: 'POST',
       success: function (res) {
         var rs = JSON.parse(res.data.d);
-        if (rs == 1) {        
-          that.setData({         
+        if (rs == 1) {  
+          that.setData({ 
             isNumGo: true
-          });
+          });    
         }else{
+          var new_row = that.data.shopNum;
+          new_row[shopId] = 1;
           that.setData({
+            shopNum: new_row,
             isNumGo: true
           });
         }
@@ -954,10 +971,8 @@ Page({
     // console.log(that.data.isNumGo);
     that.setData({ numStatus: true });
     if (that.data.isNumGo) {
-      that.setData({ isNumGo: false });
-      console.log(num);
-      if (num > 0) {
-        
+      that.setData({ isNumGo: false });  
+      if (num > 0) {   
         this.updateShop(id, num);
       } else {
       
