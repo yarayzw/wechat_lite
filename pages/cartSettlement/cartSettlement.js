@@ -25,7 +25,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      is_company: false,
+      is_company: app.globalData.isCompany,
       user_phone: app.globalData.add_phone
     });
     var that = this;
@@ -261,9 +261,9 @@ Page({
   },
   // 跳转到地址页面
   jumpToAddress: function () {
-    // if(app.globalData.isCompany) {
-    //   return false;
-    // }
+    if(app.globalData.isCompany) {
+      return false;
+    }
     wx.navigateTo({
       url: '/pages/address/address',
     })
