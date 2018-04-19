@@ -33,7 +33,7 @@
         "pagePath": "pages/cart/cart",
         "iconPath": "./images/gouwuche1.png",
         "selectedIconPath": "./images/gouwuche.png",
-        "text": "购物车"
+        "text": "已选"
       },
       {
         "pagePath": "pages/userInfo/userInfo",

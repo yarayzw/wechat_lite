@@ -1,18 +1,18 @@
 <!--pages/cartSettlement/cartSettlement.wxml-->
 <view class='address-header'>
   <icon class='iconfont icon-fanhui comeback-btn fl' catchtap='jumpBack'></icon>
-  <text class='address-title'>购物车结算</text>
+  <text class='address-title'>已选结算</text>
 </view>
 <view class='my-order'>
    <view class='receiver-content user-list' wx:if="{{ address != '' }}" catchtap='jumpToAddress'>
     <view class='receiver-person'>
-      <text class='get-person'>收货人：{{ address[0]['shouhuoren'] }}</text>
-      <text class='phone-person'>{{ address[0]['tel'] }}</text>
+      <text class='get-person'>收货人：{{ user_name }}</text>
+      <text class='phone-person'>{{ user_phone }}</text>
     </view>
     <view>
       <icon class='iconfont icon-dizhi title-icon'></icon>
-      <view class='address-person'>收货地址：{{ address[0]['diqu'] }}{{ address[0]['address'] }}</view>
-      <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
+      <view class='address-person'>收货地址：{{ address }}</view>
+      <icon wx:if="{{ !is_company }}" class='iconfont icon-liebiao_jiantou next-page'></icon>
     </view>
   </view> 
   <!-- <view class='user-list no-border' wx:if="{{ address != '' }}" catchtap='jumpToAddress'>
