@@ -9,6 +9,7 @@ Page({
     bookStock:true,//账面库存是否显示
     actualInventory:true,//实际库存是否显示
     memberShip:true,//是否显示会员价
+    yuanShip:true,
     winHeight: "",//窗口高度
     currentTab: 0, //预设当前项的值
     scrollLeft: 0, //tab标题的滚动条位置
@@ -182,6 +183,7 @@ Page({
     this.wareHouseLoad();
     // this.fristLoadList();
     this.isCompany();
+    this.isMembers();
     // var topArr = new Array;
     // topArr.push('客户名称');
     // topArr.push('客户电话');
@@ -411,6 +413,7 @@ Page({
     wx.request({
       url: app.globalData.host + 'DisplayedPicture',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -429,6 +432,7 @@ Page({
     wx.request({
       url: app.globalData.host + 'BookStock',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -447,6 +451,7 @@ Page({
     wx.request({
       url: app.globalData.host + 'ActualInventory',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -461,10 +466,12 @@ Page({
   },
   //会员价格是否显示
   isMember: function () {
+   
     var that = this;
     wx.request({
       url: app.globalData.host + 'MemberShip',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -478,7 +485,28 @@ Page({
       }
     })
   },
-  
+  //会员价格是否显示
+  isMembers: function () {
+    var that = this;
+    wx.request({
+      url: app.globalData.host + 'yuanjia',
+      data: {
+        tel: app.globalData.add_phone
+      },
+      method: 'POST',
+      success: function (res) {
+
+        var rs = JSON.parse(res.data.d);
+       
+        if (rs[0].yuanjia == 1) {
+          that.setData({ yuanShip: true });
+        } else {
+          that.setData({ yuanShip: false });
+        }
+      }
+    })
+  },
+
   //左侧菜单第一次加载
   fristLeftNavigation:function(){
     var that = this;
@@ -486,7 +514,7 @@ Page({
       url: app.globalData.host + 'FristLeftNavigation',
       data: {
         WareHouse: '',
-        tel: '',
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) { 
@@ -509,7 +537,7 @@ Page({
       url: app.globalData.host + 'TopNavigation',
       data: {
         WareHouse: '',
-        tel: '',
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
