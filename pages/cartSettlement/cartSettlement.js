@@ -15,13 +15,19 @@ Page({
     remarks: '',
     dispatching_type: '送货上门',
     user_phone: '',
-    order_id: ''
+    order_id: '',
+    is_company: false,
+    user_name: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      is_company: app.globalData.isCompany,
+      user_phone: app.globalData.add_phone
+    });
     var that = this;
     var now = new Date()
     var year = now.getFullYear(), month = now.getMonth() + 1, day = now.getDate(), hour = now.getHours(), minute = now.getMinutes();
@@ -32,34 +38,6 @@ Page({
     var dateStr = [year, month, day].join('-');
     var hourStr = [hour, minute].join(':');
     that.setData({ cart_time: hourStr, cart_date: dateStr });
-    // 获取收货人默认地址
-    if (options.address != undefined) {
-      that.setData({ address: JSON.parse(options.address) });
-    } else {
-      wx.request({
-        url: app.globalData.host + 'addressown',
-        method: 'POST',
-        data: { wxid: app.globalData.wx_code },
-        success: function (res) {
-          if (res.data.d != 0 && res.data.d != ']') {
-            that.setData({ address: JSON.parse(res.data.d) });
-          }
-        }
-      })
-    }
-    // 获取数量和总金额
-    wx.request({
-      url: app.globalData.host + 'total',
-      method: 'POST',
-      data: { wxweiyiid: app.globalData.wx_code },
-      success: function (res) {
-        var content = JSON.parse(res.data.d)[0];
-        that.setData({
-          total_num: content.totalnum ? content.totalnum : 0,
-          total_money: content.totalmoney ? content.totalmoney : 0
-        });
-      }
-    })
   },
 
   /**
@@ -73,7 +51,47 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this;
+    // 获取收货人默认地址
+    // if (options.address != undefined) {
+    //   that.setData({ address: JSON.parse(options.address) });
+    // } else {
+    wx.request({
+      url: app.globalData.host + 'getkhaddress',
+      method: 'POST',
+      data: { custom: app.globalData.add_phone },
+      success: function (res) {
+        if (res.data.d != 0 && res.data.d != ']') {
+          var content = JSON.parse(res.data.d);
+          that.setData({ address: content[0]['suidao'] });
+        }
+        wx.request({
+          url: app.globalData.host + 'getkhmingc',
+          method: 'POST',
+          data: { custom: app.globalData.add_phone },
+          success: function (d) {
+            if (d.data.d != 0 && d.data.d != ']') {
+              var content = JSON.parse(d.data.d);
+              that.setData({ user_name: content[0]['xiangmumingcheng'] });
+            }
+          }
+        })
+      }
+    })
+    // }
+    // 获取数量和总金额
+    wx.request({
+      url: app.globalData.host + 'total',
+      method: 'POST',
+      data: { wxweiyiid: app.globalData.wx_code },
+      success: function (res) {
+        var content = JSON.parse(res.data.d)[0];
+        that.setData({
+          total_num: content.totalnum ? content.totalnum : 0,
+          total_money: content.totalmoney ? content.totalmoney : 0
+        });
+      }
+    })
   },
 
   /**
@@ -155,7 +173,7 @@ Page({
               wxweiyiid: app.globalData.wx_code,
               telephone: app.globalData.add_phone,
               songdashijian: that.data.cart_date + ' ' + that.data.cart_time,
-              dizhi: that.data.address[0]['diqu'] + that.data.address[0]['address'],
+              dizhi: that.data.address,
               beizhu: that.data.remarks,
               fangshi: that.data.dispatching_type,
               nicheng: app.globalData.userInfo.nickName
@@ -243,6 +261,9 @@ Page({
   },
   // 跳转到地址页面
   jumpToAddress: function () {
+    if(app.globalData.isCompany) {
+      return false;
+    }
     wx.navigateTo({
       url: '/pages/address/address',
     })

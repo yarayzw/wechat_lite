@@ -5,13 +5,13 @@
 </view>
 <block wx:for="{{ address_list }}" wx:if="{{ form == '' }}">
   <view class='receiver-content user-list'>
-    <view class='receiver-person' data-address="{{ address_list[index] }}" catchtap='selectAddress'>
+    <view class='receiver-person' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'>
       <text class='get-person'>收货人：{{ item['shouhuoren'] }}</text>
       <text class='phone-person'>{{ item['tel'] }}</text>
     </view>
     <view>
       <icon class='iconfont icon-dizhi title-icon'></icon>
-      <view catchtap='selectAddress' data-address="{{ address_list[index] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
+      <view catchtap='jumpTpEdit' data-code="{{ item['id'] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
       <icon class='iconfont icon-liebiao_jiantou next-page' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'></icon>
     </view>
   </view>
