@@ -83,7 +83,7 @@
            <text class='info_num' wx:if="{{bookStock}}">账面库存: {{shopVal['账面库存']}} </text>
           <text class='info_num' wx:if="{{actualInventory}}">实际库存: {{shopVal['实际库存']}}</text>
           </view>
-          <view class='cost_div'>
+          <view class='cost_div' wx:if="{{yuanShip}}">
           <text class='info_cost'>单价:</text>
           <text class='price'>￥</text>
           <text class='price red'>{{shopVal['原价']}}</text>
@@ -112,7 +112,7 @@
           <view class='masking_div'>
           <text>{{shopDetails['详细内容']}}</text>
         </view>
-         <view class=''>
+         <view class=''  wx:if="{{yuanShip}}">
           <text class='info_cost'>单价:</text>
           <text class='price'>￥</text>
           <text class='price red'>{{shopDetails['原价']}}</text>
