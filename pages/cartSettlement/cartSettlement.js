@@ -252,6 +252,8 @@ Page({
                     url: '/pages/myOrder/myOrder',
                   });
                 }, 1500)
+              } else {
+                app.showError('您的网络情况比较差,本次提交失败');
               }
             }
           });
