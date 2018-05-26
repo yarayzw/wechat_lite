@@ -170,6 +170,8 @@ Page({
             url: app.globalData.host + 'DoAction',
             method: 'POST',
             data: {
+              ddhshaixuanid: app.globalData.ddh,
+              totalmoney: that.data.total_money,
               wxweiyiid: app.globalData.wx_code,
               telephone: app.globalData.add_phone,
               songdashijian: that.data.cart_date + ' ' + that.data.cart_time,

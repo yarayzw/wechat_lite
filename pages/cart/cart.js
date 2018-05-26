@@ -17,6 +17,7 @@ Page({
     shopNum: {},//商品显示数量
     isNumGo: true,//是否能改数量
     numStatus: true,//数量改变是否覆盖
+    hiddenLoading: false
   },
 
   /**
@@ -28,8 +29,14 @@ Page({
       this.isBook();
       this.isActual();
       this.isMember();
-      this.firstLoadShoppingCart();
-      this.priceAll();
+      var that = this;
+      setTimeout(function(){
+        that.firstLoadShoppingCart()
+      },500);
+     
+      setTimeout(function () {
+        that.priceAll()
+      }, 500);
     }else{
       wx.showToast({
         title: '请新建用户',
@@ -61,6 +68,7 @@ Page({
             catList: rs, 
             isGo: true
           });
+          that.setData({ hiddenLoading: true });
           // console.log(that.data.shopNum);
         }else{
           that.setData({ isGo: false });
@@ -76,6 +84,7 @@ Page({
     wx.request({
       url: app.globalData.host + 'DisplayedPicture',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -94,6 +103,7 @@ Page({
     wx.request({
       url: app.globalData.host + 'BookStock',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -112,6 +122,7 @@ Page({
     wx.request({
       url: app.globalData.host + 'ActualInventory',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -130,6 +141,7 @@ Page({
     wx.request({
       url: app.globalData.host + 'MemberShip',
       data: {
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function (res) {
@@ -367,13 +379,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var that = this;
+    that.setData({
+      hiddenLoading:false
+    });
     // this.isImg();
     // this.isBook();
     // this.isActual();
     // this.isMember();
     if (app.globalData.add_phone > 0){
-      this.firstLoadShoppingCart();
-      this.priceAll();
+    
+      setTimeout(function(){
+        that.firstLoadShoppingCart();
+        
+      },500);
+     
+      setTimeout(function () {
+        that.priceAll()
+      }, 500);
+      // this.firstLoadShoppingCart();
+      // this.priceAll();
     }else{
       this.setData({
         shopNum: {},

@@ -21,7 +21,7 @@
 }
 .searchListDiv{
   position: absolute;
-  top:66rpx;
+  top:198rpx;
   left: 214rpx;
   background-color: white;
   display: inline-block;
@@ -49,7 +49,7 @@
 }
 .phoneListDiv{
   position: absolute;
-  top:198rpx;
+  top:66rpx;
   left: 216rpx;
   background-color: white;
   display: inline-block;
@@ -251,21 +251,20 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
   
-  padding-top: 220rpx;
 }
 .mask_img{
-  width: 480rpx;
-  height: 500rpx;
+  width: 100%;
+  height: 100%;
   border-bottom: 1rpx solid #cccccc;
 }
 .img_div{
-  width: 480rpx;
-  height: 500rpx;
+  width: 100%;
+  height: 800rpx;
   background-color: #FFFFFF;
   margin: 0 auto;
 }
 .info_div{
-  width: 457rpx;
+  width: 100%;
   background-color: #FFFFFF;
   margin: 0 auto;
   padding-left: 23rpx;
@@ -278,8 +277,8 @@
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 0rpx;
-  top: -10rpx;
+  left: -30rpx;
+  top: -80rpx;
   float: right;
   margin-right: 10rpx;
 }
@@ -287,8 +286,8 @@
   font-size: 28rpx;
   color: #333333;
    position: relative;
-  top: -10rpx;
-   left: 0rpx;  
+  top: -80rpx;
+   left: -30rpx;  
   display: inline-block;
   width: 80rpx;
   float: right;
@@ -300,8 +299,8 @@
   color: #F99001;
   position: relative;
   font-size: 50rpx;
-  left: 10rpx;
-  top: -10rpx;
+  left: -20rpx;
+  top: -80rpx;
   float: right;
 }
 .masking_div{
