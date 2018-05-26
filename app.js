@@ -44,13 +44,15 @@ App({
   },
   globalData: {
     userInfo: null,
-    host: 'https://tuoke.3d89178.com.cn/webservice/DataCenterService.asmx/',
+    host: 'https://tuoke.3d89178.com.cn/allweixinapp/DataCenterService.asmx/',
     pay_host: 'https://tuoke.3d89178.com.cn/zf/wwwroot/index.php/home/payWechat/',
     // pay_host: 'http://shawn.wechat/index.php/home/payWechat/',
     user_phone: '',
     wx_code: '',
     add_phone: '',
     isCompany: true,  // true是客户 false是业务
-    user_pass: ''
+    user_pass: '',
+    ddh:'',
+    shaixuandan:''
   }
 })

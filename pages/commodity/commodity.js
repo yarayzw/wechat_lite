@@ -86,7 +86,6 @@ Page({
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
         var calc = clientHeight * rpxR - 180;
-        console.log(calc)
         that.setData({
           winHeight: calc
         });
@@ -124,7 +123,6 @@ Page({
 
       // 如果两次点击时间在300毫秒内，则认为是双击事件
       if (currentTime - lastTapTime < 300) {
-        console.log(e);
         // 成功触发双击事件时，取消单击事件的执行
         clearTimeout(that.lastTapTimeoutFunc);
         
@@ -153,7 +151,6 @@ Page({
       method: 'POST',
       success: function (res) {
         var rs = JSON.parse(res.data.d);
-        console.log(rs);
         that.setData({
           masking: true,
           shopDetails: rs[0]
@@ -201,7 +198,6 @@ Page({
       method: 'POST',
       success: function (res) {
         var rs = JSON.parse(res.data.d);
-        console.log(rs);
         if(rs[0].flag==1){
           that.setData({ isCompany: false });
         }else{
@@ -226,9 +222,25 @@ Page({
   nameInput: function(e){
     var that = this;
     var name = e.detail.value;
+    wx.request({
+      url: app.globalData.host + 'getkhallname',
+      data: {
+        custom: name,
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({ nameList: rs });
+        } else {
+          that.setData({ nameList: {} });
+        }
+      }
+    })
     that.nameGetAddress(name);
     that.nameGetPhone(name);
   },
+  
   //客户地址聚焦事件
   addressFocus: function (e) {
     var that = this;
@@ -256,6 +268,21 @@ Page({
   phoneInput: function (e) {
     var that = this;
     var name = e.detail.value;
+    wx.request({
+      url: app.globalData.host + 'getkhtel',
+      data: {
+        custom: name,
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({ phoneList: rs });
+        } else {
+          that.setData({ phoneList: {} });
+        }
+      }
+    })
     that.phoneGetName(name);
     that.phoneGetAddress(name);
   },
@@ -296,7 +323,6 @@ Page({
         } else {
           that.setData({ phoneList: {} });
         }
-        console.log(rs);
       }
     })
   },
@@ -349,8 +375,9 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        if (res.data.d != ']') {
-          var rs = JSON.parse(res.data.d);
+        var rs = JSON.parse(res.data.d)[0].flag;
+        // if (res.data.d == 1) {
+        //   // var rs = JSON.parse(res.data.d);
           if(rs==1){
             app.globalData.add_phone = phone;
             that.fristLeftNavigation();
@@ -363,23 +390,20 @@ Page({
               duration: 1500,
               mask: true
             })
-            // that.fristLeftNavigation();
-            // that.fristTopNavigation();
-            // that.wareHouseLoad();
             app.globalData.add_phone = 0;
             that.setData({
               shopNum: {}
             });
           }
           
-        } else {
-          wx.showToast({
-            title: '加载失败',
-            icon: 'loading',
-            duration: 1500,
-            mask: true
-          })
-        }
+        // } else {
+        //   wx.showToast({
+        //     title: '加载失败',
+        //     icon: 'loading',
+        //     duration: 1500,
+        //     mask: true
+        //   })
+        // }
       }
     })
   },
@@ -466,7 +490,6 @@ Page({
   },
   //会员价格是否显示
   isMember: function () {
-   
     var that = this;
     wx.request({
       url: app.globalData.host + 'MemberShip',
@@ -474,8 +497,7 @@ Page({
         tel: app.globalData.add_phone
       },
       method: 'POST',
-      success: function (res) {
-        
+      success: function (res) {    
         var rs = JSON.parse(res.data.d);
         if (rs[0].MemberShip == 1) {
           that.setData({ memberShip: true });
@@ -495,9 +517,7 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-
-        var rs = JSON.parse(res.data.d);
-       
+        var rs = JSON.parse(res.data.d);     
         if (rs[0].yuanjia == 1) {
           that.setData({ yuanShip: true });
         } else {
@@ -541,11 +561,15 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        var rs = JSON.parse(res.data.d); 
-        that.setData({
-          nowTopMenuId: rs[0].id
-        });
-        that.setData({ topMenu: rs });
+        
+        if (res.data.d != ']') {
+          var rs = JSON.parse(res.data.d);
+          that.setData({
+            nowTopMenuId: rs[0].id
+          });
+          that.setData({ topMenu: rs });
+        }
+       
       }
     })
   },
@@ -623,7 +647,6 @@ Page({
       success: function (res) {
         if (res.data.d != ']') {
           var rs = JSON.parse(res.data.d);
-          console.log(rs);
           that.setData({
             shopList: rs
           });
@@ -836,49 +859,64 @@ Page({
   },
   //加号
   insertOneShop:function(e){
-    // console.log(1);
+  
     if (app.globalData.add_phone>0){
       var that = this;
       var id = e.currentTarget.dataset.shopid;
       var shopNum = that.data.shopNum;
-      // var shopcz = e.currentTarget.dataset.cz;
-      // console.log(that.data.isNumGo);
-      if (that.data.isNumGo) {
+      // console.log(shopNum);
+      // if (that.data.isNumGo) {
         that.setData({ isNumGo: false });
         if (shopNum[id] > 0) {
-          var add = parseInt(shopNum[id]) + 1;
-          that.updateShop(id, add);
+          // var add = parseInt(shopNum[id]) + 1;
+           shopNum[id] = parseInt(shopNum[id]) + 1;
+          // that.updateShop(id, add);
         } else {
-          var add = 1;
-          var shopcz = e.currentTarget.dataset.cz;
-          that.insertShop(id, 1, shopcz);
+          shopNum[id] =  1;
+          // var add = 1;
+          // var shopcz = e.currentTarget.dataset.cz;
+          // that.insertShop(id, 1, shopcz);
         }
-      }
-    }else{
-      wx.showToast({
-        title: '请新建用户',
-        icon: 'loading',
-        duration: 1500,
-        mask: true
-      })
+        that.setData({
+          shopNum : shopNum
+        });
+        // console.log(that.data.shopNum);
+      // }
+    // }else{
+    //   wx.showToast({
+    //     title: '请新建用户',
+    //     icon: 'loading',
+    //     duration: 1500,
+    //     mask: true
+    //   })
+    // }
     }
-    
   },
   //减号
   delOneShop: function (e) {
     var that = this;
     var id = e.currentTarget.dataset.shopid;
     var shopNum = that.data.shopNum;
-    if (that.data.isNumGo) {
-      that.setData({ isNumGo: false });
-      if ((shopNum[id] - 1) == 0) {
-        that.delShop(id, 1);
+     if ((shopNum[id] - 1) == 0) {
+      //  console.log(11);
+       shopNum[id] = 0;
       } else {
-        
-        var del = shopNum[id] - 1;
-        that.updateShop(id, del);
+      //  console.log(21);
+       shopNum[id] = shopNum[id]-1;
       }
-    }
+     that.setData({
+       shopNum: shopNum
+     });
+    // if (that.data.isNumGo) {
+    //   that.setData({ isNumGo: false });
+    //   if ((shopNum[id] - 1) == 0) {
+    //     that.delShop(id, 1);
+    //   } else {
+        
+    //     var del = shopNum[id] - 1;
+    //     that.updateShop(id, del);
+    //   }
+    // }
     
   },
   //修改商品数量
@@ -939,7 +977,6 @@ Page({
       success: function (res) {
         var rs = JSON.parse(res.data.d);
         if (rs == 1) {
-          
           that.setData({
             // shopNum: new_row,
             isNumGo: true
@@ -988,28 +1025,10 @@ Page({
       }
     })
   },
-  //更改商品数量input
-  numGo: function(e){
-    var that = this;
-    var id = e.currentTarget.dataset.shopid;
-    var num = parseInt(e.detail.value);
-    // if (num == '') {
-    //   num = e.currentTarget.dataset.num;
-    // }
-    // console.log(that.data.isNumGo);
-    that.setData({ numStatus: true });
-    if (that.data.isNumGo) {
-      that.setData({ isNumGo: false });  
-      if (num > 0) {   
-        this.updateShop(id, num);
-      } else {
-      
-        this.delShop(id, num);
-      }
-    }
-  },
+ 
   //修改数量
-  inputIn: function (e) {   
+  inputIn: function (e) {  
+    var that = this; 
     var num = parseInt(e.detail.value);
     var id = e.currentTarget.dataset.shopid;
     if (num > 0) {
@@ -1020,11 +1039,59 @@ Page({
     //   return '';
     // }
     
-    this.updateShop(id, num);
-    }
+      var new_row = that.data.shopNum;
+      new_row[id] = num;
+      that.setData({
+        shopNum: new_row,
+      });
     
+    // this.updateShop(id, num);
+    }
+    console.log(num);
     return e.detail.value;
     // return e.detail.value;
+  },
+  //一次性添加商品
+  addAllShop: function(){
+    var that= this;
+    var arr = that.data.shopNum;
+    var arr_newss = new Array;
+    for(var pl in arr){
+      var t = [];
+      t = {};
+      t.cpid = pl;
+      t.shuliang = arr[pl];
+      // t['cpid'] = pl;
+      // t['shuliang'] = arr[pl];
+      arr_newss.push(t);
+    }
+    arr_newss = JSON.stringify(arr_newss);
+    wx.request({
+      url: app.globalData.host + 'Json2Dtb',
+      data: {
+        json: arr_newss,
+        cangku: that.data.nowWareName,
+        mobile: app.globalData.add_phone,
+        openid: app.globalData.wx_code
+      },
+      method: 'POST',
+      success: function (res) {
+        // var rs = JSON.parse(res.data.d);
+        // console.log(res.data.d);
+        if (res.data.d){
+          app.globalData.ddh = res.data.d;
+        }else{
+          wx.showToast({
+            title: '您的网络情况比较差,本次提交失败,请重新提交',
+            icon: 'error',
+            duration: 1500,
+            mask: true
+          })
+        } 
+        // app.globalData.shaixuanid = rs.shaixuanid;
+      }
+    })
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -1050,14 +1117,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+    this.addAllShop();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+    this.addAllShop();
   },
 
   /**
@@ -1089,7 +1156,6 @@ Page({
     var id = add_id.split('_');
     id = id[1];
     var num = document.getElementById("num_"+id).html(); 
-    console.log(num);
   },
 
   //无图模式

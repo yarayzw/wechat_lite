@@ -52,3 +52,4 @@
   <text class='number-price'>￥{{ total_money }}</text>
   <text class='number-font'>合计:</text>  
 </view>
+<loading hidden="{{hiddenLoading}}">正在加载</loading>
