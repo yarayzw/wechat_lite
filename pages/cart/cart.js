@@ -34,9 +34,7 @@ Page({
         that.firstLoadShoppingCart()
       },500);
      
-      setTimeout(function () {
-        that.priceAll()
-      }, 500);
+     
     }else{
       wx.showToast({
         title: '请新建用户',
@@ -68,10 +66,18 @@ Page({
             catList: rs, 
             isGo: true
           });
+        
+            that.priceAll()
+         
           that.setData({ hiddenLoading: true });
+          
           // console.log(that.data.shopNum);
         }else{
           that.setData({ isGo: false });
+          setTimeout(function () {
+            that.firstLoadShoppingCart();
+          }, 500);
+          
         }
         
       }
@@ -394,9 +400,7 @@ Page({
         
       },500);
      
-      setTimeout(function () {
-        that.priceAll()
-      }, 500);
+     
       // this.firstLoadShoppingCart();
       // this.priceAll();
     }else{
