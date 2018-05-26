@@ -544,7 +544,7 @@ Page({
             nowTLeftMenuId: rs[0].id
           });
           that.setData({ leftMenu: rs });
-          that.getCatShopList();
+          // that.getCatShopList();
         }
        
       }
@@ -607,11 +607,10 @@ Page({
             success: function (res) {
               if (res.data.d != ']') {
                 var rs = JSON.parse(res.data.d);
-              
                 that.setData({
                   shopList: rs
                 });
-                that.getCatShopList();
+                // that.getCatShopList();
               }
             }
           })
@@ -650,7 +649,7 @@ Page({
           that.setData({
             shopList: rs
           });
-          that.getCatShopList();
+          // that.getCatShopList();
         }
       }
      })
@@ -717,7 +716,7 @@ Page({
             that.setData({
               shopList: rs
             });
-            that.getCatShopList();
+            // that.getCatShopList();
           }
         }
       })
