@@ -16,32 +16,33 @@
 </view>
 
 <view class='order-list' wx:if="{{ !no_order }}">
-<block wx:for="{{ order_list }}">
-  <view class='order-all' catchtap='jumpSeeDetail' data-code="{{ item['订单id'] }}">
-    <view class='order-content'>
-      <view class='order-font'>
-        <text class='order-time'>下单时间</text>
-        <text class='order-year'> {{ item['下单时间'] }} </text>
-         <text class="{{ item['B'] == '已作废' ? 'red fr' : 'green fr' }}">{{ item['A'] == 2 ? '未审核' : '已审核' }} {{ item['B'] }} {{ item['C'] > 0 ? '已付款' : '未付款' }}{{ item['C'] > 0 ? item['C'] : '' }}</text> 
+  <block wx:for="{{ order_list }}">
+    <view class='order-all' data-code="{{ item['订单id'] }}">
+      <view class='order-content' catchtap='jumpSeeDetail'>
+        <view class='order-font'>
+          <text class='order-time'>下单时间</text>
+          <text class='order-year'> {{ item['下单时间'] }} </text>
+          <text class="{{ item['B'] == '已作废' ? 'red fr' : 'green fr' }}">{{ item['A'] == 2 ? '未审核' : '已审核' }} {{ item['B'] }} {{ item['C'] > 0 ? '已付款' : '未付款' }}{{ item['C'] > 0 ? item['C'] : '' }}</text>
+        </view>
+        <view class='order-font'>
+          <text class='order-time'>订单编号</text>
+          <text class='order-year'> {{ item['订单编号'] }} </text>
+        </view>
+        <view class='order-font'>
+          <text class='order-count'>共{{ item['类别总数'] }}类商品</text>
+        </view>
       </view>
-      <view class='order-font'>
-        <text class='order-time'>订单编号</text>
-        <text class='order-year'> {{ item['订单编号'] }} </text>
-      </view>
-      <view class='order-font'>
-        <text class='order-count'>共{{ item['类别总数'] }}类商品</text>
+      <view class='price-order clear'>
+        <text class='price-font fr'>¥{{ item['金额'] }}</text>
+        <text wx:if="{{ select_tab == 'audit' }}" class='price-font-a fr'>付款</text>
       </view>
     </view>
-    <view class='price-order clear'>
-      <text class='price-font fr'>¥{{ item['金额'] }}</text>
-    </view>
-  </view>
-</block>
+  </block>
 
 
 
 
-   <!-- <view class='order-all'>
+  <!-- <view class='order-all'>
     <view class='order-content'>
       <view class='order-font'>
         <text class='order-time'>下单时间</text>
@@ -59,6 +60,7 @@
     </view>
     <view class='price-order clear'>
       <text class='price-font fr'>¥168.00</text>
+      <text class='price-font-a fr'>付款</text>
     </view>
   </view>
   <view class='order-all'>
@@ -101,7 +103,7 @@
       <text class='price-font fr'>¥168.00</text>
     </view>
   </view>
-  <view class='order-all'> 
+  <view class='order-all'>
     <view class='order-content'>
       <view class='order-font'>
         <text class='order-time'>下单时间</text>
@@ -121,4 +123,6 @@
       <text class='price-font fr'>¥168.00</text>
     </view>
   </view> -->
+
+
 </view>

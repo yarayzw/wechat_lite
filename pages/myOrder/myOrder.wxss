@@ -89,3 +89,9 @@ Page {
    color: #F84F63;
    font-size: 30rpx;
  }
+  .price-font-a {
+   color: #F84F63;
+   font-size: 30rpx;
+   display: inline-block;
+   margin-right: 30rpx; 
+ }

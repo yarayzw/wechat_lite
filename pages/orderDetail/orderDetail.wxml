@@ -75,3 +75,6 @@
   <text catchtap='backOrder' class='save-address'>返回</text>
   <text catchtap='cancelOrder' class='del-address'>作废</text>
 </view>
+
+<view class='update-btn-a'>
+</view>

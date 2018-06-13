@@ -28,7 +28,17 @@ Page {
   color: #FFF;
   font-size: 34rpx;
   text-align: center;
-  position: absolute;
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+}
+.add-address-a {
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #FFF;
+  font-size: 34rpx;
+  text-align: center;
+  position: relative;
   bottom: 0;
   width: 750rpx;
 }

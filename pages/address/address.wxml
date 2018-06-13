@@ -11,7 +11,7 @@
     </view>
     <view>
       <icon class='iconfont icon-dizhi title-icon'></icon>
-      <view catchtap='jumpTpEdit' data-code="{{ item['id'] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
+      <view catchtap='jumpTpEdit' data-code="{{ item['id'] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}<text class='red' style='font-size:30rpx'>{{ item['flag'] == '是' ? '(默认)' : '' }}</text></view>
       <icon class='iconfont icon-liebiao_jiantou next-page' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'></icon>
     </view>
   </view>
@@ -26,10 +26,11 @@
     </view>
     <view>
       <icon class='iconfont icon-dizhi title-icon'></icon>
-      <view catchtap='jumpTpEdit' data-code="{{ item['id'] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }}</view>
+      <view catchtap='jumpTpEdit' data-code="{{ item['id'] }}" class='address-person'>收货地址：{{ item['diqu'] }}{{ item['address'] }} <text class='red' style='font-size:30rpx'>{{ item['flag'] == '是' ? '(默认)' : '' }}</text></view>
       <icon class='iconfont icon-liebiao_jiantou next-page' data-code="{{ item['id'] }}" catchtap='jumpTpEdit'></icon>
     </view>
   </view>
 </block>
 
 <view catchtap='jumpAddAddress' class='add-address bg-orange'>新增收货地址</view>
+<view  class='add-address-a '></view>

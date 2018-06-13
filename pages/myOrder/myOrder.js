@@ -92,7 +92,8 @@ Page({
     wx.request({
       url: app.globalData.host + type,
       data: {
-        wxweiyiid: app.globalData.wx_code
+        wxweiyiid: app.globalData.wx_code,
+        tel: app.globalData.add_phone
       },
       method: 'POST',
       success: function(res) {

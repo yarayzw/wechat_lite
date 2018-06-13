@@ -35,7 +35,8 @@ Page({
       url: app.globalData.host + 'addressall',
       method: 'POST',
       data: {
-        wxid: app.globalData.wx_code
+        wxid: app.globalData.wx_code,
+        tel: app.globalData.add_phone
       },
       success: function (res) {
         if (res.data.d == ']') {

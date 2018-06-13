@@ -148,17 +148,22 @@ Page({
     })
   },
 
+  onGotUserInfo:function(r){
+    console.log(r);
+    app.globalData.userInfo = r.detail.userInfo;
+  },
+
   // 获取用户的openid
   getUserOpenId: function () {
     var that = this;
     // 小程序登录 withCredentials 为true
     wx.login({
       success: function (res) {
-        wx.getUserInfo({
-          success: function (data) {
-            app.globalData.userInfo = data.userInfo;
-          }
-        });
+        // wx.getUserInfo({
+        //   success: function (data) {
+        //     app.globalData.userInfo = data.userInfo;
+        //   }
+        // });
         // 获取openid
         wx.request({
           url: app.globalData.pay_host + 'get_openid',

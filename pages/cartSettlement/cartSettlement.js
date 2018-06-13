@@ -63,7 +63,7 @@ Page({
       success: function (res) {
         if (res.data.d != 0 && res.data.d != ']') {
           var content = JSON.parse(res.data.d);
-          that.setData({ address: content[0]['suidao'] });
+          that.setData({ address: content[0]['address'] });
         }
         wx.request({
           url: app.globalData.host + 'getkhmingc',
@@ -72,7 +72,7 @@ Page({
           success: function (d) {
             if (d.data.d != 0 && d.data.d != ']') {
               var content = JSON.parse(d.data.d);
-              that.setData({ user_name: content[0]['xiangmumingcheng'] });
+              that.setData({ user_name: content[0]['shouhuoren'] });
             }
           }
         })
@@ -265,9 +265,9 @@ Page({
   },
   // 跳转到地址页面
   jumpToAddress: function () {
-    if(app.globalData.isCompany) {
-      return false;
-    }
+    // if(app.globalData.isCompany) {
+    //   return false;
+    // }
     wx.navigateTo({
       url: '/pages/address/address',
     })

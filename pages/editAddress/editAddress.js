@@ -30,6 +30,9 @@ Page({
       is_company: app.globalData.isCompany
     });
     if (options.do_type == 'add') {
+      that.setData({
+        default_address: true
+      });
       return false;
     }
     wx.request({
@@ -54,7 +57,8 @@ Page({
           username: address_info[0]['shouhuoren'],
           telphone: address_info[0]['tel'],
           area_city: address_info[0]['diqu'],
-          detail_address: address_info[0]['address']
+          detail_address: address_info[0]['address'],
+          default_address: address_info[0]['flag'] == '是' ? true: false
         });
       }
     })
@@ -256,32 +260,38 @@ Page({
             that.setData({ address_id: res.data.d });
           }
           if (that.data.default_address == true) {
-            wx.request({
-              url: app.globalData.host + 'setaddress',
-              method: 'POST',
-              data: {
-                id: that.data.address_id,
-                wxweiyiid: app.globalData.wx_code
-              },
-              success: function (e) {
-                if (e.data.d != 1) {
+            if (fun == 'updateaddress' || fun == 'updatecustomer'){
+              wx.request({
+                url: app.globalData.host + 'setaddress',
+                method: 'POST',
+                data: {
+                  id: that.data.address_id,
+                  wxweiyiid: app.globalData.wx_code,
+                  tel: app.globalData.add_phone
+                },
+                success: function (e) {
+                  if (e.data.d != 1) {
+                    app.showError('保存为默认地址失败');
+                    that.setData({
+                      start_sub: false
+                    });
+                  }
+                },
+                error: function () {
                   app.showError('保存为默认地址失败');
                   that.setData({
                     start_sub: false
                   });
                 }
-              },
-              error: function () {
-                app.showError('保存为默认地址失败');
-                that.setData({
-                  start_sub: false
-                });
-              }
-            })
+              })
+            }
           }
           setTimeout(function () {
             wx.hideToast();
-            wx.navigateBack({});
+            wx.redirectTo({
+              url: '/pages/cartSettlement/cartSettlement',
+            });
+            // wx.navigateBack({});
           }, 1500);
         } else {
           app.showError('保存失败');
