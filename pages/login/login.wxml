@@ -15,5 +15,7 @@
   <input placeholder-style='color:#CCC' class='input-username' placeholder='请输入密码' bindinput="changePassword" type='text' value='{{ password_data }}' />
   <icon bindtap='changeHidePassword' class='show-password iconfont icon-xianshi'></icon>
 </view>
-<view class='login-btn' catchtap='validateLogin'>登录</view>
+<button class='login-btn' open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" catchtap='validateLogin'>登录</button>
 <view class='login-problem'>登录遇到问题？</view>
+
+<!-- <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo">授权获取用户信息</button> -->

@@ -104,7 +104,14 @@ Page {
   width: 750rpx;
 }
 .update-btn {
-  position: absolute;
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.update-btn-a {
+  position: relative;
   bottom: 0;
   width: 750rpx;
   height: 80rpx;

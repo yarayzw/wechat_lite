@@ -12,7 +12,7 @@
     <view>
       <icon class='iconfont icon-dizhi title-icon'></icon>
       <view class='address-person'>收货地址：{{ address }}</view>
-      <icon wx:if="{{ !is_company }}" class='iconfont icon-liebiao_jiantou next-page'></icon>
+      <icon class='iconfont icon-liebiao_jiantou next-page'></icon>
     </view>
   </view> 
   <!-- <view class='user-list no-border' wx:if="{{ address != '' }}" catchtap='jumpToAddress'>
