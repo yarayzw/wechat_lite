@@ -24,6 +24,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.request({
+      url: app.globalData.host + 'Getuserbiaoti',
+      method: 'POST',
+      data: { tel: app.globalData.user_phone },
+      success: function (res) {
+        wx.setNavigationBarTitle({
+          title: res.data.d
+        })
+      }
+    })
+
     this.setData({
       is_company: app.globalData.isCompany,
       user_phone: app.globalData.add_phone
@@ -166,97 +177,192 @@ Page({
       confirmColor: '#F99001',
       success: function (res) {
         if (res.confirm) {
-          wx.request({
-            url: app.globalData.host + 'DoAction',
-            method: 'POST',
-            data: {
-              ddhshaixuanid: app.globalData.ddh,
-              totalmoney: that.data.total_money,
-              wxweiyiid: app.globalData.wx_code,
-              telephone: app.globalData.add_phone,
-              songdashijian: that.data.cart_date + ' ' + that.data.cart_time,
-              dizhi: that.data.address,
-              beizhu: that.data.remarks,
-              fangshi: that.data.dispatching_type,
-              nicheng: app.globalData.userInfo.nickName
-            },
-            success: function (str) {
-              if (str.data.d != 0 && str.data.d != ']') {
-                that.setData({
-                  order_id: str.data.d
-                });
-                // 判断支付是否需要支付 wx.request 不支持同步
-                wx.request({
-                  url: app.globalData.host + 'pangduanzhifu',
-                  method: 'POST',
-                  data: { telephone: app.globalData.add_phone },
-                  success: function (res) {
-                    res.data.d = 0;
-                    // 等于0 不需要支付
-                    if (res.data.d != 0) {
-                      // 请求调起支付
-                      wx.request({
-                        url: app.globalData.pay_host + 'pay_mini',
-                        method: 'POST',
-                        header: { 'Content-type': 'application/x-www-form-urlencoded' },
-                        data: {
-                          'openid': app.globalData.wx_code,
-                          'terminal_trace': that.data.order_id,
-                          'total_fee': that.data.total_money
-                        },
-                        success: function (pay_res) {
-                          if (pay_res.data.code == '10000') {
-                            var pay_content = pay_res.data.content;
-                            wx.requestPayment({
-                              timeStamp: pay_content.timeStamp,
-                              nonceStr: pay_content.nonceStr,
-                              package: pay_content.package_str,
-                              signType: pay_content.signType,
-                              paySign: pay_content.paySign,
-                              success: function (pay_success) {
-                                wx.request({
-                                  url: app.globalData.pay_host + 'send_template',
-                                  header: { 'Content-type': 'application/x-www-form-urlencoded' },
-                                  method: 'POST',
-                                  data: {
-                                    'openid': app.globalData.wx_code,
-                                    'form_id': pay_content.package_str
-                                  },
-                                  success: function(res) {
-                                    console.log(res);
-                                  }
-                                })
-                              },
-                              fail: function (pay_fail) {
-                                console.log(pay_fail);
-                                return false;
-                              }
-                            })
-                          } else {
-                            app.showError(pay_res.data.msg);
-                            return false;
-                          }
-                        }
-                      })
-                    }
-                  }
-                });
-                wx.showToast({
-                  title: '提交成功',
-                  icon: 'success',
-                  mask: true,
-                });
-                setTimeout(function () {
-                  wx.hideToast();
-                  wx.reLaunch({
-                    url: '/pages/myOrder/myOrder',
+          if(app.globalData.isCompany) {
+            wx.request({
+              url: app.globalData.host + 'DoAction',
+              method: 'POST',
+              data: {
+                ddhshaixuanid: app.globalData.ddh,
+                totalmoney: that.data.total_money,
+                wxweiyiid: app.globalData.wx_code,
+                telephone: app.globalData.add_phone,
+                songdashijian: that.data.cart_date + ' ' + that.data.cart_time,
+                dizhi: that.data.address,
+                beizhu: that.data.remarks,
+                fangshi: that.data.dispatching_type,
+                nicheng: app.globalData.userInfo.nickName
+              },
+              success: function (str) {
+                if (str.data.d != 0 && str.data.d != ']' && str.data.d != 'error') {
+                  that.setData({
+                    order_id: str.data.d
                   });
-                }, 1500)
-              } else {
-                app.showError('您的网络情况比较差,本次提交失败');
+                  // 判断支付是否需要支付 wx.request 不支持同步
+                  wx.request({
+                    url: app.globalData.host + 'pangduanzhifu',
+                    method: 'POST',
+                    data: { telephone: app.globalData.add_phone },
+                    success: function (res) {
+                      res.data.d = 0;
+                      // 等于0 不需要支付
+                      if (res.data.d != 0) {
+                        // 请求调起支付
+                        wx.request({
+                          url: app.globalData.pay_host + 'pay_mini',
+                          method: 'POST',
+                          header: { 'Content-type': 'application/x-www-form-urlencoded' },
+                          data: {
+                            'openid': app.globalData.wx_code,
+                            'terminal_trace': that.data.order_id,
+                            'total_fee': that.data.total_money
+                          },
+                          success: function (pay_res) {
+                            if (pay_res.data.code == '10000') {
+                              var pay_content = pay_res.data.content;
+                              wx.requestPayment({
+                                timeStamp: pay_content.timeStamp,
+                                nonceStr: pay_content.nonceStr,
+                                package: pay_content.package_str,
+                                signType: pay_content.signType,
+                                paySign: pay_content.paySign,
+                                success: function (pay_success) {
+                                  wx.request({
+                                    url: app.globalData.pay_host + 'send_template',
+                                    header: { 'Content-type': 'application/x-www-form-urlencoded' },
+                                    method: 'POST',
+                                    data: {
+                                      'openid': app.globalData.wx_code,
+                                      'form_id': pay_content.package_str
+                                    },
+                                    success: function (res) {
+                                      console.log(res);
+                                    }
+                                  })
+                                },
+                                fail: function (pay_fail) {
+                                  console.log(pay_fail);
+                                  return false;
+                                }
+                              })
+                            } else {
+                              app.showError(pay_res.data.msg);
+                              return false;
+                            }
+                          }
+                        })
+                      }
+                    }
+                  });
+                  wx.showToast({
+                    title: '提交成功',
+                    icon: 'success',
+                    mask: true,
+                  });
+                  setTimeout(function () {
+                    wx.hideToast();
+                    wx.reLaunch({
+                      url: '/pages/myOrder/myOrder',
+                    });
+                  }, 1500)
+                } else {
+                  app.showError('提交失败');
+                }
               }
-            }
-          });
+            });
+          } else {
+            wx.request({
+              url: app.globalData.host + 'DoActionywy',
+              method: 'POST',
+              data: {
+                ddhshaixuanid: app.globalData.ddh,
+                totalmoney: that.data.total_money,
+                wxweiyiid: app.globalData.wx_code,
+                telephone: app.globalData.add_phone,
+                songdashijian: that.data.cart_date + ' ' + that.data.cart_time,
+                dizhi: that.data.address,
+                beizhu: that.data.remarks,
+                fangshi: that.data.dispatching_type,
+                nicheng: app.globalData.userInfo.nickName,
+                ywytel: app.globalData.user_phone
+              },
+              success: function (str) {
+                if (str.data.d != 0 && str.data.d != ']' && str.data.d != 'error') {
+                  that.setData({
+                    order_id: str.data.d
+                  });
+                  // 判断支付是否需要支付 wx.request 不支持同步
+                  wx.request({
+                    url: app.globalData.host + 'pangduanzhifu',
+                    method: 'POST',
+                    data: { telephone: app.globalData.add_phone },
+                    success: function (res) {
+                      res.data.d = 0;
+                      // 等于0 不需要支付
+                      if (res.data.d != 0) {
+                        // 请求调起支付
+                        wx.request({
+                          url: app.globalData.pay_host + 'pay_mini',
+                          method: 'POST',
+                          header: { 'Content-type': 'application/x-www-form-urlencoded' },
+                          data: {
+                            'openid': app.globalData.wx_code,
+                            'terminal_trace': that.data.order_id,
+                            'total_fee': that.data.total_money
+                          },
+                          success: function (pay_res) {
+                            if (pay_res.data.code == '10000') {
+                              var pay_content = pay_res.data.content;
+                              wx.requestPayment({
+                                timeStamp: pay_content.timeStamp,
+                                nonceStr: pay_content.nonceStr,
+                                package: pay_content.package_str,
+                                signType: pay_content.signType,
+                                paySign: pay_content.paySign,
+                                success: function (pay_success) {
+                                  wx.request({
+                                    url: app.globalData.pay_host + 'send_template',
+                                    header: { 'Content-type': 'application/x-www-form-urlencoded' },
+                                    method: 'POST',
+                                    data: {
+                                      'openid': app.globalData.wx_code,
+                                      'form_id': pay_content.package_str
+                                    },
+                                    success: function (res) {
+                                      console.log(res);
+                                    }
+                                  })
+                                },
+                                fail: function (pay_fail) {
+                                  console.log(pay_fail);
+                                  return false;
+                                }
+                              })
+                            } else {
+                              app.showError(pay_res.data.msg);
+                              return false;
+                            }
+                          }
+                        })
+                      }
+                    }
+                  });
+                  wx.showToast({
+                    title: '提交成功',
+                    icon: 'success',
+                    mask: true,
+                  });
+                  setTimeout(function () {
+                    wx.hideToast();
+                    wx.reLaunch({
+                      url: '/pages/myOrder/myOrder',
+                    });
+                  }, 1500)
+                } else {
+                  app.showError('提交失败');
+                }
+              }
+            });
+          }
         } else if (res.cancel) {
           console.log('用户点击取消')
         }

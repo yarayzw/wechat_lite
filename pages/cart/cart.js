@@ -24,6 +24,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.request({
+      url: app.globalData.host + 'Getuserbiaoti',
+      method: 'POST',
+      data: { tel: app.globalData.user_phone },
+      success: function (res) {
+        wx.setNavigationBarTitle({
+          title: res.data.d
+        })
+      }
+    })
     if (app.globalData.add_phone > 0){
       this.isImg();
       this.isBook();
