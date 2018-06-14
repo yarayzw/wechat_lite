@@ -80,6 +80,7 @@ Page({
   },
   onLoad: function (e) {
     var that = this;
+    console.log(e);
     that.setData({
       phoneNow: e.phoneNow,
       addressNow: e.addressNow,
@@ -1120,7 +1121,13 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (e) {
+    console.log(e);
+    that.setData({
+      phoneNow: e.phoneNow,
+      addressNow: e.addressNow,
+      nameNow: e.nameNow
+    });
     if (app.globalData.add_phone > 0) {
       this.getCatShopList();
     }else{
