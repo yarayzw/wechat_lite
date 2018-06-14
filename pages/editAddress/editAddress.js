@@ -286,6 +286,16 @@ Page({
               })
             }
           }
+          // 插入客户传到首页
+          if (fun == 'insertcustom') {
+            setTimeout(function () {
+              wx.hideToast();
+              wx.redirectTo({
+                url: '/pages/commodity/commodity?phoneNow=' + that.data.telphone + '&addressNow=' + that.data.detail_address + '&nameNow=' + that.data.username,
+              });
+              // wx.navigateBack({});
+            }, 1500);
+          }
           setTimeout(function () {
             wx.hideToast();
             wx.redirectTo({
