@@ -18,7 +18,7 @@
    
   </view>
   <view class='searchListDiv fr' wx:if="{{nameListIn}}">
-    <view class='topDivList' wx:for="{{nameList}}" data-name="{{item['xiangmumingcheng']}}" bindtap='nameDivClick'>{{item['xiangmumingcheng']}}</view>
+    <view class='topDivList' wx:for="{{nameList}}" data-name="{{item['shouhuoren']}}" bindtap='nameDivClick'>{{item['shouhuoren']}}</view>
   </view>
   <view class='search' wx:if="{{!isCompany}}">
      <view class='topDiv'>
@@ -27,7 +27,7 @@
      <input class="search_input" placeholder='搜索' confirm-type="search" bindconfirm="addressBindBlur" bindfocus='addressFocus' bindblur='addressBindBlur'  value="{{addressNow}}"/>
   </view>
   <view class='addressListDiv fr' wx:if="{{addressListIn}}">
-    <view class='topDivList' wx:for="{{addressList}}" bindtap='addressDivClick' data-name="{{item['suidao']}}">{{item['suidao']}}</view>
+    <view class='topDivList' wx:for="{{addressList}}" bindtap='addressDivClick' data-name="{{item['address']}}">{{item['address']}}</view>
     </view>
     <view class='search' wx:if="{{!isCompany}}">
       <view class='topDiv'>

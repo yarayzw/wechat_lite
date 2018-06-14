@@ -40,6 +40,7 @@ Page({
     addressList:{},//客户地址数组
     phoneListIn:false,//客户电话是否显示
     phoneList:{},//客户电话数组
+    isPhoneGo:true,
   },
   touchStartTime: 0,
   touchEndTime: 0,
@@ -77,8 +78,13 @@ Page({
       })
     }
   },
-  onLoad: function () {
+  onLoad: function (e) {
     var that = this;
+    that.setData({
+      phoneNow: e.phoneNow,
+      addressNow: e.addressNow,
+      nameNow: e.nameNow
+    });
     //  高度自适应
     wx.getSystemInfo({
       success: function (res) {
@@ -254,22 +260,25 @@ Page({
   //客户电话聚焦事件
   phoneFocus: function (e) {
     var that = this;
-    that.setData({ phoneListIn: true });
+    that.setData({ phoneListIn: true ,isPhoneGo:true});
   },
   //客户电话失焦事件
   phoneBindBlur: function (e) {
     var that = this;
-    that.setData({ phoneListIn: false });
-    var name = e.detail.value;
-    that.setData({ phoneNow: name });
-    that.isCompanyPhone(name);
+    if(that.data.isPhoneGo){
+      that.setData({ phoneListIn: false });
+      var name = e.detail.value;
+      that.setData({ phoneNow: name });
+      that.isCompanyPhone(name);
+    }
+    
   },
   //客户电话输入事件
   phoneInput: function (e) {
     var that = this;
     var name = e.detail.value;
     wx.request({
-      url: app.globalData.host + 'getkhtel',
+      url: app.globalData.host + 'getAllTelByTel',
       data: {
         custom: name,
       },
@@ -330,7 +339,7 @@ Page({
   phoneGetAddress: function (phone) {
     var that = this;
     wx.request({
-      url: app.globalData.host + 'getkhaddress',
+      url: app.globalData.host + 'getkhalladdressBylogintel',
       data: {
         custom: phone,
       },
@@ -338,6 +347,11 @@ Page({
       success: function (res) {
         if (res.data.d != ']') {
           var rs = JSON.parse(res.data.d);
+          // var arr = new Array;
+          // for(var i=0;i<rs.length;i++){
+          //   arr.push(rs[i]['address']);
+          // }
+          console.log(rs);          
           that.setData({ addressList: rs });
         } else {
           that.setData({ addressList: {} });
@@ -350,7 +364,7 @@ Page({
   phoneGetName: function (phone) {
     var that = this;
     wx.request({
-      url: app.globalData.host + 'getkhmingc',
+      url: app.globalData.host + 'getkhmingcss',
       data: {
         custom: phone,
       },
@@ -358,6 +372,10 @@ Page({
       success: function (res) {
         if (res.data.d != ']') {
           var rs = JSON.parse(res.data.d);
+          // var arr = new Array;
+          // for (var i = 0; i < rs.length; i++) {
+          //   arr.push(rs[i]['shouhuoren']);
+          // }
           that.setData({ nameList: rs });
         } else {
           that.setData({ nameList: {} });
@@ -419,7 +437,7 @@ Page({
   phoneDivClick: function (e) {
     var that = this;
     var name = e.currentTarget.dataset.name;
-    that.setData({ phoneNow: name });
+    that.setData({ phoneNow: name, isPhoneGo: false, phoneListIn: false});
     that.isCompanyPhone(name);
     // app.globalData.add_phone = name;
     that.phoneGetAddress(name);
