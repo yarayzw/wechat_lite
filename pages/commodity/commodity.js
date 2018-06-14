@@ -78,27 +78,7 @@ Page({
       })
     }
   },
-  onLoad: function (e) {
-    var that = this;
-    console.log(e);
-    that.setData({
-      phoneNow: e.phoneNow,
-      addressNow: e.addressNow,
-      nameNow: e.nameNow
-    });
-    //  高度自适应
-    wx.getSystemInfo({
-      success: function (res) {
-        var clientHeight = res.windowHeight,
-          clientWidth = res.windowWidth,
-          rpxR = 750 / clientWidth;
-        var calc = clientHeight * rpxR - 180;
-        that.setData({
-          winHeight: calc
-        });
-      }
-    });
-  },
+  
  
   /// 按钮触摸开始触发的事件
   touchStart: function (e) {
@@ -178,6 +158,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    
     this.isImg();
     this.isBook();
     this.isActual();
@@ -188,6 +169,24 @@ Page({
     // this.fristLoadList();
     this.isCompany();
     this.isMembers();
+  
+    that.setData({
+      phoneNow: options.phoneNow,
+      addressNow: options.addressNow,
+      nameNow: options.nameNow
+    });
+    //  高度自适应
+    wx.getSystemInfo({
+      success: function (res) {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR - 180;
+        that.setData({
+          winHeight: calc
+        });
+      }
+    });
     // var topArr = new Array;
     // topArr.push('客户名称');
     // topArr.push('客户电话');
@@ -1121,13 +1120,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function (e) {
-    console.log(e);
-    that.setData({
-      phoneNow: e.phoneNow,
-      addressNow: e.addressNow,
-      nameNow: e.nameNow
-    });
+  onShow: function () {
+  
     if (app.globalData.add_phone > 0) {
       this.getCatShopList();
     }else{

@@ -17,8 +17,8 @@
 
 <view class='order-list' wx:if="{{ !no_order }}">
   <block wx:for="{{ order_list }}">
-    <view class='order-all' data-code="{{ item['订单id'] }}">
-      <view class='order-content' catchtap='jumpSeeDetail'>
+    <view class='order-all' >
+      <view class='order-content' catchtap='jumpSeeDetail' data-code="{{ item['订单id'] }}">
         <view class='order-font'>
           <text class='order-time'>下单时间</text>
           <text class='order-year'> {{ item['下单时间'] }} </text>
