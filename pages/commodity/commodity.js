@@ -157,6 +157,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.request({
+      url: app.globalData.host + 'Getuserbiaoti',
+      method: 'POST',
+      data: { tel: app.globalData.user_phone },
+      success: function (res) {
+        wx.setNavigationBarTitle({
+          title: res.data.d
+        })
+      }
+    })
     var that = this;
     
     this.isImg();
@@ -393,9 +403,10 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        var rs = JSON.parse(res.data.d)[0].flag;
+        // var rs = JSON.parse(res.data.d)[0].flag;
         // if (res.data.d == 1) {
-        //   // var rs = JSON.parse(res.data.d);
+          var rs = JSON.parse(res.data.d);
+        // console.log(rs);
           if(rs==1){
             app.globalData.add_phone = phone;
             that.fristLeftNavigation();
