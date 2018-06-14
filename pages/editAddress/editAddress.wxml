@@ -36,12 +36,12 @@
       <input class='address-input' placeholder-style='color:#CCC' type='password' placeholder='请输入登录密码' bindinput='changeLoginPass' value="{{ login_pass }}" />
     </view>
   </view>
-  <view class='address-info' wx:if="{{ !is_company }}">
+  <!-- <view class='address-info' wx:if="{{ !is_company }}">
     <view class='address-list'>
       <text class='address-font'>登录电话:</text>
       <input class='address-input' placeholder-style='color:#CCC' type='text' placeholder='请输入登录电话' bindinput='changeLoginTel' value="{{ login_tel }}" />
     </view>
-  </view>
+  </view> -->
 </view>
 
 <view class='address-make'>

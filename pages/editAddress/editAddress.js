@@ -196,7 +196,7 @@ Page({
       }  
     } else {
     // 业务人员
-      if (that.data.login_tel == '' || that.data.login_pass == '') {
+      if (that.data.login_pass == '') {
         app.showError('请填写完整信息');
         that.setData({
           start_sub: false
@@ -229,7 +229,8 @@ Page({
         kongyi: that.data.area_city,
         suidao: that.data.detail_address,
         useDept: that.data.login_tel,
-        konger: that.data.login_pass
+        konger: that.data.login_pass,
+        tel: app.globalData.add_phone
       };
       if (fun == 'updatecustomer') {
         info.kehuid = that.data.address_id;
@@ -290,7 +291,7 @@ Page({
           if (fun == 'insertcustom') {
             setTimeout(function () {
               wx.hideToast();
-              wx.switchTab({
+              wx.reLaunch({
                 url: '/pages/commodity/commodity?phoneNow=' + that.data.telphone + '&addressNow=' + that.data.detail_address + '&nameNow=' + that.data.username,
               });
               // wx.navigateBack({});
