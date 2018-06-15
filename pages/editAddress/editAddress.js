@@ -240,7 +240,7 @@ Page({
         suidao: that.data.detail_address,
         useDept: that.data.login_tel,
         konger: that.data.login_pass,
-        tel: app.globalData.add_phone
+        tel: app.globalData.user_phone
       };
       if (fun == 'updatecustomer') {
         info.kehuid = that.data.address_id;
